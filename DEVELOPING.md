@@ -11,13 +11,17 @@ npm ci
 npm run dev
 ```
 
-Open the localhost URL printed by Vite. WebGL2 is required. Sound starts only after tapping **Sound off**. Use WASD/arrows to drive, Space to brake, R to reset, C to change camera and Escape to exit driving.
+Open the localhost URL printed by Vite. Do not double-click `dist/index.html`: browsers restrict JavaScript modules and map-data requests on `file://` URLs. The game must be served over HTTP locally (or HTTPS on GitHub Pages). If `npm` is not recognized, install Node.js 22.12 or newer and reopen the terminal.
+
+WebGL2 is required. Sound starts only after tapping **Sound off**. Use WASD/arrows to drive, Space to brake, R to reset, C to change camera and Escape to exit driving.
 
 ```sh
 npm test
 ```
 
 The tests check frame-rate independence, collision and reverse behavior, saved road geometry, terrain patch coverage, shared bridge endpoint heights and the bounded light pool. They do not render WebGL or verify how audio sounds.
+
+They also compare optimized terrain draping against the previous algorithm, verify that spatial batching preserves triangle attributes, and check indexed nearest-road queries. For the optional real-browser benchmark and performance caveats, see [PERFORMANCE.md](PERFORMANCE.md).
 
 ## Source map
 
@@ -48,7 +52,7 @@ Some preparation scripts still reference the original workspace's raw downloads 
 
 The latest version includes driving, approximate façades, OSM street furniture, zebra crossings, terrain, estimated bridges, day/night lighting, improved road joins, spatial batching, graphics controls and a basic synthesized soundscape.
 
-Heights and bridge clearance are approximations; terrain sampling is 40 m. There is no traffic simulation, routed navigation, reconstructed tunnel interior or photogrammetric building model. The last cloud QA browser had WebGL disabled, so GPU performance and final visuals need checking on a capable machine. Audio logic was checked with mocks, not listening tests.
+Heights and bridge clearance are approximations; terrain sampling is 40 m. There is no traffic simulation, routed navigation, reconstructed tunnel interior or photogrammetric building model. The latest local headless Chrome check rendered the city and driving/night scenes using Microsoft's software graphics driver. Performance on a normal GPU still needs checking; see PERFORMANCE.md. Audio logic was checked with mocks, not listening tests.
 
 ## Continuing with Codex
 

@@ -29,6 +29,8 @@ The workflow uploads only `dist/`, with `index.html` at the website root. Keep `
 
 ## Static files
 
+For local play, run `npm ci` and `npm run dev` from the project folder, then open the localhost URL printed in the terminal. Requires Node.js 22.12 or newer. Double-clicking `dist/index.html` does not work: browsers block module and data loading from `file://` URLs.
+
 Serve `dist/` with any static HTTP server. Browser requires WebGL2. Dependencies are vendored and pinned; no installation or build is needed. `scripts/prepare_snapshot.py SNAPSHOT.json` splits an already downloaded Overpass response; it makes no network requests.
 
 ## Attribution
@@ -59,6 +61,8 @@ Elevation attribution: Mapzen Terrain Tiles; SRTM/GMTED2010 courtesy of the U.S.
 
 
 ## Driving and optimization pass
+
+The latest pass separates loading progress from render frame rate, reduces terrain-subdivision allocations, gives ground surfaces local culling bounds, skips inactive daytime lights/glows, and indexes bench road searches. Saved map geometry and driving rules are preserved. See [PERFORMANCE.md](PERFORMANCE.md) for the benchmark, regression checks and hardware limitations.
 
 Three.js remains the renderer. Simulation advances at fixed 60 Hz with up to 200 ms bounded catch-up, so normal driving speed no longer depends on render frame rate. Reset/start respects reversed OSM one-way direction and offsets into the right-hand half of two-way roads. Street and local-light queries use spatial buckets. Destination HUD nodes are reused. Buildings, vegetation, furniture and lamps are batched by 500 m cells for useful frustum bounds; the full-resolution terrain is split into 224 patches with continuous normals. Ingestion yields on elapsed work time rather than every 500 features. Low/Balanced/High graphics controls choose resolution caps of 0.85/1.25/1.8; the Performance panels report FPS, p95 frame time, draw calls and triangles.
 

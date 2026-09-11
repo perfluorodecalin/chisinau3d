@@ -30,4 +30,10 @@ const scene=new T.Scene();const terrain=await loadTerrain(scene);assert.ok(scene
 let joinsChecked=0;const heights=new Map();for(const p of Object.values(terrain.profiles))for(const q of [p.points[0],p.points.at(-1)]){const key=q[0]+','+q[1];if(heights.has(key)){assert.ok(Math.abs(q[2]-heights.get(key))<.01);joinsChecked++;}heights.set(key,q[2]);}
 const atmosphereScene=new T.Scene(),data=await json('realism.json');const lights=addAtmosphere(atmosphereScene,{...data,green:[],pois:[]});lights.setDusk(true);const h=data.lampPoints[100];for(let now=0;now<5000;now+=16)lights.update(now,new T.Vector3(h.x,10,h.z));const pointLights=atmosphereScene.children.filter(c=>c.isPointLight);assert.equal(pointLights.length,8);assert.ok(pointLights.some(l=>l.intensity>90));assert.ok(pointLights.every(l=>Number.isFinite(l.position.x)));lights.setDusk(false);assert.ok(pointLights.every(l=>l.intensity===0));
 const instanceMeshes=lights.lamps.children;assert.ok(instanceMeshes.every(m=>m.boundingSphere.radius<1100),'lamp batches have local bounds');
+assert.ok(pointLights.every(l=>!l.visible),'daylight excludes local lights from shader loops');
+const glows=instanceMeshes.filter(m=>m.material.isShaderMaterial);assert.ok(glows.length>0);
+assert.ok(glows.every(m=>!m.visible),'daylight skips transparent lamp glow draws');
+lights.update(10000,new T.Vector3(h.x,10,h.z));assert.ok(glows.every(m=>!m.visible),'visibility refresh must not restore daytime glows');
+lights.setDusk(true);assert.ok(pointLights.every(l=>l.visible),'night restores the same bounded light pool');
+lights.update(11000,new T.Vector3(h.x,10,h.z));assert.ok(glows.some(m=>m.visible),'nearby night glows remain visible');
 console.log(JSON.stringify({physics:'same path at 15–144 FPS; collision and reverse pass',roads:roadCount,roadTriangles:triangles,terrainPatches:scene.children.length,bridgeEndpointsChecked:joinsChecked,localLampLights:pointLights.length,lampBatches:instanceMeshes.length},null,2));

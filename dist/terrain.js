@@ -1,6 +1,7 @@
 import * as T from 'three';
 import {mergeGeometries} from './vendor/BufferGeometryUtils.js';
 import {closest} from './driving-physics.js';
+import {drapeGeometry as drape} from './drape-geometry.js';
 let meta=null,values=null,profiles={},waterLevels={},segments=new Map();
 export function configureTerrain(m,v,p={}){meta=m;values=v;profiles=p;segments=new Map();for(const [id,profile] of Object.entries(p)){for(let i=1;i<profile.points.length;i++){const a=profile.points[i-1],b=profile.points[i],r=profile.width/2+1;const s={a,b,id,width:profile.width,bridge:profile.bridge};for(let x=Math.floor((Math.min(a[0],b[0])-r)/50);x<=Math.floor((Math.max(a[0],b[0])+r)/50);x++)for(let z=Math.floor((Math.min(a[1],b[1])-r)/50);z<=Math.floor((Math.max(a[1],b[1])+r)/50);z++){const k=x+','+z;if(!segments.has(k))segments.set(k,[]);segments.get(k).push(s);}}}}
 export function heightAt(x,z){if(!meta)return 0;const u=Math.max(0,Math.min(meta.nx-1.000001,(x-meta.xmin)/meta.step)),v=Math.max(0,Math.min(meta.nz-1.000001,(z-meta.zmin)/meta.step)),i=Math.floor(u),j=Math.floor(v),a=u-i,b=v-j,k=j*meta.nx+i;return (values[k]*(1-a)+values[k+1]*a)*(1-b)+(values[k+meta.nx]*(1-a)+values[k+meta.nx+1]*a)*b;}
@@ -10,12 +11,7 @@ export function driveHeight(x,z,reference=heightAt(x,z)){const ground=heightAt(x
 export function waterHeight(id,poly){return waterLevels[id]??heightAt(...poly.outer[0]);}
 export function isElevated(id){return !!profiles[id];}
 export function buildingBase(poly){return Math.max(...poly.outer.map(p=>heightAt(...p)));}
-export function drapeGeometry(g,sample=heightAt,maxEdge=55){const src=g.index?g.toNonIndexed():g;const attributes=Object.entries(src.attributes).filter(([k])=>k!=='normal');const out=Object.fromEntries(attributes.map(([k])=>[k,[]]));
- const read=i=>Object.fromEntries(attributes.map(([k,a])=>[k,Array.from(a.array.slice(i*a.itemSize,(i+1)*a.itemSize))]));
- const mid=(a,b)=>Object.fromEntries(attributes.map(([k])=>[k,a[k].map((v,i)=>(v+b[k][i])/2)]));
- const dist=(a,b)=>Math.hypot(a.position[0]-b.position[0],a.position[2]-b.position[2]);
- function emit(a,b,c,depth){const ds=[dist(a,b),dist(b,c),dist(c,a)],m=Math.max(...ds);if(m>maxEdge&&depth<13){const i=ds.indexOf(m);if(i===0){const h=mid(a,b);emit(a,h,c,depth+1);emit(h,b,c,depth+1);}else if(i===1){const h=mid(b,c);emit(a,b,h,depth+1);emit(a,h,c,depth+1);}else{const h=mid(c,a);emit(a,b,h,depth+1);emit(h,b,c,depth+1);}return;}for(const p of [a,b,c])for(const [k] of attributes){const v=[...p[k]];if(k==='position')v[1]+=sample(v[0],v[2]);out[k].push(...v);}}
- for(let i=0;i<src.attributes.position.count;i+=3)emit(read(i),read(i+1),read(i+2),0);const result=new T.BufferGeometry();for(const [k,a] of attributes)result.setAttribute(k,new T.Float32BufferAttribute(out[k],a.itemSize));result.computeVertexNormals();if(src!==g)src.dispose();g.dispose();return result;}
+export function drapeGeometry(g,sample=heightAt,maxEdge=55){return drape(g,sample,maxEdge);}
 export async function loadTerrain(scene){const [m,v,p,w]=await Promise.all([fetch('./data/terrain.json').then(r=>r.json()),fetch('./data/terrain.bin').then(r=>r.arrayBuffer()),fetch('./data/bridges.json').then(r=>r.json()),fetch('./data/water-levels.json').then(r=>r.json())]);waterLevels=w;configureTerrain(m,new Float32Array(v),p.profiles);const material=new T.MeshStandardMaterial({color:'#385448',roughness:1});
  // Independent 1.28 km patches retain the full DEM but can be frustum culled.
  for(let z0=0;z0<m.nz-1;z0+=32)for(let x0=0;x0<m.nx-1;x0+=32){

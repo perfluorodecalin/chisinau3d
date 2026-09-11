@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite --config vite.config.mjs",
-    "test": "node tests/quality.mjs"
+    "test": "node tests/quality.mjs && node tests/geometry-quality.mjs",
+    "benchmark": "node scripts/benchmark-browser.mjs"
   },
   "devDependencies": {
     "vite": "7.1.3",
