@@ -16,7 +16,18 @@ The 30 map sections cover latitude 46.975–47.100 and longitude 28.740–28.980
 - Height tags are mapper contributions, not necessarily surveyed. Estimates are heuristic, not learned or satellite-derived. Missing footprints remain absent. Façades and roofs are simplified extrusions. No claim of photogrammetric accuracy.
 - Batched building geometries retain triangle spans for picking; parks and streets are also merged per section. No satellite imagery is used.
 
-## Files
+## GitHub Pages
+
+The included [deployment workflow](.github/workflows/pages.yml) publishes `dist/` directly, including the vendored Three.js modules and saved map/terrain data. No production build, backend, API key or custom secret is required. Asset paths are relative, so the game works at a repository URL such as `https://perfluorodecalin.github.io/chisinau3d/` as well as a domain root.
+
+1. In the GitHub repository, open **Settings → Pages** and select **GitHub Actions** as the build and deployment source.
+2. Commit and push the complete project to `main`, including `.github/workflows/pages.yml`, `dist/`, `tests/`, `package.json` and `package-lock.json`. The bundled data and vendor files must be committed too.
+3. Open **Actions → Deploy GitHub Pages** to follow deployment. You can also use **Run workflow** on `main` after enabling Pages.
+4. Open the URL shown by the deployment's `github-pages` environment. Later pushes to `main` update the website automatically after `npm test` passes.
+
+The workflow uploads only `dist/`, with `index.html` at the website root. Keep `dist/` as authored source; do not run `vite build` over it. For GitHub's setup details, see [Using custom workflows with GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
+
+## Static files
 
 Serve `dist/` with any static HTTP server. Browser requires WebGL2. Dependencies are vendored and pinned; no installation or build is needed. `scripts/prepare_snapshot.py SNAPSHOT.json` splits an already downloaded Overpass response; it makes no network requests.
 
