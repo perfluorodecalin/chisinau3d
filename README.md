@@ -4,7 +4,7 @@ For local setup and continued development, see [DEVELOPING.md](DEVELOPING.md). C
 
 A static Three.js r180 city model built from a saved OpenStreetMap / Overpass snapshot dated 2026-09-08. All Three.js modules and geographic data are served locally by the site. Exploring the map makes **no requests to OSM or Overpass**.
 
-The 30 map sections cover latitude 46.975–47.100 and longitude 28.740–28.980 (about 14 × 18 km). These are urban-area bounds, not the administrative boundary. Centre data loads first; district controls load nearby saved sections. Load wider city adds every saved section sequentially. Stop finishes the current section then stops. Building CSV export includes height source and OSM IDs.
+The 30 saved source sections cover latitude 46.975–47.100 and longitude 28.740–28.980 (about 14 × 18 km). These are urban-area bounds, not the administrative boundary. `npm run build` compiles these sources into spatial binary chunks. Centre chunks load first; district controls load nearby geometry. Load wider city adds all compiled chunks; Stop finishes the current batch. Driving evicts distant geometry. See [ARCHITECTURE.md](ARCHITECTURE.md). Building CSV export includes height source and OSM IDs.
 
 ## Geometry and evidence
 
@@ -14,16 +14,16 @@ The 30 map sections cover latitude 46.975–47.100 and longitude 28.740–28.980
 - Explicit height tags take priority. Floor-derived height uses 3 m per floor plus a roof allowance (explicit roof height, roof floors × 3 m, or 1.5 m).
 - Otherwise deterministic use / footprint-based defaults: houses 6–9 m; apartments 15–27 m; industry 8 m; small ancillary structures 3 m; religious buildings 18 m; commercial / office / hotel / hospital 15 m; generic buildings 6–12 m.
 - Height tags are mapper contributions, not necessarily surveyed. Estimates are heuristic, not learned or satellite-derived. Missing footprints remain absent. Façades and roofs are simplified extrusions. No claim of photogrammetric accuracy.
-- Batched building geometries retain triangle spans for picking; parks and streets are also merged per section. No satellite imagery is used.
+- Build-time batched building geometries retain triangle spans for picking; parks and streets are also partitioned spatially. No satellite imagery is used.
 
 ## GitHub Pages
 
-The included [deployment workflow](.github/workflows/pages.yml) publishes `dist/` directly, including the vendored Three.js modules and saved map/terrain data. No production build, backend, API key or custom secret is required. Asset paths are relative, so the game works at a repository URL such as `https://perfluorodecalin.github.io/chisinau3d/` as well as a domain root.
+The included [deployment workflow](.github/workflows/pages.yml) publishes `dist/` directly, including the vendored Three.js modules and saved map/terrain data. The workflow runs the offline city build; no backend, API key or custom secret is required. Asset paths are relative, so the game works at a repository URL such as `https://perfluorodecalin.github.io/chisinau3d/` as well as a domain root.
 
 1. In the GitHub repository, open **Settings → Pages** and select **GitHub Actions** as the build and deployment source.
 2. Commit and push the complete project to `main`, including `.github/workflows/pages.yml`, `dist/`, `tests/`, `package.json` and `package-lock.json`. The bundled data and vendor files must be committed too.
 3. Open **Actions → Deploy GitHub Pages** to follow deployment. You can also use **Run workflow** on `main` after enabling Pages.
-4. Open the URL shown by the deployment's `github-pages` environment. Later pushes to `main` update the website automatically after `npm test` passes.
+4. Open the URL shown by the deployment's `github-pages` environment. Later pushes to `main` update the website automatically after quality checks and the offline city build pass.
 
 The workflow uploads only `dist/`, with `index.html` at the website root. Keep `dist/` as authored source; do not run `vite build` over it. For GitHub's setup details, see [Using custom workflows with GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
 
@@ -31,7 +31,7 @@ The workflow uploads only `dist/`, with `index.html` at the website root. Keep `
 
 For local play, run `npm ci` and `npm run dev` from the project folder, then open the localhost URL printed in the terminal. Requires Node.js 22.12 or newer. Double-clicking `dist/index.html` does not work: browsers block module and data loading from `file://` URLs.
 
-Serve `dist/` with any static HTTP server. Browser requires WebGL2. Dependencies are vendored and pinned; no installation or build is needed. `scripts/prepare_snapshot.py SNAPSHOT.json` splits an already downloaded Overpass response; it makes no network requests.
+Serve `dist/` with any static HTTP server. Browser requires WebGL2. Dependencies are vendored and pinned. Run `npm ci` and `npm run build` before static hosting; `npm run dev` builds missing or stale world assets automatically. `scripts/prepare_snapshot.py SNAPSHOT.json` splits an already downloaded Overpass response; it makes no network requests.
 
 ## Attribution
 
@@ -64,7 +64,7 @@ Elevation attribution: Mapzen Terrain Tiles; SRTM/GMTED2010 courtesy of the U.S.
 
 The latest pass separates loading progress from render frame rate, reduces terrain-subdivision allocations, gives ground surfaces local culling bounds, skips inactive daytime lights/glows, and indexes bench road searches. Saved map geometry and driving rules are preserved. See [PERFORMANCE.md](PERFORMANCE.md) for the benchmark, regression checks and hardware limitations.
 
-Three.js remains the renderer. Simulation advances at fixed 60 Hz with up to 200 ms bounded catch-up, so normal driving speed no longer depends on render frame rate. Reset/start respects reversed OSM one-way direction and offsets into the right-hand half of two-way roads. Street and local-light queries use spatial buckets. Destination HUD nodes are reused. Buildings, vegetation, furniture and lamps are batched by 500 m cells for useful frustum bounds; the full-resolution terrain is split into 224 patches with continuous normals. Ingestion yields on elapsed work time rather than every 500 features. Low/Balanced/High graphics controls choose resolution caps of 0.85/1.25/1.8; the Performance panels report FPS, p95 frame time, draw calls and triangles.
+Three.js remains the renderer. Simulation advances at fixed 60 Hz with up to 200 ms bounded catch-up, so normal driving speed no longer depends on render frame rate. Reset/start respects reversed OSM one-way direction and offsets into the right-hand half of two-way roads. Street and local-light queries use spatial buckets. Destination HUD nodes are reused. Buildings, vegetation, furniture and lamps are batched by 500 m cells for useful frustum bounds; the full-resolution terrain is split into 224 patches with continuous normals. Ingestion now runs offline; runtime chunk attachment yields between chunks. Low/Balanced/High graphics controls choose resolution caps of 0.85/1.25/1.8; the Performance panels report FPS, p95 frame time, draw calls and triangles.
 
 Roads use continuous miter-limited ribbons with 10 m sampling, caps at shared OSM nodes, and up-to-20 m width transitions at way boundaries. Junction topology separates motor carriageways from pedestrian paths and only connects shared OSM nodes, preserving unrelated grade-separated crossings. Lane dashes stop near junctions. Area highways render filled plazas; proposed/construction and tagged tunnel ways are excluded from surface rendering and driving spawn candidates. Tunnels still have no reconstructed interior. Missing-width one-way ramps and minor one-way streets receive narrower defaults; explicit widths and plausible tagged lane counts remain authoritative.
 
@@ -72,7 +72,7 @@ Roads use continuous miter-limited ribbons with 10 m sampling, caps at shared OS
 
 Night lamps have depth-tested, instanced billboard glows fading between 1.2–1.8 km. The eight-light local pool searches within 180 m, illuminates up to 40 m around each selected lamp and fades assignments instead of teleporting illumination at full brightness. Glows approximate visibility, not physical volumetric scattering.
 
-Validation: `node tests/quality.mjs` after installing the optional development dependencies checks frame-rate-independent driving at 15–144 FPS, collision/reverse behavior, ribbons and short width transitions, all saved road geometry for finite coordinates, terrain triangle preservation, 1,301 shared bridge endpoint heights, and local light activation. The available cloud test browser had WebGL disabled, so no rendered visual acceptance or GPU FPS improvement is claimed. The optional Vite development preview uses the same Three.js 0.180.0 as the vendored static deployment; production remains buildless.
+Validation: `node tests/quality.mjs` after installing the optional development dependencies checks frame-rate-independent driving at 15–144 FPS, collision/reverse behavior, ribbons and short width transitions, all saved road geometry for finite coordinates, terrain triangle preservation, 1,301 shared bridge endpoint heights, and local light activation. The available cloud test browser had WebGL disabled, so no rendered visual acceptance or GPU FPS improvement is claimed. The optional Vite development preview uses the same Three.js 0.180.0 as the vendored static deployment; production uses the offline world compiler described in [ARCHITECTURE.md](ARCHITECTURE.md).
 
 
 ## Basic soundscape

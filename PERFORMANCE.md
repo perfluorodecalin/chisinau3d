@@ -1,5 +1,27 @@
 # Performance checks
 
+## Offline compiler update
+
+The game now loads prebuilt binary geometry. See [ARCHITECTURE.md](ARCHITECTURE.md)
+for the current pipeline and streaming limits; the earlier optimization notes below
+describe the algorithms reused by the compiler.
+
+The full saved world produces 3,843 spatial files (about 126 MiB compressed),
+60,663 building records and 107,382 prepared driving road segments. The initial
+centre view loaded 52 chunks with 3,153 buildings in the local Chrome check. No
+`data/` snapshot requests or JavaScript errors occurred in atlas/day/night driving.
+An initial instance-attribute serialization bug was found through screenshot
+inspection, corrected and covered by the binary-format regression tests.
+
+Chrome used Microsoft Basic Render Driver at 1280 × 720: this is software rendering,
+not a hardware GPU benchmark. The corrected check measured approximately 7 FPS
+in the atlas, 13–15 FPS driving by day and 7 FPS at night. These figures do not
+establish a speedup against the previous version; the loaded extent also differs.
+Audio was not listening-tested during this refactor.
+
+Run `npm run build` before the static benchmark. Add `--world-smoke` to check
+building picking, color modes, district loading and distant-chunk disposal.
+
 The September 2026 optimization pass keeps Three.js 0.180.0 and the saved world. It changes how geometry is prepared and submitted, without changing mapped footprints, road widths, terrain heights, bridge connections or collision rules.
 
 ## Changes
@@ -11,13 +33,16 @@ The September 2026 optimization pass keeps Three.js 0.180.0 and the saved world.
 - Procedural vegetation instances beyond roughly 2 km are hidden at street level, using each batch's bounds and the existing periodic visibility update. The overhead atlas retains the wider vegetation view. Collision geometry is retained.
 - Bench orientation uses nearby indexed road segments. Equal-distance ties preserve source order, and isolated locations fall back to the original full search.
 
-The city is still generated at runtime. This pass does not introduce prebuilt geometry assets or unload explored city sections, so loading the entire city can still consume substantial memory.
+The earlier pass generated the city at runtime. The offline compiler now replaces
+that path and unloads distant geometry during driving. Explicitly loading the
+entire city in atlas mode can still consume substantial memory.
 
 ## Reproduce
 
 ```sh
 npm ci
 npm test
+npm run build
 npm run benchmark -- --output .local/perf --profile
 ```
 

@@ -10,7 +10,7 @@ import {fileURLToPath} from 'node:url';
 const {values:options}=parseArgs({options:{
   root:{type:'string',default:fileURLToPath(new URL('../dist/',import.meta.url))},
   output:{type:'string'},url:{type:'string'},timeout:{type:'string',default:'240'},
-  profile:{type:'boolean',default:false}
+  profile:{type:'boolean',default:false},'world-smoke':{type:'boolean',default:false}
 }});
 const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 const root=path.resolve(options.root);
@@ -96,6 +96,20 @@ try{
     phases.push({name,...result});console.log(JSON.stringify({phase:name,...result}));
   }
   if(ready){
+    if(options['world-smoke']){
+      let picked=null;
+      picking:for(let y=180;y<650;y+=70)for(let x=380;x<1150;x+=70){
+        await call('Input.dispatchMouseEvent',{type:'mousePressed',x,y,button:'left',clickCount:1});
+        await call('Input.dispatchMouseEvent',{type:'mouseReleased',x,y,button:'left',clickCount:1});
+        picked=await evaluate("document.querySelector('#inspect').hidden?null:document.querySelector('#osmlink').href");
+        if(picked)break picking;
+      }
+      if(!picked?.includes('openstreetmap.org/'))throw Error('Compiled building picking failed');
+      await evaluate("document.querySelector('#close').click();document.querySelector('#mode').value='source';document.querySelector('#mode').dispatchEvent(new Event('change'))");
+      await sleep(1000);
+      await evaluate("document.querySelector('#mode').value='material';document.querySelector('#mode').dispatchEvent(new Event('change'))");
+      const atlas=await call('Page.captureScreenshot',{format:'png'});await fs.writeFile(path.join(output,'atlas.png'),Buffer.from(atlas.data,'base64'));
+    }
     await measure('atlas');
     await evaluate("document.querySelector('#drive').click()");
     await sleep(2000);await measure('driving-idle');
@@ -104,6 +118,18 @@ try{
     await call('Input.dispatchKeyEvent',{type:'keyUp',key:'w',code:'KeyW',windowsVirtualKeyCode:87});
     await evaluate("document.querySelector('#night-skip').click()");
     await sleep(3000);await measure('driving-night');
+    if(options['world-smoke']){
+      await evaluate("document.querySelector('#drive').click();document.querySelector('#day-skip').click();document.querySelector('#place').value='botanica';document.querySelector('#place').dispatchEvent(new Event('change'))");
+      let districtReady=false;for(let i=0;i<40;i++){await sleep(2000);if(await evaluate("document.querySelector('#status').textContent==='Ready to explore'")){districtReady=true;break;}}
+      if(!districtReady)throw Error('District chunk streaming failed');
+      await evaluate("document.querySelector('#drive').click()");await sleep(4000);
+      // Vite may timestamp this import after an edit. Read the engine's actual
+      // module instance rather than creating a second, empty metrics module.
+      const metrics=await evaluate("import(performance.getEntriesByType('resource').find(e=>new URL(e.name).pathname.endsWith('/world-loader.js'))?.name||'./world-loader.js').then(m=>({...m.worldMetrics,driving:document.body.classList.contains('driving')}))");
+      if(!metrics.driving||metrics.disposedChunks<1)throw Error('Driving did not evict distant chunks: '+JSON.stringify(metrics));
+      if(requests.some(r=>r.url.includes('/data/')))throw Error('Runtime fetched a source snapshot');
+      console.log(JSON.stringify({phase:'world-smoke',picking:true,...metrics}));
+    }
   }
   const screenshot=await call('Page.captureScreenshot',{format:'png'});
   await fs.writeFile(path.join(output,'scene.png'),Buffer.from(screenshot.data,'base64'));

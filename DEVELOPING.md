@@ -23,28 +23,36 @@ The tests check frame-rate independence, collision and reverse behavior, saved r
 
 They also compare optimized terrain draping against the previous algorithm, verify that spatial batching preserves triangle attributes, and check indexed nearest-road queries. For the optional real-browser benchmark and performance caveats, see [PERFORMANCE.md](PERFORMANCE.md).
 
+## World compilation
+
+`npm run build` processes the saved sources into spatial binary meshes and prepared physics in `dist/world/`. `npm run dev` builds missing or stale assets automatically. Run `npm run verify:world` to validate every generated chunk. See [ARCHITECTURE.md](ARCHITECTURE.md) for the pipeline, artifact format and streaming behavior.
+
 ## Source map
 
 | File | Responsibility |
 | --- | --- |
-| `dist/app.js` | Scene setup, loading, buildings, UI and render loop |
+| `dist/app.js` | Scene setup, compiled chunk streaming, UI and render loop |
 | `dist/driving.js` | Vehicle, controls, camera and driving HUD |
 | `dist/driving-physics.js` | Fixed timestep, steering and collisions |
 | `dist/road-model.js` | Normalized road profiles, connected ribbons and junction rules |
-| `dist/terrain.js` | DEM, road/deck elevation, bridges and geometry draping |
-| `dist/realism.js` | Road surfaces, lane markings, vegetation and lighting |
-| `dist/street-details.js` | Sidewalks, benches, trees and crossings |
+| `dist/terrain.js` | Build-time terrain patches, bridges and geometry draping |
+| `dist/terrain-runtime.js` | Runtime DEM and road/deck height queries |
+| `dist/world-loader.js` | Binary chunk loading and shared materials |
+| `scripts/build-world.mjs` | Offline world compilation |
+| `dist/realism.js` | Build-time lane markings, vegetation and lamp geometry |
+| `dist/atmosphere.js` | Runtime nearby lights, labels and visibility |
+| `dist/street-details.js` | Build-time sidewalks, benches, trees and crossings |
 | `dist/facades.js` | Approximate building textures |
 | `dist/soundscape.js` | Opt-in procedural Web Audio |
 | `dist/spatial.js` | Local queries and spatial instance batches |
 | `dist/data/` | Required saved map and terrain assets |
 | `scripts/` | Offline snapshot preparation utilities |
 
-`dist/` is authored source, not disposable build output. Vite is only a development server. Production serves `dist/` directly and resolves Three.js through its vendored import map. There is no backend or required environment secret.
+`dist/` is authored source, not disposable build output. Vite is only a development server. The offline compiler writes only `dist/world/`; production serves `dist/` after `npm run build` and resolves Three.js through its vendored import map. There is no backend or required environment secret.
 
-## Data preparation is optional
+## Refreshing source snapshots is optional
 
-Running the game and tests does not require Python, additional OSM requests, satellite imagery, or raw downloads. The bundled prepared assets are sufficient.
+Running the game and tests does not require Python, additional OSM requests, satellite imagery, or raw downloads. The bundled snapshots are sufficient for the offline Node build.
 
 Some preparation scripts still reference the original workspace's raw downloads and DEM cache. Those external inputs are **not** included here. To regenerate the world, obtain or supply the corresponding raw snapshots, adapt their paths, and inspect each script before running it. Do not run every script automatically in a Codex setup command. The road-model preparation precedes dependent bridge, street-detail and lamp preparation. See README for data sources, assumptions and attribution.
 
@@ -58,7 +66,7 @@ Heights and bridge clearance are approximations; terrain sampling is 40 m. There
 
 The root `AGENTS.md` records the project's constraints and working commands. Install dependencies with `npm ci`; use `npm test` for relevant quality checks. Keep map assets checked in so development does not depend on public map servers.
 
-GitHub Pages deployment is configured in `.github/workflows/pages.yml`. Select **GitHub Actions** in the repository's **Settings → Pages**, then push to `main` or manually run the workflow on `main`. It installs development dependencies, runs `npm test`, and uploads the authored `dist/` directory without a build step. See README for setup and the expected website URL. Keep runtime asset URLs relative so repository subpaths continue to work.
+GitHub Pages deployment is configured in `.github/workflows/pages.yml`. Select **GitHub Actions** in the repository's **Settings → Pages**, then push to `main` or manually run the workflow on `main`. It installs development dependencies, runs `npm test`, compiles and verifies the city, and uploads `dist/` including the generated world. See README for setup and the expected website URL. Keep runtime asset URLs relative so repository subpaths continue to work.
 
 
 ## Attribution

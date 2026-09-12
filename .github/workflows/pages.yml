@@ -28,6 +28,10 @@ jobs:
         run: npm ci
       - name: Run quality checks
         run: npm test
+      - name: Compile offline city chunks
+        run: npm run build
+      - name: Verify compiled city
+        run: npm run verify:world
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
       # dist/ is authored source. Publish it intact without a bundler or Jekyll.
