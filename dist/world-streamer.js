@@ -59,7 +59,7 @@ export function createWorldStreamer({world,camera,quality='balanced',interval=12
   finally{e.requested.delete(key);if(controllers.get(key+':'+e.id)===abort)controllers.delete(key+':'+e.id);}
  }
  function register(chunk,initial=null,options={}){const e=entryFor(chunk);e.removed=false;e.generation++;e.retry=0;e.retryAt=0;
-  if(initial){e.current={loaded:initial,variant:{file:chunk.file,level:0,canonical:true},level:0};e.index=0;e.physicsLoaded=initial;e.physics=initial.physics;e.physicsPromise=Promise.resolve(initial);}
+  if(initial){const level=Number.isInteger(options.initialLevel)?options.initialLevel:0;const variant=e.variants[level]||{file:chunk.file,level:0,canonical:true};e.current={loaded:initial,variant,level};e.index=level;e.physicsLoaded=options.initialPhysics===false?null:initial;e.physics=options.initialPhysics===false?null:initial.physics;e.physicsPromise=options.initialPhysics===false?null:Promise.resolve(initial);}
   if(options.physics!==false&&!e.physicsPromise)enqueue(e,'physics',0,priority(e,'physics'));if(!e.current&&e.variants.length)enqueue(e,'visual',0,priority(e,'visual'));return e.id;
  }
  function unregister(id){const e=entries.get(String(id));if(!e)return; e.removed=true;e.generation++;for(const [key,c] of controllers)if(key.endsWith(':'+e.id)){c.abort();controllers.delete(key);}entries.delete(e.id);let i=queue.findIndex(j=>j.e===e);while(i>=0){queue.splice(i,1);i=queue.findIndex(j=>j.e===e);}if(e.current){onVisualDetach?.({id:e.id,chunk:e.chunk,variant:e.current.variant,level:e.current.level,loaded:e.current.loaded});disposeChunk(e.current.loaded);e.current=null;}}
@@ -69,5 +69,6 @@ export function createWorldStreamer({world,camera,quality='balanced',interval=12
  function setQuality(value){scale=PRESET_SCALE[value]||1;last=0;update(performance.now(),true);}
  function invalidate(id){const e=entries.get(String(id));if(!e)return;e.generation++;e.retryAt=0;for(const [key,c] of controllers)if(key.endsWith(':'+e.id)){c.abort();controllers.delete(key);}e.requested.clear();}
  function dispose(){for(const e of [...entries.values()])unregister(e.id);queue.length=0;}
- return {register,request,unregister,update,setQuality,invalidate,dispose,metrics:()=>({...metrics,queued:queue.length,active:active.size,resident:entries.size}),desiredIndex:e=>desiredIndex(entryFor(e)),get:(id)=>entries.get(String(id))};
+ function publicDesiredIndex(chunk){const id=String(chunk?.id??chunk?.key??chunk?.file??'');const e=entries.get(id);if(e)return desiredIndex(e);const variants=variantsOf(chunk);if(!variants.length)return -1;return selectVariant(distanceToChunk(chunk,camera),variants,0,{hysteresis,scale}).index;}
+ return {register,request,unregister,update,setQuality,invalidate,dispose,metrics:()=>({...metrics,queued:queue.length,active:active.size,resident:entries.size}),desiredIndex:publicDesiredIndex,get:(id)=>entries.get(String(id))};
 }

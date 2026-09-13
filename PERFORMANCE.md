@@ -1,12 +1,55 @@
 # Performance checks
 
+## Native 5 m terrain (13 September 2026)
+
+The saved runtime grid now contains 4065 by 3417 Float32 heights (53 MiB),
+bilinearly resampled from the cached native INDS mosaic. Height queries retain
+this entire buffer regardless of visual LOD. Water levels and connected bridge
+profiles were regenerated, with source topology unchanged.
+
+The 224 terrain patches contain 27,765,248 near-detail triangles in total.
+Middle and far variants retain approximately 40 m and 80 m interior spacing,
+with 683,032 and 343,984 triangles across the whole terrain respectively.
+Native edge samples and normals are stitched into coarse boundary cells to
+keep mixed LOD neighbors connected. Distant terrain loads its selected visual
+variant directly, avoiding a temporary full-detail decode before a LOD swap.
+
+The complete rebuilt world has 3,843 canonical chunks (433 MiB compressed,
+excluding the separate height buffer and visual variants). The compressed height
+buffer adds about 47.7 MiB and the 448 reduced variants add about 17.3 MiB.
+LOD reduces resident/rendered geometry, but does not eliminate the larger source
+snapshot, height buffer or deployment payload.
+
+Both local Chrome 152 smoke runs at 1280 by 720 completed atlas, driving, night,
+building picking, district loading and eviction with zero captured errors and no
+runtime source-snapshot requests. Screenshots were inspected. Reports are in
+ignored `.local/terrain-20m-browser/` and `.local/terrain-5m-browser/`.
+
+| Phase | 20 m FPS | 5 m FPS |
+| --- | ---: | ---: |
+| Atlas | 6.3 | 5.6 |
+| Stationary driving | 11.2 | 7.6 |
+| Forward driving | 14.0 | 9.9 |
+| Night driving | 6.7 | 4.7 |
+
+These are individual runs on Microsoft Basic Render Driver, a software renderer.
+The 5 m change is measurably more expensive here despite LOD; these results do
+not establish normal GPU performance. Moving phases can cover different ground
+when rendering is slow. Audio was not listening-tested.
+
+`npm test`, `npm run build`, and `npm run verify:world` passed. The verifier
+checked all canonical chunks and 448 reduced variants. New regressions check
+complete terrain coverage, every shared boundary segment and normal, irregular
+patch sizes, decreasing LOD triangle budgets, and direct distant-LOD loading.
+`npm run dev` starts successfully and serves the updated game locally.
+
 ## Offline compiler update
 
 The game now loads prebuilt binary geometry. See [ARCHITECTURE.md](ARCHITECTURE.md)
 for the current pipeline and streaming limits; the earlier optimization notes below
 describe the algorithms reused by the compiler.
 
-The full saved world produces 3,843 spatial files (about 126 MiB compressed),
+The earlier 20 m world produced 3,843 spatial files (about 126 MiB compressed),
 60,663 building records and 107,382 prepared driving road segments. The initial
 centre view loaded 52 chunks with 3,153 buildings in the local Chrome check. No
 `data/` snapshot requests or JavaScript errors occurred in atlas/day/night driving.

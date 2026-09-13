@@ -85,11 +85,15 @@ The atlas's explicit **Load wider city** mode can retain the entire city; it is 
 a bounded-memory mode. The global DEM, bridge profiles, POIs and lamp index remain
 resident. Runtime visual LOD now culls distant building, park and small-detail
 batches while leaving roads, terrain and all physics data available. Geometry
-variants, texture streaming and traffic simulation are still future work. The
-offline compiler emits optional content-addressed terrain variants in each
+variants provide 5 m near detail and approximately 40 m / 80 m interiors farther
+away, with shared full-resolution patch edges. The 5 m Float32 height grid remains
+resident (about 53 MiB) regardless of visual LOD. Texture streaming and traffic
+simulation are still future work. The offline compiler emits terrain variants in each
 terrain chunk; `visualVariants` records near, middle and far files with error
 and byte/triangle counts. These files contain visual meshes with empty physics,
 while the canonical `file` remains authoritative for physics and inspection.
+Terrain chunks load their selected visual level directly; other chunks still load
+the canonical payload for collision and picking.
 
 `npm test` exercises the original geometry/physics behavior plus binary roundtrips,
 instancing, picking metadata, collision holes/heights and the browser import boundary.

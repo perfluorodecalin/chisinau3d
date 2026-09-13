@@ -12,7 +12,7 @@ export async function loadTerrain(scene){const [m,v,p,w]=await Promise.all([fetc
  for(let z=0;z<nz;z++)for(let x=0;x<nx;x++){const X=x+x0,Z=z+z0,k=z*nx+x,global=Z*m.nx+X;pos[k*3]=m.xmin+X*m.step;pos[k*3+1]=values[global]-.18;pos[k*3+2]=m.zmin+Z*m.step;
  const left=Math.max(0,X-1),right=Math.min(m.nx-1,X+1),up=Math.max(0,Z-1),down=Math.min(m.nz-1,Z+1);const dx=(values[Z*m.nx+right]-values[Z*m.nx+left])/((right-left)*m.step),dz=(values[down*m.nx+X]-values[up*m.nx+X])/((down-up)*m.step),n=Math.hypot(dx,1,dz);normals.set([-dx/n,1/n,-dz/n],k*3);
  if(x<nx-1&&z<nz-1)idx.push(k,k+nx,k+1,k+1,k+nx,k+nx+1);}
- const g=new T.BufferGeometry();g.setAttribute('position',new T.BufferAttribute(pos,3));g.setAttribute('normal',new T.BufferAttribute(normals,3));g.setIndex(idx);g.computeBoundingSphere();scene.add(new T.Mesh(g,material));}
+ const g=new T.BufferGeometry();g.setAttribute('position',new T.BufferAttribute(pos,3));g.setAttribute('normal',new T.BufferAttribute(normals,3));g.setIndex(idx);g.computeBoundingSphere();const mesh=new T.Mesh(g,material);mesh.userData.terrainStep=m.step;scene.add(mesh);}
  return {meta:m,profiles:p.profiles};}
 export function bridgeStructure(id){const p=terrainProfile(id);if(!p?.bridge)return null;const group=new T.Group(),mat=new T.MeshStandardMaterial({color:'#7a807c',roughness:1}),railMat=new T.MeshStandardMaterial({color:'#9ba6a3',metalness:.4,roughness:.6});let length=0;
  function bar(a,b,width,height,material){const A=new T.Vector3(...a),B=new T.Vector3(...b),mesh=new T.Mesh(new T.BoxGeometry(width,height,A.distanceTo(B)),material);mesh.position.copy(A).add(B).multiplyScalar(.5);mesh.quaternion.setFromUnitVectors(new T.Vector3(0,0,1),B.sub(A).normalize());group.add(mesh);}

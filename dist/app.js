@@ -1,6 +1,6 @@
 import {createSoundscape} from './soundscape.js';
 import {yieldToBrowser} from './loading.js';
-import {loadWorld,loadChunk,disposeChunk} from './world-loader.js';
+import {loadWorld,loadChunk,loadVisualVariant,disposeChunk} from './world-loader.js';
 import * as THREE from 'three';
 import {configureTerrain,heightAt} from './terrain-runtime.js';
 import {addAtmosphere} from './atmosphere.js';
@@ -60,7 +60,13 @@ function addVisualMeshes(chunk,includeMetadata=false){
  }
 }
 function removeVisualMeshes(chunk){for(const m of chunk?.meshes||[]){lod.unregister(m);const i=pickables.indexOf(m);if(i>=0)pickables.splice(i,1);const j=chunks.indexOf(m);if(j>=0)chunks.splice(j,1);m.removeFromParent();}}
-async function getTile(t){return loadChunk(world,t);}
+async function getTile(t){
+ // Terrain chunks have no physics or picking payload. Decode the visual LOD
+ // appropriate for the current camera directly, avoiding a full 5 m mesh
+ // transiently entering the scene during wide-city loading.
+ if(t.visualVariants?.length){const index=streamer?.desiredIndex(t)??0,variant=t.visualVariants[index]||t.visualVariants[0];const chunk=await loadVisualVariant(world,t,variant);chunk.__initialVisualLevel=index;return chunk;}
+ return loadChunk(world,t);
+}
 async function ingest(chunk,t){
  addVisualMeshes(chunk,true);
  driving.addCompiled(chunk.physics);
@@ -68,7 +74,7 @@ async function ingest(chunk,t){
  facadeSetting.value=$('#mode').value==='material'&&$('#textures').checked?1:0;
  $('#count').textContent=records.length.toLocaleString();$('#known').textContent=records.length?Math.round(totalMapped/records.length*100)+'%':'—';$('#export').disabled=!records.length;
   applyTime();
-  if(streamer)streamer.register(t,chunk,{physics:false});
+  if(streamer){const initialLevel=chunk.__initialVisualLevel;streamer.register(t,chunk,initialLevel===undefined?{physics:false}:{physics:false,initialPhysics:false,initialLevel});}
  }
 async function loadTiles(tiles,wide=false){
  if(busy)return;busy=true;stop=false;$('#load').disabled=true;$('#city').textContent='Stop loading';

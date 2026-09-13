@@ -55,13 +55,13 @@ They also compare optimized terrain draping against the previous algorithm, veri
 
 Running the game and tests does not require Python, additional OSM requests, satellite imagery, or raw downloads. The bundled snapshots are sufficient for the offline Node build.
 
-Some preparation scripts still reference the original workspace's raw downloads. Those inputs are **not** included here. Terrain is reproducible from the optional ignored INDS GeoTIFF cache: follow `research/inds-terrain/README.md`, then run `prepare_inds_terrain.py` to regenerate the 20 m grid, water levels and bridge profiles. Do not run every preparation script automatically. The road-model preparation precedes dependent street-detail and lamp preparation. See README for data sources, assumptions and attribution.
+Some preparation scripts still reference the original workspace's raw downloads. Those inputs are **not** included here. Terrain is reproducible from the optional ignored INDS GeoTIFF cache: follow `research/inds-terrain/README.md`, then run `prepare_inds_terrain.py` to regenerate the 5 m grid, water levels and bridge profiles. Do not run every preparation script automatically. The road-model preparation precedes dependent street-detail and lamp preparation. See README for data sources, assumptions and attribution.
 
 ## Current state and limitations
 
 The latest version includes driving, approximate façades, OSM street furniture, zebra crossings, terrain, estimated bridges, day/night lighting, improved road joins, spatial batching, graphics controls and a basic synthesized soundscape.
 
-Building heights and bridge clearance are approximations; runtime terrain sampling is 20 m from a 5 m photogrammetric DTM. Its metre unit and Baltic 1977 vertical datum are documented in the game as inferences. There is no traffic simulation, routed navigation, reconstructed tunnel interior or photogrammetric building model. The latest local headless Chrome check rendered the city and driving/night scenes using Microsoft's software graphics driver. Performance on a normal GPU still needs checking; see PERFORMANCE.md. Audio logic was checked with mocks, not listening tests.
+Building heights and bridge clearance are approximations; runtime terrain sampling is 5 m from a 5 m photogrammetric DTM. Its metre unit and Baltic 1977 vertical datum are documented in the game as inferences. There is no traffic simulation, routed navigation, reconstructed tunnel interior or photogrammetric building model. The latest local headless Chrome check rendered the city and driving/night scenes using Microsoft's software graphics driver. Performance on a normal GPU still needs checking; see PERFORMANCE.md. Audio logic was checked with mocks, not listening tests.
 
 ## Continuing with Codex
 

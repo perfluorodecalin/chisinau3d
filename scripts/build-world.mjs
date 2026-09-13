@@ -12,7 +12,7 @@ import {createCityCompiler} from './compile-city.mjs';
 import {createPhysicsCompiler} from './compile-physics.mjs';
 import {encodeChunk} from './world-format.mjs';
 import {worldInputHash} from './world-inputs.mjs';
-import {VISUAL_LEVELS,reduceGeometry,makeVisualMesh,variantError,visualStats} from './lod-variants.mjs';
+import {VISUAL_LEVELS,terrainLodStride,reduceGeometry,makeVisualMesh,variantError,visualStats} from './lod-variants.mjs';
 
 const root=new URL('../dist/',import.meta.url),output=new URL('world/',root);
 const inputHash=await worldInputHash();
@@ -45,7 +45,11 @@ function variantMeshes(meshes,stride,level){
   const layer=source.userData?.layer;
   const terrain=layer==='terrain';
   let geometry;
-  if(REDUCIBLE_LAYERS.has(layer))geometry=reduceGeometry(source.geometry,stride,{terrain});
+  // Keep the historical world-space terrain LOD density when the source grid
+  // gets finer: the 20 m grid used strides 2/4 (40/80 m samples), so a 5 m
+  // grid needs strides 8/16 at those same visual levels.
+  const terrainStride=terrain?terrainLodStride(stride,source.userData.terrainStep||20):stride;
+  if(REDUCIBLE_LAYERS.has(layer))geometry=reduceGeometry(source.geometry,terrainStride,{terrain});
   else geometry=source.geometry.clone();
   if(!geometry)continue;
   const sourceCount=(source.geometry.index?.count??source.geometry.getAttribute('position')?.count??0)/3*(source.isInstancedMesh?source.count:1);

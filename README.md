@@ -10,7 +10,7 @@ The 30 saved source sections cover latitude 46.975–47.100 and longitude 28.740
 
 - OSM building ways and multipolygon relations; inner rings become courtyard holes.
 - Relation-member building ways excluded when preparing the snapshot to avoid double geometry.
-- Local metre projection around 47.0245 N, 28.8323 E; a 20 m runtime terrain grid bilinearly resampled from the saved 5 m Geoportal INDS / Geodata DTM 2020 Centru mosaic.
+- Local metre projection around 47.0245 N, 28.8323 E; a 5 m runtime terrain grid bilinearly resampled from the saved 5 m Geoportal INDS / Geodata DTM 2020 Centru mosaic.
 - Explicit height tags take priority. Floor-derived height uses 3 m per floor plus a roof allowance (explicit roof height, roof floors × 3 m, or 1.5 m).
 - Otherwise deterministic use / footprint-based defaults: houses 6–9 m; apartments 15–27 m; industry 8 m; small ancillary structures 3 m; religious buildings 18 m; commercial / office / hotel / hospital 15 m; generic buildings 6–12 m.
 - Height tags are mapper contributions, not necessarily surveyed. Estimates are heuristic, not learned or satellite-derived. Missing footprints remain absent. Façades and roofs are simplified extrusions. No claim of photogrammetric accuracy.
@@ -35,7 +35,7 @@ Serve `dist/` with any static HTTP server. Browser requires WebGL2. Dependencies
 
 ## Supplementary INDS data
 
-The [Geoportal INDS investigation](research/inds/README.md) documents downloaded road surfaces, roughness, RoadLinks and traffic observations, and lane-count/width availability. The [DTM 2020 workflow](research/inds-terrain/README.md) obtains and assesses the public 5 m numeric terrain; its validated 20 m derivative is incorporated in the game. Other local research samples remain unincorporated.
+The [Geoportal INDS investigation](research/inds/README.md) documents downloaded road surfaces, roughness, RoadLinks and traffic observations, and lane-count/width availability. The [DTM 2020 workflow](research/inds-terrain/README.md) obtains and assesses the public 5 m numeric terrain; its validated 5 m derivative is incorporated in the game. Other local research samples remain unincorporated.
 
 ## Attribution
 
@@ -55,7 +55,7 @@ Saved OSM tree nodes, tree rows, bench nodes, sidewalks and crossings are bundle
 
 ## Terrain, bridges and time of day
 
-Geoportal INDS / Geodata DTM 2020 Centru is acquired as 20 bounded GeoTIFF files at its native 5 m resolution in MOLDREF99 / Moldova TM (EPSG:4026). The game bundles a 20 m bilinear derivative in local metre coordinates. Terrain coverage spans about 25–244 m above the inferred datum, relative to the 85.62 m elevation at the game origin. Acquisition is offline at runtime; the site makes no terrain-server requests. Water surfaces are relevelled to median DTM elevation and the corresponding cells are lowered slightly. Buildings, roads, vegetation and furniture follow the new terrain.
+Geoportal INDS / Geodata DTM 2020 Centru is acquired as 20 bounded GeoTIFF files at its native 5 m resolution in MOLDREF99 / Moldova TM (EPSG:4026). The game bundles a 5 m bilinear derivative in local metre coordinates. Terrain coverage spans about 3–245 m above the inferred datum, relative to the 85.62 m elevation at the game origin. Acquisition is offline at runtime; the site makes no terrain-server requests. Water surfaces are relevelled to median DTM elevation and the corresponding cells are lowered slightly. Buildings, roads, vegetation and furniture follow the new terrain.
 
 The source service does not encode a credible elevation-band unit or vertical CRS. Values are treated as metres in the Baltic 1977 normal-height system. This is an explicit inference: the provider map labels DTM values as metres, Moldovan geodetic literature identifies Baltic 1977 normal heights as the adopted national reference, and comparison with the previous EGM96-derived terrain has a mean difference of 0.59 m. The unshifted source values are retained; no corrective vertical offset was invented. This remains a terrain model rather than a surveyed road surface.
 
@@ -83,7 +83,7 @@ Validation: `node tests/quality.mjs` after installing the optional development d
 
 ## Runtime visual LOD
 
-The runtime applies distance-based visual LOD to building, park and small street-detail batches. Roads, terrain, bridge geometry, collision data and building metadata remain available at full simulation detail. LOD updates are throttled and use hysteresis; the Low/Balanced/High graphics setting adjusts the visibility budget. The offline compiler emits content-addressed 40 m and 80 m terrain variants with locked patch boundaries; buildings and street details remain canonical until topology-safe simplification is available. Vegetation and lamp visibility continue to follow the existing atmosphere and day/night rules. Texture streaming is planned next.
+The runtime applies distance-based visual LOD to building, park and small street-detail batches. Roads, terrain, bridge geometry, collision data and building metadata remain available at full simulation detail. LOD updates are throttled and use hysteresis; the Low/Balanced/High graphics setting adjusts the visibility budget. The offline compiler emits native 5 m terrain plus content-addressed 40 m and 80 m interior variants with full-resolution shared patch boundaries; distant terrain loads its selected variant directly. Buildings and street details remain canonical until topology-safe simplification is available. Vegetation and lamp visibility continue to follow the existing atmosphere and day/night rules. Texture streaming is planned next.
 
 ## Basic soundscape
 

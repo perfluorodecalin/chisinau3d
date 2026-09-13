@@ -1,6 +1,6 @@
 # INDS DTM 2020 acquisition
 
-The optional `scripts/fetch_inds_terrain.py` workflow acquires numeric terrain from the public Geoportal/Geodata WCS and assesses it against the game's former 40 m terrain. Acquisition writes only to ignored `.local/inds-terrain/`. The separate `scripts/prepare_inds_terrain.py` command creates the checked-in 20 m derivative and regenerates water and bridge heights.
+The optional `scripts/fetch_inds_terrain.py` workflow acquires numeric terrain from the public Geoportal/Geodata WCS and assesses it against the game's former 40 m terrain. Acquisition writes only to ignored `.local/inds-terrain/`. The separate `scripts/prepare_inds_terrain.py` command creates the checked-in 5 m derivative and regenerates water and bridge heights.
 
 The selected coverage is `DTM__DTM_2020_centru`: a native 5 m GeoTIFF grid in EPSG:4026 that covers Chișinău. The acquisition boundary is derived from the existing buffered game terrain extent and transformed with a densified perimeter. Requests account for the coverage's declared `Y X` axis labels and GeoServer's mapping of them to conventional GeoTIFF X/Y bounds; the probe verifies the returned transform before full acquisition.
 
@@ -32,9 +32,9 @@ The 95th-percentile elevation change across tile boundaries is 0.87 units, versu
 
 ## Game integration
 
-Run `scripts/prepare_inds_terrain.py` after acquisition. It bilinearly resamples the native mosaic to 20 m over the exact former terrain extent, stores elevations relative to the 85.62 m origin value, relevels all 584 saved OSM water polygons, and projects the terrain-independent model of 282 bridges and 1,920 approaches onto the new ground. The bridge model preserves source topology and shared endpoints while keeping the 6 m clearance and 6.5% approach-grade assumptions distinct from measured terrain.
+Run `scripts/prepare_inds_terrain.py` after acquisition. It bilinearly resamples the native mosaic to 5 m over the exact former terrain extent, stores elevations relative to the 85.62 m origin value, relevels all 584 saved OSM water polygons, and projects the terrain-independent model of 282 bridges and 1,920 approaches onto the new ground. The bridge model preserves source topology and shared endpoints while keeping the 6 m clearance and 6.5% approach-grade assumptions distinct from measured terrain.
 
-The 20 m grid contains 1017 × 855 samples. Terrain patch dimensions adapt to retain roughly 1.28 km culling bounds, preserving 224 render patches while increasing the terrain mesh from about 0.43 million to 1.74 million triangles. The raw 5 m raster stays outside the published site.
+The 5 m grid contains 4065 × 3417 samples (55,560,420 bytes as Float32). Terrain patch dimensions adapt to retain roughly 1.28 km culling bounds, preserving 224 render patches. The complete near-detail terrain contains about 27.77 million triangles; distance-based visual variants reduce the rendered detail farther away. The source GeoTIFF stays outside the published site; the resampled 5 m grid is bundled for offline height queries.
 
 ## Vertical-reference inference
 

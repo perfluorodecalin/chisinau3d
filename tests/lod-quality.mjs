@@ -1,8 +1,10 @@
 import assert from 'node:assert/strict';
 import {createLodController} from '../dist/lod.js';
+import {createWorldStreamer} from '../dist/world-streamer.js';
 
 const camera={position:{x:0,y:0,z:0,distanceTo(p){return Math.hypot(this.x-p.x,this.y-p.y,this.z-p.z);}}};
 const mesh=(layer,x)=>({userData:{layer},geometry:{boundingSphere:{center:{x,y:0,z:0,clone(){return {x:this.x,y:this.y,z:this.z};}},radius:0}},parent:{},visible:true,localToWorld(p){return p;}});
+const flush=()=>new Promise(resolve=>setTimeout(resolve,0));
 
 // Distance culling is layered: driving surfaces and terrain remain available,
 // while atmosphere-owned layers retain their own visibility policy.
@@ -72,6 +74,48 @@ const mesh=(layer,x)=>({userData:{layer},geometry:{boundingSphere:{center:{x,y:0
   lod.register(detail);lod.update(1,true);lod.unregister(detail);lod.update(2,true);
   assert.equal(JSON.stringify(physics),before,'LOD changes must preserve physics data');
   assert.equal(lod.size(),0,'disposed/unregistered meshes leave no controller entry');
+}
+
+// Terrain may arrive already decoded at its distant LOD. The streamer must
+// retain that level without requesting the canonical 5 m mesh, then refine and
+// dispose each replaced visual as the camera moves.
+{
+  camera.position.x=5000;
+  const requested=[],detached=[];
+  const t0=performance.now();
+  const world={materials:[]};
+  const terrain={id:'terrain',bounds:{min:{x:1000,y:-1,z:-10},max:{x:2000,y:1,z:10}},file:'canonical.bin',visualVariants:[
+    {level:'near',maxDistance:250,file:'near.bin'},
+    {level:'middle',maxDistance:900,file:'middle.bin'},
+    {level:'far',maxDistance:Infinity,file:'far.bin'}
+  ]};
+  const streamer=createWorldStreamer({world,camera,interval:0,minDwell:0,
+    loadVisual:async(_world,_chunk,variant)=>{requested.push(variant.file);return {meshes:[]};},
+    onVisualDetach:({level})=>detached.push(level)
+  });
+  assert.equal(streamer.desiredIndex(terrain),2,'desiredIndex should select far without registering a chunk');
+  assert.equal(streamer.metrics().resident,0,'LOD selection alone must not create streamer state');
+  streamer.update(t0,true);await flush();
+  assert.deepEqual(requested,[],'LOD selection alone must not schedule a visual request');
+  streamer.register(terrain,{meshes:[]},{physics:false,initialPhysics:false,initialLevel:2});
+  assert.deepEqual(requested,[],'preloaded far terrain must not request canonical or another visual');
+  assert.equal(streamer.get('terrain').index,2);
+  camera.position.x=1000;streamer.update(performance.now()+1,true);await flush();
+  assert.deepEqual(requested,['near.bin'],'moving near should request only the near visual');
+  assert.equal(streamer.get('terrain').index,0);
+  camera.position.x=5000;streamer.update(performance.now()+1,true);await flush();
+  assert.deepEqual(requested,['near.bin','far.bin'],'moving far should request the far visual');
+  assert.deepEqual(detached,[2,0],'each replaced visual should be detached and disposed');
+}
+
+// Ordinary city chunks still use their canonical initial payload as gameplay
+// physics residency; the terrain optimization must not disable that path.
+{
+  camera.position.x=0;
+  const physics={obstacles:[{x:1,z:2}]},initial={meshes:[],physics};
+  const streamer=createWorldStreamer({world:{materials:[]},camera,interval:0});
+  streamer.register({id:'city',file:'city.bin'},initial,{physics:false});
+  assert.equal(streamer.get('city').physics,physics,'canonical city chunks retain initial physics');
 }
 
 console.log(JSON.stringify({lod:'distance layers, hysteresis, variants, disposal and physics invariance pass'}));

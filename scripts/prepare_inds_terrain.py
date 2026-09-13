@@ -14,7 +14,10 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 DATA = ROOT / "dist" / "data"
 LOCAL = ROOT / ".local" / "inds-terrain"
 MOSAIC = LOCAL / "dtm-2020-mosaic.tif"
-STEP = 20
+# Keep the native INDS DTM sampling in the published runtime grid.  The
+# source mosaic is a genuine 5 m raster; reducing it here would throw away
+# the detail that the runtime terrain LOD is intended to manage.
+STEP = 5
 LAT0, LON0 = 47.0245, 28.8323
 R = 111320.0
 SCALE = R * math.cos(math.radians(LAT0))
