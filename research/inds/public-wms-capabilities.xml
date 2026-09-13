@@ -1,0 +1,900 @@
+<?xml version="1.0" encoding="UTF-8"?><WMS_Capabilities version="1.3.0" updateSequence="3266" xmlns="http://www.opengis.net/wms" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/wms http://data.asd.md/geoserver/schemas/wms/1.3.0/capabilities_1_3_0.xsd">
+  <Service>
+    <Name>WMS</Name>
+    <Title>Ã.S. AdministraÈia de Stat a Drumurilor</Title>
+    <Abstract>Ã.S. âAdministraÈia de Stat a Drumurilorâ (ASD) este fondatÄ de AgenÈia ProprietÄÈii Publice.</Abstract>
+    <KeywordList>
+      <Keyword>WFS</Keyword>
+      <Keyword>WMS</Keyword>
+      <Keyword>GEOSERVER</Keyword>
+      <Keyword>pod</Keyword>
+      <Keyword>drum</Keyword>
+      <Keyword>asd</Keyword>
+    </KeywordList>
+    <OnlineResource xlink:type="simple" xlink:href="http://geoserver.org"/>
+    <ContactInformation>
+      <ContactPersonPrimary>
+        <ContactPerson>ASD</ContactPerson>
+        <ContactOrganization>Ã.S. ADMINISTRAÈIA DE STAT A DRUMURILOR</ContactOrganization>
+      </ContactPersonPrimary>
+      <ContactPosition>ASD</ContactPosition>
+      <ContactAddress>
+        <AddressType>Work</AddressType>
+        <Address>mun. ChiÈinÄu, str. Bucuriei, 12A</Address>
+        <City>Chisinau</City>
+        <StateOrProvince>Chisinau</StateOrProvince>
+        <PostCode>MD-2004</PostCode>
+        <Country>Moldova</Country>
+      </ContactAddress>
+      <ContactVoiceTelephone>(+373) 22 22-55-30</ContactVoiceTelephone>
+      <ContactFacsimileTelephone>(+373) 22 74-89-61</ContactFacsimileTelephone>
+      <ContactElectronicMailAddress>serviciu@asd.md,cancelaria@asd.md,presa@asd.md</ContactElectronicMailAddress>
+    </ContactInformation>
+    <Fees>NONE</Fees>
+    <AccessConstraints>NONE</AccessConstraints>
+  </Service>
+  <Capability>
+    <Request>
+      <GetCapabilities>
+        <Format>text/xml</Format>
+        <DCPType>
+          <HTTP>
+            <Get>
+              <OnlineResource xlink:type="simple" xlink:href="http://data.asd.md/geoserver/public/ows?SERVICE=WMS&amp;"/>
+            </Get>
+            <Post>
+              <OnlineResource xlink:type="simple" xlink:href="http://data.asd.md/geoserver/public/ows?SERVICE=WMS&amp;"/>
+            </Post>
+          </HTTP>
+        </DCPType>
+      </GetCapabilities>
+      <GetMap>
+        <Format>image/png</Format>
+        <Format>image/jpeg</Format>
+        <Format>text/html; subtype=openlayers</Format>
+        <Format>text/html; subtype=openlayers2</Format>
+        <Format>text/html; subtype=openlayers3</Format>
+        <DCPType>
+          <HTTP>
+            <Get>
+              <OnlineResource xlink:type="simple" xlink:href="http://data.asd.md/geoserver/public/ows?SERVICE=WMS&amp;"/>
+            </Get>
+          </HTTP>
+        </DCPType>
+      </GetMap>
+      <GetFeatureInfo>
+        <Format>text/plain</Format>
+        <Format>text/html</Format>
+        <Format>application/json</Format>
+        <DCPType>
+          <HTTP>
+            <Get>
+              <OnlineResource xlink:type="simple" xlink:href="http://data.asd.md/geoserver/public/ows?SERVICE=WMS&amp;"/>
+            </Get>
+          </HTTP>
+        </DCPType>
+      </GetFeatureInfo>
+    </Request>
+    <Exception>
+      <Format>XML</Format>
+      <Format>INIMAGE</Format>
+      <Format>BLANK</Format>
+      <Format>JSON</Format>
+    </Exception>
+    <Layer>
+      <Title>Ã.S. AdministraÈia de Stat a Drumurilor</Title>
+      <Abstract>Ã.S. âAdministraÈia de Stat a Drumurilorâ (ASD) este fondatÄ de AgenÈia ProprietÄÈii Publice.</Abstract>
+      <!--Limited list of EPSG projections:-->
+      <CRS>EPSG:4026</CRS>
+      <CRS>EPSG:4326</CRS>
+      <CRS>EPSG:3857</CRS>
+      <CRS>CRS:84</CRS>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>24.509514913968797</westBoundLongitude>
+        <eastBoundLongitude>30.310378694384312</eastBoundLongitude>
+        <southBoundLatitude>45.109875067753244</southBoundLatitude>
+        <northBoundLatitude>48.49489498213759</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="CRS:84" minx="24.509514913968797" miny="45.109875067753244" maxx="30.310378694384312" maxy="48.49489498213759"/>
+      <Layer queryable="1" opaque="0">
+        <Name>26559a1a-278c-11ed-9927-931557eabfd2</Name>
+        <Title>Ãmbracaminte</Title>
+        <Abstract>ÃmbrÄcÄmintea drumului</Abstract>
+        <KeywordList>
+          <Keyword>imbracaminte_v</Keyword>
+          <Keyword>features</Keyword>
+        </KeywordList>
+        <CRS>EPSG:4026</CRS>
+        <CRS>CRS:84</CRS>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>26.61872416234048</westBoundLongitude>
+          <eastBoundLongitude>30.189381451015528</eastBoundLongitude>
+          <southBoundLatitude>45.45907189632915</southBoundLatitude>
+          <northBoundLatitude>48.45449597456312</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="CRS:84" minx="26.61872416234048" miny="45.45907189632915" maxx="30.189381451015528" maxy="48.45449597456312"/>
+        <BoundingBox CRS="EPSG:4026" minx="37055.685900000855" miny="68218.18149999995" maxx="368643.02300000004" maxy="332381.7894000001"/>
+        <Style>
+          <Name>imbracaminte</Name>
+          <Title>imbracaminte</Title>
+          <LegendURL width="111" height="100">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://data.asd.md/geoserver/public/ows?service=WMS&amp;request=GetLegendGraphic&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=26559a1a-278c-11ed-9927-931557eabfd2"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1" opaque="0">
+        <Name>839129f4-2789-11ed-9963-a7bda0d10e71</Name>
+        <Title>IRI</Title>
+        <Abstract>Starea drumului</Abstract>
+        <KeywordList>
+          <Keyword>features</Keyword>
+          <Keyword>iri_v</Keyword>
+        </KeywordList>
+        <CRS>EPSG:4026</CRS>
+        <CRS>CRS:84</CRS>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>26.61872416234048</westBoundLongitude>
+          <eastBoundLongitude>30.189381451015528</eastBoundLongitude>
+          <southBoundLatitude>45.45907189632915</southBoundLatitude>
+          <northBoundLatitude>48.45449597456312</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="CRS:84" minx="26.61872416234048" miny="45.45907189632915" maxx="30.189381451015528" maxy="48.45449597456312"/>
+        <BoundingBox CRS="EPSG:4026" minx="37055.685900000855" miny="68218.18149999995" maxx="368643.02300000004" maxy="332381.7894000001"/>
+        <Style>
+          <Name>iri_stareadrumului</Name>
+          <Title>iri_stareadrumului</Title>
+          <LegendURL width="94" height="100">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://data.asd.md/geoserver/public/ows?service=WMS&amp;request=GetLegendGraphic&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=839129f4-2789-11ed-9963-a7bda0d10e71"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1" opaque="0">
+        <Name>9fd8ed73-ff76-43cd-933b-b7642a774d9b</Name>
+        <Title>Categoria Drumurilor</Title>
+        <Abstract/>
+        <KeywordList>
+          <Keyword>features</Keyword>
+        </KeywordList>
+        <CRS>EPSG:4026</CRS>
+        <CRS>CRS:84</CRS>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>26.5271914081076</westBoundLongitude>
+          <eastBoundLongitude>30.230508162878</eastBoundLongitude>
+          <southBoundLatitude>45.4262925868295</southBoundLatitude>
+          <northBoundLatitude>48.48360976301157</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="CRS:84" minx="26.5271914081076" miny="45.4262925868295" maxx="30.230508162878" maxy="48.48360976301157"/>
+        <BoundingBox CRS="EPSG:4026" minx="33542.415579707354" miny="61521.985016344195" maxx="371880.47417398257" maxy="335348.58179622766"/>
+        <Style>
+          <Name>asd_road_category</Name>
+          <Title>asd_road_category</Title>
+          <LegendURL width="180" height="60">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://data.asd.md/geoserver/public/ows?service=WMS&amp;request=GetLegendGraphic&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=9fd8ed73-ff76-43cd-933b-b7642a774d9b"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1" opaque="0">
+        <Name>Crossing</Name>
+        <Title>Crossing</Title>
+        <Abstract>Setul de date de tip puncte care conÈine locaÈiile podurilor Èi podeÈelor.</Abstract>
+        <KeywordList>
+          <Keyword>features</Keyword>
+          <Keyword>Crossing</Keyword>
+          <Keyword>poduri</Keyword>
+          <Keyword>podeÈe</Keyword>
+        </KeywordList>
+        <CRS>EPSG:4026</CRS>
+        <CRS>CRS:84</CRS>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>26.633541489327705</westBoundLongitude>
+          <eastBoundLongitude>30.14798352717228</eastBoundLongitude>
+          <southBoundLatitude>45.4596650298842</southBoundLatitude>
+          <northBoundLatitude>48.45445294705757</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="CRS:84" minx="26.633541489327705" miny="45.4596650298842" maxx="30.14798352717228" maxy="48.45445294705757"/>
+        <BoundingBox CRS="EPSG:4026" minx="37086.12560000084" miny="69314.82770000026" maxx="368638.2719999999" maxy="329317.7002999997"/>
+        <Style>
+          <Name>red_point</Name>
+          <Title>Red Point</Title>
+          <Abstract>A sample style that draws a red square point</Abstract>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://data.asd.md/geoserver/public/ows?service=WMS&amp;request=GetLegendGraphic&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=Crossing"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1" opaque="0">
+        <Name>ERoad</Name>
+        <Title>ERoad</Title>
+        <Abstract>Drum european. Drumuri care reprezintÄ rutele ce fac parte din reÈeaua internaÈionalÄ de drumuri E- road Èi sunt marcate prin numÄrul european de&#13;
+rutÄ (De exemplu: E40)</Abstract>
+        <KeywordList>
+          <Keyword>features</Keyword>
+          <Keyword>ERoad</Keyword>
+        </KeywordList>
+        <CRS>EPSG:4026</CRS>
+        <CRS>CRS:84</CRS>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>26.5271914081076</westBoundLongitude>
+          <eastBoundLongitude>30.230508162878</eastBoundLongitude>
+          <southBoundLatitude>45.4262925868295</southBoundLatitude>
+          <northBoundLatitude>48.48360976301157</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="CRS:84" minx="26.5271914081076" miny="45.4262925868295" maxx="30.230508162878" maxy="48.48360976301157"/>
+        <BoundingBox CRS="EPSG:4026" minx="33542.415579707354" miny="61521.985016344195" maxx="371880.47417398257" maxy="335348.58179622766"/>
+        <Style>
+          <Name>line</Name>
+          <Title>Blue Line</Title>
+          <Abstract>A sample style that draws a line</Abstract>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://data.asd.md/geoserver/public/ows?service=WMS&amp;request=GetLegendGraphic&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=ERoad"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1" opaque="0">
+        <Name>Road</Name>
+        <Title>Road</Title>
+        <Abstract>Drum. ColecÈie de segmente de drum caracterizate prin una sau mai multe caracteristici comune. De exemplu drumurile sunt identificate printr-un index unic atribuit de cÄtre autoritatea responsabilÄ.</Abstract>
+        <KeywordList>
+          <Keyword>features</Keyword>
+          <Keyword>Road</Keyword>
+          <Keyword>drumuri</Keyword>
+          <Keyword>drum</Keyword>
+        </KeywordList>
+        <CRS>EPSG:4026</CRS>
+        <CRS>CRS:84</CRS>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>26.61872416234048</westBoundLongitude>
+          <eastBoundLongitude>30.189381451015528</eastBoundLongitude>
+          <southBoundLatitude>45.45907189632915</southBoundLatitude>
+          <northBoundLatitude>48.45449597456312</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="CRS:84" minx="26.61872416234048" miny="45.45907189632915" maxx="30.189381451015528" maxy="48.45449597456312"/>
+        <BoundingBox CRS="EPSG:4026" minx="37055.685900000855" miny="68218.18149999995" maxx="368643.02300000004" maxy="332381.7894000001"/>
+        <Style>
+          <Name>line</Name>
+          <Title>Blue Line</Title>
+          <Abstract>A sample style that draws a line</Abstract>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://data.asd.md/geoserver/public/ows?service=WMS&amp;request=GetLegendGraphic&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=Road"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1" opaque="0">
+        <Name>RoadArea</Name>
+        <Title>RoadArea</Title>
+        <Abstract>SuprafaÈa drumului. Obiecte spaÈiale de tip poligon care reprezintÄ toatÄ suprafaÈa drumului, inclusiv partea carosabilÄ, acostamentul Èi trotuarul.</Abstract>
+        <KeywordList>
+          <Keyword>features</Keyword>
+          <Keyword>RoadArea</Keyword>
+          <Keyword>suprafaÈa</Keyword>
+          <Keyword>drum</Keyword>
+          <Keyword>drumuri</Keyword>
+          <Keyword>carosabil</Keyword>
+          <Keyword>acostament</Keyword>
+          <Keyword>trotuar</Keyword>
+        </KeywordList>
+        <CRS>EPSG:4026</CRS>
+        <CRS>CRS:84</CRS>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>26.5271914081076</westBoundLongitude>
+          <eastBoundLongitude>30.230508162878</eastBoundLongitude>
+          <southBoundLatitude>45.4262925868295</southBoundLatitude>
+          <northBoundLatitude>48.48360976301157</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="CRS:84" minx="26.5271914081076" miny="45.4262925868295" maxx="30.230508162878" maxy="48.48360976301157"/>
+        <BoundingBox CRS="EPSG:4026" minx="33542.415579707354" miny="61521.985016344195" maxx="371880.47417398257" maxy="335348.58179622766"/>
+        <Style>
+          <Name>polygon</Name>
+          <Title>Default Polygon</Title>
+          <Abstract>A sample style that draws a polygon</Abstract>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://data.asd.md/geoserver/public/ows?service=WMS&amp;request=GetLegendGraphic&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=RoadArea"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1" opaque="0">
+        <Name>RoadLink</Name>
+        <Title>RoadLink</Title>
+        <Abstract>Segmente de drum. Obiecte spaÈiale liniare care descriu geometria Èi conectivitatea reÈelei de drumuri Ã®ntre douÄ puncte (noduri) de drum.</Abstract>
+        <KeywordList>
+          <Keyword>features</Keyword>
+          <Keyword>RoadLink</Keyword>
+          <Keyword>legÄturi</Keyword>
+          <Keyword>segments</Keyword>
+          <Keyword>segmente</Keyword>
+          <Keyword>drumuri</Keyword>
+        </KeywordList>
+        <CRS>EPSG:4026</CRS>
+        <CRS>CRS:84</CRS>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>26.61872416234048</westBoundLongitude>
+          <eastBoundLongitude>30.189381451015528</eastBoundLongitude>
+          <southBoundLatitude>45.45907189632915</southBoundLatitude>
+          <northBoundLatitude>48.45449597456312</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="CRS:84" minx="26.61872416234048" miny="45.45907189632915" maxx="30.189381451015528" maxy="48.45449597456312"/>
+        <BoundingBox CRS="EPSG:4026" minx="37055.685900000855" miny="68218.18149999995" maxx="368643.02300000004" maxy="332381.7894000001"/>
+        <Style>
+          <Name>Red_line</Name>
+          <Title>Red Line</Title>
+          <Abstract>A sample style that draws a line</Abstract>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://data.asd.md/geoserver/public/ows?service=WMS&amp;request=GetLegendGraphic&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=RoadLink"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1" opaque="0">
+        <Name>RoadLinkSequence</Name>
+        <Title>RoadLinkSequence</Title>
+        <Abstract>ColecÈie de segmente de drum. Set de date de tip linie care reprezintÄ ColecÈii de segmente de drumuri publice (RoadLinks) ce constituie o cale continuÄ Ã®n cadrul reÈelei de drumuri fÄrÄ branÈamente.</Abstract>
+        <KeywordList>
+          <Keyword>features</Keyword>
+          <Keyword>RoadLinkSequence</Keyword>
+          <Keyword>drum</Keyword>
+          <Keyword>drumuri</Keyword>
+          <Keyword>secvenÈÄ</Keyword>
+          <Keyword>road</Keyword>
+          <Keyword>sequence</Keyword>
+        </KeywordList>
+        <CRS>EPSG:4026</CRS>
+        <CRS>CRS:84</CRS>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>25.858406918996412</westBoundLongitude>
+          <eastBoundLongitude>25.85842001360194</eastBoundLongitude>
+          <southBoundLatitude>45.109875067753244</southBoundLatitude>
+          <northBoundLatitude>45.10988434028562</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="CRS:84" minx="25.858406918996412" miny="45.109875067753244" maxx="25.85842001360194" maxy="45.10988434028562"/>
+        <BoundingBox CRS="EPSG:4026" minx="33542.415579707354" miny="61521.985016344195" maxx="371880.47417398257" maxy="335348.58179622766"/>
+        <Style>
+          <Name>line</Name>
+          <Title>Blue Line</Title>
+          <Abstract>A sample style that draws a line</Abstract>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://data.asd.md/geoserver/public/ows?service=WMS&amp;request=GetLegendGraphic&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=RoadLinkSequence"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1" opaque="0">
+        <Name>RoadNode</Name>
+        <Title>RoadNode</Title>
+        <Abstract>Noduri de drum. Tabel cu obiecte spaÈiale de tip punct care reprezintÄ conectivitatea prin noduri Ã®ntre douÄ segmente de drum sau pentru a reprezenta un capÄt de drum, obiect spaÈial semnificativ sau o intersecÈie circularÄ.</Abstract>
+        <KeywordList>
+          <Keyword>features</Keyword>
+          <Keyword>RoadNode</Keyword>
+          <Keyword>nod</Keyword>
+          <Keyword>noduri</Keyword>
+          <Keyword>intersecÈie</Keyword>
+          <Keyword>intersecÈii</Keyword>
+          <Keyword>capÄt</Keyword>
+          <Keyword>junction</Keyword>
+          <Keyword>roadend</Keyword>
+        </KeywordList>
+        <CRS>EPSG:4026</CRS>
+        <CRS>CRS:84</CRS>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>26.618734462450416</westBoundLongitude>
+          <eastBoundLongitude>30.189371104096246</eastBoundLongitude>
+          <southBoundLatitude>45.45907249984045</southBoundLatitude>
+          <northBoundLatitude>48.45420132514586</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="CRS:84" minx="26.618734462450416" miny="45.45907249984045" maxx="30.189371104096246" maxy="48.45420132514586"/>
+        <BoundingBox CRS="EPSG:4026" minx="37055.75300000049" miny="68218.18149999995" maxx="368610.26019999944" maxy="332381.7894000001"/>
+        <Style>
+          <Name>point</Name>
+          <Title>Cyan Square Point</Title>
+          <Abstract>A sample style that draws a red square point</Abstract>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://data.asd.md/geoserver/public/ows?service=WMS&amp;request=GetLegendGraphic&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=RoadNode"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1" opaque="0">
+        <Name>RoadServiceArea</Name>
+        <Title>RoadServiceArea</Title>
+        <Abstract>SuprafaÈa adiacentÄ drumului. Obiecte spaÈiale de tip poligon care reprezintÄ suprafaÈa adiacentÄ drumului destinatÄ amplasÄrii obiectivelor de oferire a diferitor tipuri de servicii. De exemplu: StaÈii PECO, staÈii de Ã®ncÄrcare a maÈinilor electrice, parcÄri, zone de odihnÄ, spÄlÄtorii auto, reparaÈii&#13;
+auto etc.</Abstract>
+        <KeywordList>
+          <Keyword>features</Keyword>
+          <Keyword>RoadServiceArea</Keyword>
+          <Keyword>servicii</Keyword>
+          <Keyword>adiacent</Keyword>
+          <Keyword>drum</Keyword>
+        </KeywordList>
+        <CRS>EPSG:4026</CRS>
+        <CRS>CRS:84</CRS>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>26.5271914081076</westBoundLongitude>
+          <eastBoundLongitude>30.230508162878</eastBoundLongitude>
+          <southBoundLatitude>45.4262925868295</southBoundLatitude>
+          <northBoundLatitude>48.48360976301157</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="CRS:84" minx="26.5271914081076" miny="45.4262925868295" maxx="30.230508162878" maxy="48.48360976301157"/>
+        <BoundingBox CRS="EPSG:4026" minx="33542.415579707354" miny="61521.985016344195" maxx="371880.47417398257" maxy="335348.58179622766"/>
+        <Style>
+          <Name>polygon</Name>
+          <Title>Default Polygon</Title>
+          <Abstract>A sample style that draws a polygon</Abstract>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://data.asd.md/geoserver/public/ows?service=WMS&amp;request=GetLegendGraphic&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=RoadServiceArea"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1" opaque="0">
+        <Name>VehicleTrafficArea</Name>
+        <Title>VehicleTrafficArea</Title>
+        <Abstract>Carosabil. Obiecte spaÈiale de tip poligon care reprezintÄ partea carosabilÄ a drumului, adicÄ suprafaÈa drumului utilizatÄ pentru traficul normal al vehiculelor.</Abstract>
+        <KeywordList>
+          <Keyword>features</Keyword>
+          <Keyword>VehicleTrafficArea</Keyword>
+          <Keyword>carosabil</Keyword>
+        </KeywordList>
+        <CRS>EPSG:4026</CRS>
+        <CRS>CRS:84</CRS>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>26.5271914081076</westBoundLongitude>
+          <eastBoundLongitude>30.230508162878</eastBoundLongitude>
+          <southBoundLatitude>45.4262925868295</southBoundLatitude>
+          <northBoundLatitude>48.48360976301157</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="CRS:84" minx="26.5271914081076" miny="45.4262925868295" maxx="30.230508162878" maxy="48.48360976301157"/>
+        <BoundingBox CRS="EPSG:4026" minx="33542.415579707354" miny="61521.985016344195" maxx="371880.47417398257" maxy="335348.58179622766"/>
+        <Style>
+          <Name>polygon</Name>
+          <Title>Default Polygon</Title>
+          <Abstract>A sample style that draws a polygon</Abstract>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://data.asd.md/geoserver/public/ows?service=WMS&amp;request=GetLegendGraphic&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=VehicleTrafficArea"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1" opaque="0">
+        <Name>alunecari_teren_v</Name>
+        <Title>AlunecÄri de teren</Title>
+        <Abstract/>
+        <KeywordList>
+          <Keyword>features</Keyword>
+          <Keyword>alunecari_teren_v</Keyword>
+        </KeywordList>
+        <CRS>EPSG:4026</CRS>
+        <CRS>CRS:84</CRS>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>26.938011433943153</westBoundLongitude>
+          <eastBoundLongitude>29.513600691808588</eastBoundLongitude>
+          <southBoundLatitude>46.193280186200475</southBoundLatitude>
+          <northBoundLatitude>48.36030974139254</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="CRS:84" minx="26.938011433943153" miny="46.193280186200475" maxx="29.513600691808588" maxy="48.36030974139254"/>
+        <BoundingBox CRS="EPSG:4026" minx="118220.546072306" miny="91648.888281466" maxx="358184.975336456" maxy="282525.472970604"/>
+        <Style>
+          <Name>alunecari_teren</Name>
+          <Title>AlunecÄri de Teren</Title>
+          <Abstract>PorÈiuni de drum afectate de alunecÄri de teren</Abstract>
+          <LegendURL width="138" height="40">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://data.asd.md/geoserver/public/ows?service=WMS&amp;request=GetLegendGraphic&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=alunecari_teren_v"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1" opaque="0">
+        <Name>centura_chisinau_v</Name>
+        <Title>Centura ChiÈinÄului</Title>
+        <Abstract/>
+        <KeywordList>
+          <Keyword>features</Keyword>
+          <Keyword>centura_chisinau_v</Keyword>
+        </KeywordList>
+        <CRS>EPSG:4026</CRS>
+        <CRS>CRS:84</CRS>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>28.717875489399756</westBoundLongitude>
+          <eastBoundLongitude>28.975073663134125</eastBoundLongitude>
+          <southBoundLatitude>46.93300778939823</southBoundLatitude>
+          <northBoundLatitude>47.11238114538849</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="CRS:84" minx="28.717875489399756" miny="46.93300778939823" maxx="28.975073663134125" maxy="47.11238114538849"/>
+        <BoundingBox CRS="EPSG:4026" minx="199646.9613721446" miny="224204.6316619249" maxx="219476.8091833891" maxy="243644.15320199396"/>
+        <Style>
+          <Name>centura</Name>
+          <Title>Centura ChiÈinÄului (Ã®n perspectivÄ)</Title>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://data.asd.md/geoserver/public/ows?service=WMS&amp;request=GetLegendGraphic&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=centura_chisinau_v"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1" opaque="0">
+        <Name>coridoare_eu</Name>
+        <Title>Coridoare</Title>
+        <Abstract/>
+        <KeywordList>
+          <Keyword>features</Keyword>
+          <Keyword>coridoare_eu</Keyword>
+        </KeywordList>
+        <CRS>EPSG:4026</CRS>
+        <CRS>CRS:84</CRS>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>27.879282144798882</westBoundLongitude>
+          <eastBoundLongitude>29.072744429053948</eastBoundLongitude>
+          <southBoundLatitude>46.14514960445337</southBoundLatitude>
+          <northBoundLatitude>48.139843411716</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="CRS:84" minx="27.879282144798882" miny="46.14514960445337" maxx="29.072744429053948" maxy="48.139843411716"/>
+        <BoundingBox CRS="EPSG:4026" minx="112117.1464000009" miny="161247.89419931415" maxx="333659.77168880124" maxy="250066.72370088537"/>
+        <Style>
+          <Name>coridoare_eu</Name>
+          <Title>coridoare_eu</Title>
+          <LegendURL width="82" height="40">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://data.asd.md/geoserver/public/ows?service=WMS&amp;request=GetLegendGraphic&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=coridoare_eu"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1" opaque="0">
+        <Name>drumul_unirii</Name>
+        <Title>Autostrada Unirii</Title>
+        <Abstract/>
+        <KeywordList>
+          <Keyword>features</Keyword>
+          <Keyword>drumul_unirii</Keyword>
+        </KeywordList>
+        <CRS>EPSG:4026</CRS>
+        <CRS>CRS:84</CRS>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>24.509514913968797</westBoundLongitude>
+          <eastBoundLongitude>30.310378694384312</eastBoundLongitude>
+          <southBoundLatitude>46.34496333895323</southBoundLatitude>
+          <northBoundLatitude>47.4402915392251</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="CRS:84" minx="24.509514913968797" miny="46.34496333895323" maxx="30.310378694384312" maxy="47.4402915392251"/>
+        <BoundingBox CRS="EPSG:4026" minx="141206.98328451253" miny="-93786.17976860685" maxx="255881.3925999999" maxy="344130.4366750242"/>
+        <Style>
+          <Name>public:drumul_unirii</Name>
+          <Title>Autostrada Unirii</Title>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://data.asd.md/geoserver/public/ows?service=WMS&amp;request=GetLegendGraphic&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=drumul_unirii"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1" opaque="0">
+        <Name>drumuri_eeuropene_v</Name>
+        <Title>Drumuri Europene</Title>
+        <Abstract/>
+        <KeywordList>
+          <Keyword>features</Keyword>
+          <Keyword>drumuri_eeuropene_v</Keyword>
+        </KeywordList>
+        <CRS>EPSG:4026</CRS>
+        <CRS>CRS:84</CRS>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>27.324140443754203</westBoundLongitude>
+          <eastBoundLongitude>29.616671037015685</eastBoundLongitude>
+          <southBoundLatitude>45.46585961857162</southBoundLatitude>
+          <northBoundLatitude>48.44568223614138</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="CRS:84" minx="27.324140443754203" miny="45.46585961857162" maxx="29.616671037015685" maxy="48.44568223614138"/>
+        <BoundingBox CRS="EPSG:4026" minx="37060.68720000051" miny="120405.05869999994" maxx="367665.39049999975" maxy="290014.8514326127"/>
+        <Style>
+          <Name>drumuri_eeuropene</Name>
+          <Title>drumuri_eeuropene</Title>
+          <LegendURL width="139" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://data.asd.md/geoserver/public/ows?service=WMS&amp;request=GetLegendGraphic&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=drumuri_eeuropene_v"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1" opaque="0">
+        <Name>inactive_roads_v</Name>
+        <Title>Sector inactiv</Title>
+        <Abstract/>
+        <KeywordList>
+          <Keyword>features</Keyword>
+          <Keyword>inactive_roads_v</Keyword>
+        </KeywordList>
+        <CRS>EPSG:4026</CRS>
+        <CRS>CRS:84</CRS>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>28.739120710185915</westBoundLongitude>
+          <eastBoundLongitude>28.82269942626809</eastBoundLongitude>
+          <southBoundLatitude>46.500990576167894</southBoundLatitude>
+          <northBoundLatitude>46.696027428468994</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="CRS:84" minx="28.739120710185915" miny="46.500990576167894" maxx="28.82269942626809" maxy="46.696027428468994"/>
+        <BoundingBox CRS="EPSG:4026" minx="151551.2257000003" miny="226029.61259999964" maxx="173200.87123710493" maxy="232328.90880000032"/>
+        <Style>
+          <Name>sector_inactiv</Name>
+          <Title>Inactive Roads</Title>
+          <LegendURL width="155" height="40">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://data.asd.md/geoserver/public/ows?service=WMS&amp;request=GetLegendGraphic&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=inactive_roads_v"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1" opaque="0">
+        <Name>intersectii_cf_v</Name>
+        <Title>Treceri cu calea feratÄ</Title>
+        <Abstract/>
+        <KeywordList>
+          <Keyword>features</Keyword>
+          <Keyword>intersectii_cf_v</Keyword>
+        </KeywordList>
+        <CRS>EPSG:4026</CRS>
+        <CRS>CRS:84</CRS>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>26.68189681237009</westBoundLongitude>
+          <eastBoundLongitude>29.47136349162224</eastBoundLongitude>
+          <southBoundLatitude>45.46103194942811</southBoundLatitude>
+          <northBoundLatitude>48.453375370570114</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="CRS:84" minx="26.68189681237009" miny="45.46103194942811" maxx="29.47136349162224" maxy="48.453375370570114"/>
+        <BoundingBox CRS="EPSG:4026" minx="37164.748598106" miny="72891.449981345" maxx="368528.080765159" maxy="279250.177168614"/>
+        <Style>
+          <Name>intersectii_cf</Name>
+          <Title>Black Circle Point</Title>
+          <Abstract>A sample style that draws a black circle point</Abstract>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://data.asd.md/geoserver/public/ows?service=WMS&amp;request=GetLegendGraphic&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=intersectii_cf_v"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1" opaque="0">
+        <Name>monitorizare_trafic_v</Name>
+        <Title>Monitorizare trafic</Title>
+        <Abstract/>
+        <KeywordList>
+          <Keyword>features</Keyword>
+          <Keyword>monitorizare_trafic_v</Keyword>
+        </KeywordList>
+        <CRS>EPSG:4026</CRS>
+        <CRS>CRS:84</CRS>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>26.762164536332318</westBoundLongitude>
+          <eastBoundLongitude>29.73236050356309</eastBoundLongitude>
+          <southBoundLatitude>45.464306249920796</southBoundLatitude>
+          <northBoundLatitude>48.4352470659056</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="CRS:84" minx="26.762164536332318" miny="45.464306249920796" maxx="29.73236050356309" maxy="48.4352470659056"/>
+        <BoundingBox CRS="EPSG:4026" minx="37412.256980691" miny="78789.309541327" maxx="366513.966908589" maxy="298596.424727744"/>
+        <Style>
+          <Name>monitorizare_trafic</Name>
+          <Title>Violet Cartographic Pin</Title>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://data.asd.md/geoserver/public/ows?service=WMS&amp;request=GetLegendGraphic&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=monitorizare_trafic_v"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1" opaque="0">
+        <Name>ocolire_drochia_v</Name>
+        <Title>Ocolire Drochia</Title>
+        <Abstract/>
+        <KeywordList>
+          <Keyword>features</Keyword>
+          <Keyword>ocolire_drochia_v</Keyword>
+        </KeywordList>
+        <CRS>EPSG:4026</CRS>
+        <CRS>CRS:84</CRS>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>27.780548447431336</westBoundLongitude>
+          <eastBoundLongitude>27.847989649816487</eastBoundLongitude>
+          <southBoundLatitude>48.00859565261146</southBoundLatitude>
+          <northBoundLatitude>48.03964859992672</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="CRS:84" minx="27.780548447431336" miny="48.00859565261146" maxx="27.847989649816487" maxy="48.03964859992672"/>
+        <BoundingBox CRS="EPSG:4026" minx="319249.6519549475" miny="153811.20000000112" maxx="322664.3930575475" maxy="158815.6852098005"/>
+        <Style>
+          <Name>ocolire</Name>
+          <Title>ocolire</Title>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://data.asd.md/geoserver/public/ows?service=WMS&amp;request=GetLegendGraphic&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=ocolire_drochia_v"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1" opaque="0">
+        <Name>ocolire_giurgiulesti_v</Name>
+        <Title>Ocolire GiurgiuleÈti</Title>
+        <Abstract/>
+        <KeywordList>
+          <Keyword>features</Keyword>
+          <Keyword>ocolire_giurgiulesti_v</Keyword>
+        </KeywordList>
+        <CRS>EPSG:4026</CRS>
+        <CRS>CRS:84</CRS>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>28.17599622522718</westBoundLongitude>
+          <eastBoundLongitude>28.214075089679152</eastBoundLongitude>
+          <southBoundLatitude>45.506495445475984</southBoundLatitude>
+          <northBoundLatitude>45.52862073682055</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="CRS:84" minx="28.17599622522718" miny="45.506495445475984" maxx="28.214075089679152" maxy="45.52862073682055"/>
+        <BoundingBox CRS="EPSG:4026" minx="40956.53484077752" miny="182502.20059131738" maxx="43407.872747689486" maxy="185471.02970079985"/>
+        <Style>
+          <Name>ocolire</Name>
+          <Title>ocolire</Title>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://data.asd.md/geoserver/public/ows?service=WMS&amp;request=GetLegendGraphic&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=ocolire_giurgiulesti_v"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1" opaque="0">
+        <Name>parking_camioane_v</Name>
+        <Title>Locuri de staÈionare Èi parcÄri</Title>
+        <Abstract/>
+        <KeywordList>
+          <Keyword>features</Keyword>
+          <Keyword>parking_camioane_v</Keyword>
+        </KeywordList>
+        <CRS>EPSG:4026</CRS>
+        <CRS>CRS:84</CRS>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>26.89091727680788</westBoundLongitude>
+          <eastBoundLongitude>29.46856765534076</eastBoundLongitude>
+          <southBoundLatitude>45.683930031905085</southBoundLatitude>
+          <northBoundLatitude>48.32516456563352</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="CRS:84" minx="26.89091727680788" miny="45.683930031905085" maxx="29.46856765534076" maxy="48.32516456563352"/>
+        <BoundingBox CRS="EPSG:4026" minx="61655.760085152" miny="88080.622213446" maxx="354283.674618401" maxy="279241.962083791"/>
+        <Style>
+          <Name>public:parking</Name>
+          <Title>Locuri de stationare si parcari</Title>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://data.asd.md/geoserver/public/ows?service=WMS&amp;request=GetLegendGraphic&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=parking_camioane_v"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1" opaque="0">
+        <Name>poduri_prut_v</Name>
+        <Title>Poduri peste r. Prut</Title>
+        <Abstract/>
+        <KeywordList>
+          <Keyword>features</Keyword>
+          <Keyword>poduri_prut_v</Keyword>
+        </KeywordList>
+        <CRS>EPSG:4026</CRS>
+        <CRS>CRS:84</CRS>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>27.193423308090654</westBoundLongitude>
+          <eastBoundLongitude>28.232750788152565</eastBoundLongitude>
+          <southBoundLatitude>46.26700904496254</southBoundLatitude>
+          <northBoundLatitude>47.839472847962554</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="CRS:84" minx="27.193423308090654" miny="46.26700904496254" maxx="28.232750788152565" maxy="47.839472847962554"/>
+        <BoundingBox CRS="EPSG:4026" minx="126124.90350000374" miny="109675.10166091006" maxx="300275.1023999993" maxy="187108.93761950545"/>
+        <Style>
+          <Name>poduri_prut</Name>
+          <Title>poduri_prut</Title>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://data.asd.md/geoserver/public/ows?service=WMS&amp;request=GetLegendGraphic&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=poduri_prut_v"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1" opaque="0">
+        <Name>pop2024_v</Name>
+        <Title>PopulaÈie_2024</Title>
+        <Abstract/>
+        <KeywordList>
+          <Keyword>features</Keyword>
+          <Keyword>pop2024_v</Keyword>
+        </KeywordList>
+        <CRS>EPSG:4026</CRS>
+        <CRS>CRS:84</CRS>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>26.609192735685156</westBoundLongitude>
+          <eastBoundLongitude>30.234081896211418</eastBoundLongitude>
+          <southBoundLatitude>45.45433291950507</southBoundLatitude>
+          <northBoundLatitude>48.49489498213759</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="CRS:84" minx="26.609192735685156" miny="45.45433291950507" maxx="30.234081896211418" maxy="48.49489498213759"/>
+        <BoundingBox CRS="EPSG:4026" minx="36597.021200004965" miny="67617.80339999736" maxx="373135.32339999545" maxy="335582.8830000007"/>
+        <Style>
+          <Name>pop2024_population</Name>
+          <Title>Population 2024 â 6 Levels</Title>
+          <Abstract>Choropleth map of population by locality (pop_2024). Natural break classification into 6 levels.</Abstract>
+          <LegendURL width="153" height="120">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://data.asd.md/geoserver/public/ows?service=WMS&amp;request=GetLegendGraphic&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=pop2024_v"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1" opaque="0">
+        <Name>r14_3_v</Name>
+        <Title>R14.3</Title>
+        <Abstract/>
+        <KeywordList>
+          <Keyword>features</Keyword>
+          <Keyword>r14_3_v</Keyword>
+        </KeywordList>
+        <CRS>EPSG:4026</CRS>
+        <CRS>CRS:84</CRS>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>28.243865163668804</westBoundLongitude>
+          <eastBoundLongitude>28.262569256838113</eastBoundLongitude>
+          <southBoundLatitude>48.178293841484965</southBoundLatitude>
+          <northBoundLatitude>48.21574468808157</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="CRS:84" minx="28.243865163668804" miny="48.178293841484965" maxx="28.262569256838113" maxy="48.21574468808157"/>
+        <BoundingBox CRS="EPSG:4026" minx="337943.92690000124" miny="188397.73820795305" maxx="342105.3659582436" maxy="189780.1888895193"/>
+        <Style>
+          <Name>drum_perspectiva</Name>
+          <Title>drum_perspectiva</Title>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://data.asd.md/geoserver/public/ows?service=WMS&amp;request=GetLegendGraphic&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=r14_3_v"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1" opaque="0">
+        <Name>situri_emerald_v</Name>
+        <Title>Siturile Emerald</Title>
+        <Abstract/>
+        <KeywordList>
+          <Keyword>features</Keyword>
+          <Keyword>situri_emerald_v</Keyword>
+        </KeywordList>
+        <CRS>EPSG:4026</CRS>
+        <CRS>CRS:84</CRS>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>26.626591865032932</westBoundLongitude>
+          <eastBoundLongitude>30.217863531748645</eastBoundLongitude>
+          <southBoundLatitude>45.45721232549883</southBoundLatitude>
+          <northBoundLatitude>48.494744372949725</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="CRS:84" minx="26.626591865032932" miny="45.45721232549883" maxx="30.217863531748645" maxy="48.494744372949725"/>
+        <BoundingBox CRS="EPSG:4026" minx="36891.41566877719" miny="68904.25968141053" maxx="373118.5891932072" maxy="334383.7209518375"/>
+        <Style>
+          <Name>emerald</Name>
+          <Title>Situri Emerald</Title>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://data.asd.md/geoserver/public/ows?service=WMS&amp;request=GetLegendGraphic&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=situri_emerald_v"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1" opaque="0">
+        <Name>tent_t</Name>
+        <Title>ReÅ£ea TEN-T</Title>
+        <Abstract/>
+        <KeywordList>
+          <Keyword>features</Keyword>
+          <Keyword>tent_t</Keyword>
+        </KeywordList>
+        <CRS>EPSG:4026</CRS>
+        <CRS>CRS:84</CRS>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>26.622034837925316</westBoundLongitude>
+          <eastBoundLongitude>30.017402523862856</eastBoundLongitude>
+          <southBoundLatitude>45.45923028034026</southBoundLatitude>
+          <northBoundLatitude>48.35951529541539</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="CRS:84" minx="26.622034837925316" miny="45.45923028034026" maxx="30.017402523862856" maxy="48.35951529541539"/>
+        <BoundingBox CRS="EPSG:4026" minx="37060.68720000237" miny="68218.18150000088" maxx="358085.08390000276" maxy="319875.8255000012"/>
+        <Style>
+          <Name>public:tent</Name>
+          <Title>ReÅ£ea TEN-T</Title>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://data.asd.md/geoserver/public/ows?service=WMS&amp;request=GetLegendGraphic&amp;format=image%2Fpng&amp;width=20&amp;height=20&amp;layer=tent_t"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+    </Layer>
+  </Capability>
+</WMS_Capabilities>

@@ -5,9 +5,10 @@ import {terrainProfile,configureTerrain,configureWater,heightAt} from './terrain
 export * from './terrain-runtime.js';
 export function drapeGeometry(g,sample=heightAt,maxEdge=55){return drape(g,sample,maxEdge);}
 export async function loadTerrain(scene){const [m,v,p,w]=await Promise.all([fetch('./data/terrain.json').then(r=>r.json()),fetch('./data/terrain.bin').then(r=>r.arrayBuffer()),fetch('./data/bridges.json').then(r=>r.json()),fetch('./data/water-levels.json').then(r=>r.json())]);configureWater(w);const values=new Float32Array(v);configureTerrain(m,values,p.profiles);const material=new T.MeshStandardMaterial({color:'#385448',roughness:1});
- // Independent 1.28 km patches retain the full DEM but can be frustum culled.
- for(let z0=0;z0<m.nz-1;z0+=32)for(let x0=0;x0<m.nx-1;x0+=32){
- const nx=Math.min(33,m.nx-x0),nz=Math.min(33,m.nz-z0),pos=new Float32Array(nx*nz*3),normals=new Float32Array(nx*nz*3),idx=[];
+ // Independent ~1.28 km patches retain the full DEM but can be frustum culled.
+ const patchCells=Math.max(1,Math.round(1280/m.step));
+ for(let z0=0;z0<m.nz-1;z0+=patchCells)for(let x0=0;x0<m.nx-1;x0+=patchCells){
+ const nx=Math.min(patchCells+1,m.nx-x0),nz=Math.min(patchCells+1,m.nz-z0),pos=new Float32Array(nx*nz*3),normals=new Float32Array(nx*nz*3),idx=[];
  for(let z=0;z<nz;z++)for(let x=0;x<nx;x++){const X=x+x0,Z=z+z0,k=z*nx+x,global=Z*m.nx+X;pos[k*3]=m.xmin+X*m.step;pos[k*3+1]=values[global]-.18;pos[k*3+2]=m.zmin+Z*m.step;
  const left=Math.max(0,X-1),right=Math.min(m.nx-1,X+1),up=Math.max(0,Z-1),down=Math.min(m.nz-1,Z+1);const dx=(values[Z*m.nx+right]-values[Z*m.nx+left])/((right-left)*m.step),dz=(values[down*m.nx+X]-values[up*m.nx+X])/((down-up)*m.step),n=Math.hypot(dx,1,dz);normals.set([-dx/n,1/n,-dz/n],k*3);
  if(x<nx-1&&z<nz-1)idx.push(k,k+nx,k+1,k+1,k+nx,k+nx+1);}

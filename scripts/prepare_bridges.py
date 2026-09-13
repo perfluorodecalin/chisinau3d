@@ -1,48 +1,91 @@
-"""Estimate connected bridge decks and approach ramps using OSM topology and saved DEM."""
-import json,math,pathlib,heapq,collections
+"""Project the saved terrain-independent bridge model onto the active DEM."""
+import json
+import math
+import pathlib
+import subprocess
+
 import numpy as np
-ROOT=pathlib.Path(__file__).resolve().parents[1];out=ROOT/'dist/data';meta=json.load(open(out/'terrain.json'));grid=np.fromfile(out/'terrain.bin',dtype='<f4').reshape(meta['nz'],meta['nx'])
-scale=111320*math.cos(math.radians(47.0245))
-def project(p):return [(p['lon']-28.8323)*scale,-(p['lat']-47.0245)*111320]
-def height(x,z):
- u=max(0,min(meta['nx']-1.001,(x-meta['xmin'])/meta['step']));v=max(0,min(meta['nz']-1.001,(z-meta['zmin'])/meta['step']));i,j=int(u),int(v);a,b=u-i,v-j
- return float((grid[j,i]*(1-a)+grid[j,i+1]*a)*(1-b)+(grid[j+1,i]*(1-a)+grid[j+1,i+1]*a)*b)
-D=json.load(open('/workspace/scratch/ac8a7cefa1c4/city.json'))['elements'];ways=[e for e in D if e.get('tags',{}).get('highway') not in (None,'proposed','construction') and e.get('nodes') and e.get('geometry') and e['tags'].get('tunnel') not in ('yes','culvert','flooded')]
-bridges=[e for e in ways if e['tags'].get('bridge') in ('yes','viaduct')];ids={e['id'] for e in bridges};nodes={};adj=collections.defaultdict(list);bridgeNodes=set()
-for e in ways:
- for n,p in zip(e['nodes'],e['geometry']):nodes[n]=project(p)
- for a,b in zip(e['nodes'],e['nodes'][1:]):
-  l=math.dist(nodes[a],nodes[b]);adj[a].append((b,l));adj[b].append((a,l))
- if e['id'] in ids:bridgeNodes.update(e['nodes'])
-# Shared bridge nodes get a common offset; overpass tags do not encode surveyed clearance.
-raiseBy=6.0
-offset={n:raiseBy for n in bridgeNodes};queue=[(-raiseBy,n) for n in bridgeNodes];heapq.heapify(queue)
-while queue:
- neg,n=heapq.heappop(queue);o=-neg
- if o<offset.get(n,0)-1e-8:continue
- for nxt,l in adj[n]:
-  val=o-l*.065
-  if val>max(.01,offset.get(nxt,0)):
-   offset[nxt]=val;heapq.heappush(queue,(-val,nxt))
-models=json.load(open(out/'road-model.json'))['profiles']
-profiles={};stats=collections.Counter()
-for e in ways:
- ns=e['nodes'];isBridge=e['id'] in ids
- if not isBridge and not any(n in offset for n in ns):continue
- pts=[]
- for a,b in zip(ns,ns[1:]):
-  A,B=nodes[a],nodes[b];length=math.dist(A,B);steps=max(1,math.ceil(length/6));ha,hb=height(*A),height(*B);oa,ob=offset.get(a,0),offset.get(b,0)
-  for i in range(steps):
-   t=i/steps;x=A[0]+(B[0]-A[0])*t;z=A[1]+(B[1]-A[1])*t
-   if isBridge:y=ha+(hb-ha)*t+raiseBy
-   else:y=height(x,z)+max(0,oa-length*t*.065,ob-length*(1-t)*.065)
-   pts.append([round(x,3),round(z,3),round(y,3)])
- B=nodes[ns[-1]];pts.append([round(B[0],3),round(B[1],3),round(height(*B)+offset.get(ns[-1],0),3)])
- t=e['tags'];lanes=float(t.get('lanes','0')) if t.get('lanes','0').isdigit() else 0
- widths={'motorway':20,'trunk':17,'primary':14,'secondary':11,'tertiary':9,'residential':6,'living_street':5,'service':4,'footway':1.8,'path':1.5,'steps':2,'cycleway':2,'pedestrian':5}
- try:w=float(t.get('width','0'))
- except:w=0
- w=min(50,w) if w>0 else min(40,lanes*3.2) if lanes>0 else widths.get(t['highway'],5)
- w=models.get(str(e['id']),{}).get('width',w)
- profiles[str(e['id'])]={'points':pts,'bridge':isBridge,'width':w,'name':t.get('name',t.get('loc_name','Mapped bridge')),'highway':t['highway']};stats['bridges' if isBridge else 'approaches']+=1
-(out/'bridges.json').write_text(json.dumps({'profiles':profiles,'clearanceAssumption':raiseBy,'approachGrade':.065,'source':'OSM bridge geometry and shared-node topology; heights and approaches estimated from DEM'},separators=(',',':')));print(dict(stats))
+
+ROOT = pathlib.Path(__file__).resolve().parents[1]
+OUT = ROOT / "dist" / "data"
+MODEL = OUT / "bridge-model.json"
+
+
+def committed(path):
+    result = subprocess.run(
+        ["git", "show", f"HEAD:{path}"], cwd=ROOT, capture_output=True, check=True)
+    return result.stdout
+
+
+def sampler(meta, grid):
+    def height(x, z):
+        u = max(0, min(meta["nx"] - 1.001, (x - meta["xmin"]) / meta["step"]))
+        v = max(0, min(meta["nz"] - 1.001, (z - meta["zmin"]) / meta["step"]))
+        i, j = int(u), int(v)
+        a, b = u - i, v - j
+        return float((grid[j, i] * (1 - a) + grid[j, i + 1] * a) * (1 - b) +
+                     (grid[j + 1, i] * (1 - a) + grid[j + 1, i + 1] * a) * b)
+    return height
+
+
+def make_model():
+    """One-time extraction from the original committed profiles and terrain."""
+    old_meta = json.loads(committed("dist/data/terrain.json"))
+    old_grid = np.frombuffer(committed("dist/data/terrain.bin"), dtype="<f4").reshape(
+        old_meta["nz"], old_meta["nx"])
+    old_height = sampler(old_meta, old_grid)
+    old = json.loads(committed("dist/data/bridges.json"))
+    profiles = {}
+    for identifier, profile in old["profiles"].items():
+        if profile["bridge"]:
+            points = [[point[0], point[1]] for point in profile["points"]]
+        else:
+            points = [[point[0], point[1], round(point[2] - old_height(point[0], point[1]), 4)]
+                      for point in profile["points"]]
+        profiles[identifier] = {
+            "points": points, "bridge": profile["bridge"], "width": profile["width"],
+            "name": profile["name"], "highway": profile["highway"]}
+    model = {"profiles": profiles,
+             "clearanceAssumption": old["clearanceAssumption"],
+             "approachGrade": old["approachGrade"],
+             "source": "Saved OSM bridge geometry, classifications and shared-node topology; terrain-independent offsets extracted from the original profiles"}
+    MODEL.write_text(json.dumps(model, ensure_ascii=False, separators=(",", ":")), "utf-8")
+    return model
+
+
+def main():
+    model = json.loads(MODEL.read_text("utf-8")) if MODEL.exists() else make_model()
+    meta = json.loads((OUT / "terrain.json").read_text("utf-8"))
+    grid = np.fromfile(OUT / "terrain.bin", dtype="<f4").reshape(meta["nz"], meta["nx"])
+    height = sampler(meta, grid)
+    profiles = {}
+    bridges = approaches = 0
+    for identifier, source in model["profiles"].items():
+        raw = source["points"]
+        if source["bridge"]:
+            bridges += 1
+            distances = [0.0]
+            for a, b in zip(raw, raw[1:]):
+                distances.append(distances[-1] + math.dist(a[:2], b[:2]))
+            total = distances[-1]
+            start = height(*raw[0][:2]) + model["clearanceAssumption"]
+            end = height(*raw[-1][:2]) + model["clearanceAssumption"]
+            points = [[point[0], point[1], round(start + (end - start) *
+                      (distance / total if total else 0), 3)]
+                      for point, distance in zip(raw, distances)]
+        else:
+            approaches += 1
+            points = [[point[0], point[1], round(height(*point[:2]) + point[2], 3)]
+                      for point in raw]
+        profiles[identifier] = {**source, "points": points}
+    result = {"profiles": profiles,
+              "clearanceAssumption": model["clearanceAssumption"],
+              "approachGrade": model["approachGrade"],
+              "source": model["source"] + "; heights projected onto " + meta["source"]}
+    (OUT / "bridges.json").write_text(
+        json.dumps(result, ensure_ascii=False, separators=(",", ":")), "utf-8")
+    print({"bridges": bridges, "approaches": approaches})
+
+
+if __name__ == "__main__":
+    main()

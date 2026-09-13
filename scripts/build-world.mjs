@@ -75,7 +75,7 @@ for(const needle of ['Ismail','Mihai Viteazul','Renașterii','Miorița']){
  if(p){const pt=p.points[Math.floor(p.points.length/2)];bridges.push({name:p.name,location:[latitude(pt[1]),longitude(pt[0])]});}
 }
 const heightFile=await asset('heights',await fs.readFile(new URL('data/terrain.bin',root)));
-const manifest={version:WORLD_VERSION,cellSize:500,attribution:'© OpenStreetMap contributors (ODbL); Mapzen Terrain Tiles, USGS and EU-DEM. Heights, façades, furniture and bridge clearance include estimates. See README.md.',terrain,heightFile,materials,chunks,pois:realism.pois,lampHeads:atmosphere.heads,bridges,details:{trees:details.trees,benches:details.benches}};
+const manifest={version:WORLD_VERSION,cellSize:500,attribution:`© OpenStreetMap contributors (ODbL); ${terrain.meta.attribution}. Vertical datum/unit are inferred; façades, furniture and bridge clearance include estimates. See README.md.`,terrain,heightFile,materials,chunks,pois:realism.pois,lampHeads:atmosphere.heads,bridges,details:{trees:details.trees,benches:details.benches}};
 // Publish the manifest last. Interrupted builds leave the previous build usable.
 if(inputHash!==await worldInputHash())throw Error('World inputs changed during compilation; rerun the build.');
 manifest.inputHash=inputHash;

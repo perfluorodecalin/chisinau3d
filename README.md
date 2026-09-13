@@ -10,7 +10,7 @@ The 30 saved source sections cover latitude 46.975–47.100 and longitude 28.740
 
 - OSM building ways and multipolygon relations; inner rings become courtyard holes.
 - Relation-member building ways excluded when preparing the snapshot to avoid double geometry.
-- Local metre projection around 47.0245 N, 28.8323 E; a real 40 m terrain grid resampled from a bounded 16-tile Mapzen/AWS Terrarium dataset.
+- Local metre projection around 47.0245 N, 28.8323 E; a 20 m runtime terrain grid bilinearly resampled from the saved 5 m Geoportal INDS / Geodata DTM 2020 Centru mosaic.
 - Explicit height tags take priority. Floor-derived height uses 3 m per floor plus a roof allowance (explicit roof height, roof floors × 3 m, or 1.5 m).
 - Otherwise deterministic use / footprint-based defaults: houses 6–9 m; apartments 15–27 m; industry 8 m; small ancillary structures 3 m; religious buildings 18 m; commercial / office / hotel / hospital 15 m; generic buildings 6–12 m.
 - Height tags are mapper contributions, not necessarily surveyed. Estimates are heuristic, not learned or satellite-derived. Missing footprints remain absent. Façades and roofs are simplified extrusions. No claim of photogrammetric accuracy.
@@ -33,6 +33,10 @@ For local play, run `npm ci` and `npm run dev` from the project folder, then ope
 
 Serve `dist/` with any static HTTP server. Browser requires WebGL2. Dependencies are vendored and pinned. Run `npm ci` and `npm run build` before static hosting; `npm run dev` builds missing or stale world assets automatically. `scripts/prepare_snapshot.py SNAPSHOT.json` splits an already downloaded Overpass response; it makes no network requests.
 
+## Supplementary INDS data
+
+The [Geoportal INDS investigation](research/inds/README.md) documents downloaded road surfaces, roughness, RoadLinks and traffic observations, and lane-count/width availability. The [DTM 2020 workflow](research/inds-terrain/README.md) obtains and assesses the public 5 m numeric terrain; its validated 20 m derivative is incorporated in the game. Other local research samples remain unincorporated.
+
 ## Attribution
 
 Geographic data © OpenStreetMap contributors, licensed under ODbL: https://www.openstreetmap.org/copyright . Original OSM metadata is retained in the JSON files. Three.js is MIT-licensed; see `dist/vendor/LICENSE`.
@@ -51,13 +55,15 @@ Saved OSM tree nodes, tree rows, bench nodes, sidewalks and crossings are bundle
 
 ## Terrain, bridges and time of day
 
-Terrain Tiles from Mapzen / AWS Open Data are sampled at 40 m spacing in local metre coordinates. Terrain coverage spans about 24–243 m above sea level, relative to the 86.17 m local origin datum. The terrain and metadata are bundled in `terrain.bin` and `terrain.json`; no runtime terrain-server calls occur. Water surfaces are levelled to median local DEM elevation; corresponding terrain cells are lowered slightly. Buildings use level bases and foundation extensions, while roads, vegetation and furniture follow the terrain. This is a city-scale model, not a surveyed road surface.
+Geoportal INDS / Geodata DTM 2020 Centru is acquired as 20 bounded GeoTIFF files at its native 5 m resolution in MOLDREF99 / Moldova TM (EPSG:4026). The game bundles a 20 m bilinear derivative in local metre coordinates. Terrain coverage spans about 25–244 m above the inferred datum, relative to the 85.62 m elevation at the game origin. Acquisition is offline at runtime; the site makes no terrain-server requests. Water surfaces are relevelled to median DTM elevation and the corresponding cells are lowered slightly. Buildings, roads, vegetation and furniture follow the new terrain.
+
+The source service does not encode a credible elevation-band unit or vertical CRS. Values are treated as metres in the Baltic 1977 normal-height system. This is an explicit inference: the provider map labels DTM values as metres, Moldovan geodetic literature identifies Baltic 1977 normal heights as the adopted national reference, and comparison with the previous EGM96-derived terrain has a mean difference of 0.59 m. The unshifted source values are retained; no corrective vertical offset was invented. This remains a terrain model rather than a surveyed road surface.
 
 282 existing OSM bridge ways are represented as decks with railings and approximate piers, excluding proposed bridge roads. 1,920 connected approach ways carry elevations tapering through shared OSM nodes, so unrelated roads beneath overpasses are not raised by proximity. Heights are estimates: bridge-node elevations use a 6 m offset and linearly interpolated deck segments; connected approaches taper this offset by 0.065 m per metre. Underlying DEM slope contributes additional grade. Car height selection retains deck/ground separation, follows approach ramps, and checks vertical obstacle intervals so water beneath a bridge does not block driving over it. Tunnels are not reconstructed.
 
 All mapped paved motor-vehicle road classes qualify for generated lighting, regardless of `lit` tags. Positions are placed beside the road edge and tested against other carriageways and nearby generated lamps. The time slider, day/dusk controls, and header night/day toggle work with terrain lighting, nearby lamp lights and vehicle headlights. Lamp positions are inferred, not individually mapped.
 
-Elevation attribution: Mapzen Terrain Tiles; SRTM/GMTED2010 courtesy of the U.S. Geological Survey; European terrain produced using Copernicus data and information funded by the European Union (EU-DEM layers). Source: https://registry.opendata.aws/terrain-tiles/ . Full provider attribution: https://github.com/tilezen/joerd/blob/master/docs/attribution.md .
+Elevation source: Agenția Geodezie, Cartografie și Cadastru, DTM 2020 Centru, discovered through Geoportal INDS and downloaded from https://geodata.gov.md/geoserver/DTM/wcs . The catalogue states no conditions on access/use and no public-access limitations. Source values, vertical interpretation, acquisition checksums and quality comparison are documented in [the terrain research report](research/inds-terrain/README.md).
 
 
 ## Driving and optimization pass

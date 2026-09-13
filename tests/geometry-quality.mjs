@@ -16,7 +16,11 @@ const read=name=>fs.readFile(new URL('../dist/data/'+name,import.meta.url));
 const json=async name=>JSON.parse(await read(name));
 globalThis.fetch=async url=>({ok:true,json:()=>json(url.split('/').at(-1))});
 await loadRoadModel();
-const buffer=await read('terrain.bin'),meta=await json('terrain.json'),bridges=await json('bridges.json');
+const buffer=await read('terrain.bin'),meta=await json('terrain.json'),bridges=await json('bridges.json'),bridgeModel=await json('bridge-model.json');
+assert.equal(buffer.byteLength,meta.nx*meta.nz*4,'terrain metadata matches saved Float32 grid');
+assert.deepEqual(Object.keys(bridges.profiles).sort(),Object.keys(bridgeModel.profiles).sort(),'every saved bridge/approach survives terrain reprojection');
+assert.equal(Object.values(bridges.profiles).filter(p=>p.bridge).length,282);
+assert.equal(Object.values(bridges.profiles).filter(p=>!p.bridge).length,1920);
 configureTerrain(meta,new Float32Array(buffer.buffer.slice(buffer.byteOffset,buffer.byteOffset+buffer.byteLength)),bridges.profiles);
 let checked=0;
 function compare(geometry,sample=heightAt,edge=12){

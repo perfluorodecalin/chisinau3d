@@ -1,3 +1,5 @@
 node_modules/
 .local/
 dist/world/
+__pycache__/
+*.pyc

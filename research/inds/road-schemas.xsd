@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:public="https://data.asd.md/geoserver/public" xmlns:wfs="http://www.opengis.net/wfs/2.0" elementFormDefault="qualified" targetNamespace="https://data.asd.md/geoserver/public">
+  <xsd:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="http://data.asd.md/geoserver/schemas/gml/3.2.1/gml.xsd"/>
+  <xsd:complexType name="RoadLinkType">
+    <xsd:complexContent>
+      <xsd:extension base="gml:AbstractFeatureType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0" name="id" nillable="true" type="xsd:int"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="geom" nillable="true" type="gml:MultiCurvePropertyType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="currentStatus" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="RoadLink" substitutionGroup="gml:AbstractFeature" type="public:RoadLinkType"/>
+  <xsd:complexType name="26559a1a-278c-11ed-9927-931557eabfd2Type">
+    <xsd:complexContent>
+      <xsd:extension base="gml:AbstractFeatureType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0" name="geom" nillable="true" type="gml:MultiCurvePropertyType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="numar" nillable="true" type="xsd:string"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="denumirea" nillable="true" type="xsd:string"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="imbracamintea" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="26559a1a-278c-11ed-9927-931557eabfd2" substitutionGroup="gml:AbstractFeature" type="public:26559a1a-278c-11ed-9927-931557eabfd2Type"/>
+  <xsd:complexType name="839129f4-2789-11ed-9963-a7bda0d10e71Type">
+    <xsd:complexContent>
+      <xsd:extension base="gml:AbstractFeatureType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0" name="geom" nillable="true" type="gml:MultiCurvePropertyType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="iri" nillable="true" type="xsd:decimal"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="lungimea" nillable="true" type="xsd:decimal"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="839129f4-2789-11ed-9963-a7bda0d10e71" substitutionGroup="gml:AbstractFeature" type="public:839129f4-2789-11ed-9963-a7bda0d10e71Type"/>
+</xsd:schema>

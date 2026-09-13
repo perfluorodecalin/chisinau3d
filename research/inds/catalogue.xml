@@ -1,0 +1,1630 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<csw:GetRecordsResponse xmlns:csw="http://www.opengis.net/cat/csw/2.0.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/cat/csw/2.0.2 http://schemas.opengis.net/csw/2.0.2/CSW-discovery.xsd">
+  <csw:SearchStatus timestamp="2026-09-12T17:45:34.123Z" />
+  <csw:SearchResults numberOfRecordsMatched="65" numberOfRecordsReturned="65" elementSet="full" nextRecord="0">
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>db8f1ab6-3443-4131-8803-71505da2489d</dc:identifier>
+      <dc:date>2026-05-27T07:32:23.263Z</dc:date>
+      <dc:title>Îmbrăcămintea rutieră</dc:title>
+      <dc:type>dataset</dc:type>
+      <dc:subject>Rețele de transport</dc:subject>
+      <dc:subject>road</dc:subject>
+      <dc:subject>drum</dc:subject>
+      <dc:subject>drumuri</dc:subject>
+      <dc:subject>public</dc:subject>
+      <dc:subject>surface</dc:subject>
+      <dc:subject>category</dc:subject>
+      <dc:subject>rutier</dc:subject>
+      <dc:subject>îmbrăcăminte</dc:subject>
+      <dc:subject>transportation</dc:subject>
+      <dc:format>PostgreSQL / PostGIS</dc:format>
+      <dc:format>Text</dc:format>
+      <dct:abstract>Setul de date Îmbrăcămintea rutieră reprezintă un tabel atributiv relaționat cu setul de date RoadLinks (Segmente de drum). Conține informația despre caracteristicile suprafeței drumurilor publice.</dct:abstract>
+      <dc:description>Setul de date Îmbrăcămintea rutieră reprezintă un tabel atributiv relaționat cu setul de date RoadLinks (Segmente de drum). Conține informația despre caracteristicile suprafeței drumurilor publice.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:language>rum</dc:language>
+      <dc:source />
+      <dc:format>PostgreSQL / PostGIS</dc:format>
+      <dc:format>Text</dc:format>
+      <ows:BoundingBox crs="urn:ogc:def:crs:EPSG:6.6:4326">
+        <ows:LowerCorner>45.462 26.618</ows:LowerCorner>
+        <ows:UpperCorner>48.486 30.132</ows:UpperCorner>
+      </ows:BoundingBox>
+      <dc:URI name="" description="">http://data.asd.md/geoserver/public/wms</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>8d00386d-a343-4623-a35c-35f143296655</dc:identifier>
+      <dc:date>2025-07-04T14:53:00.441Z</dc:date>
+      <dc:title>Segmente de drum</dc:title>
+      <dc:type>dataset</dc:type>
+      <dc:subject>Rețele de transport</dc:subject>
+      <dc:subject>segment</dc:subject>
+      <dc:subject>drum</dc:subject>
+      <dc:subject>drumuri</dc:subject>
+      <dc:subject>legături</dc:subject>
+      <dc:subject>transportation</dc:subject>
+      <dc:format>PostgreSQL / PostGIS</dc:format>
+      <dc:format>ESRI Shapefile</dc:format>
+      <dc:format>OGC GeoPackage</dc:format>
+      <dct:abstract>Segmente de drum. Set de date de tip linie care reprezintă segmentele de drumuri publice între două noduri de drum public. Segmentele de drum descriu geometria și conectivitatea rețelei de drumuri publice care formează o rețea.
+Drumurile publice – drumuri de utilitate publică destinate circulaţiei rutiere şi pietonale în scopul satisfacerii cerinţelor generale de transport rutier ale economiei naţionale şi ale populaţiei şi de apărare a ţării. Aceste drumuri sînt proprietate publică a statului şi asigură principalele legături rutiere internaţionale, legătura între capitala ţării şi oraşele-reşedinţă, municipiile şi obiectivele de importanţă republicană, precum şi legătura între ele.</dct:abstract>
+      <dc:description>Segmente de drum. Set de date de tip linie care reprezintă segmentele de drumuri publice între două noduri de drum public. Segmentele de drum descriu geometria și conectivitatea rețelei de drumuri publice care formează o rețea.
+Drumurile publice – drumuri de utilitate publică destinate circulaţiei rutiere şi pietonale în scopul satisfacerii cerinţelor generale de transport rutier ale economiei naţionale şi ale populaţiei şi de apărare a ţării. Aceste drumuri sînt proprietate publică a statului şi asigură principalele legături rutiere internaţionale, legătura între capitala ţării şi oraşele-reşedinţă, municipiile şi obiectivele de importanţă republicană, precum şi legătura între ele.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:language>rum</dc:language>
+      <dc:source>Datele au fost colectate cu ajutorul GPS Pathfinder Pro XRS.</dc:source>
+      <dc:format>PostgreSQL / PostGIS</dc:format>
+      <dc:format>ESRI Shapefile</dc:format>
+      <dc:format>OGC GeoPackage</dc:format>
+      <ows:BoundingBox crs="urn:ogc:def:crs:EPSG:6.6:4326">
+        <ows:LowerCorner>45.462 26.618</ows:LowerCorner>
+        <ows:UpperCorner>48.486 30.132</ows:UpperCorner>
+      </ows:BoundingBox>
+      <dc:URI protocol="" name="RoadLink" description="RoadLink">http://data.asd.md/geoserver/public/wms</dc:URI>
+      <dc:URI protocol="image/jpeg">https://geoportalinds.gov.md/geonetwork/srv/api/records/8d00386d-a343-4623-a35c-35f143296655/attachments/roadlin.jpeg</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>f594ed39-d9f4-45f7-b1b1-28b542fa2bc9</dc:identifier>
+      <dc:date>2025-07-04T14:56:38.592Z</dc:date>
+      <dc:title>Segmente de drum</dc:title>
+      <dc:type>dataset</dc:type>
+      <dc:subject>Rețele de transport</dc:subject>
+      <dc:subject>colecție</dc:subject>
+      <dc:subject>drum</dc:subject>
+      <dc:subject>drumuri</dc:subject>
+      <dc:subject>segment</dc:subject>
+      <dc:subject>segmente</dc:subject>
+      <dc:subject>transportation</dc:subject>
+      <dc:format>PostgreSQL / PostGIS</dc:format>
+      <dc:format>ESRI Shapefile</dc:format>
+      <dc:format>OGC GeoPackage</dc:format>
+      <dct:abstract>Colecție de segmente de drum. Set de date de tip linie care reprezintă Colecții de segmente de drumuri publice (RoadLinks) ce constituie o cale continuă în cadrul rețelei de drumuri fără branșamente.
+Drumurile publice – drumuri de utilitate publică destinate circulaţiei rutiere şi pietonale în scopul satisfacerii cerinţelor generale de transport rutier ale economiei naţionale şi ale populaţiei şi de apărare a ţării. Aceste drumuri sînt proprietate publică a statului şi asigură principalele legături rutiere internaţionale, legătura între capitala ţării şi oraşele-reşedinţă, municipiile şi obiectivele de importanţă republicană, precum şi legătura între ele.</dct:abstract>
+      <dc:description>Colecție de segmente de drum. Set de date de tip linie care reprezintă Colecții de segmente de drumuri publice (RoadLinks) ce constituie o cale continuă în cadrul rețelei de drumuri fără branșamente.
+Drumurile publice – drumuri de utilitate publică destinate circulaţiei rutiere şi pietonale în scopul satisfacerii cerinţelor generale de transport rutier ale economiei naţionale şi ale populaţiei şi de apărare a ţării. Aceste drumuri sînt proprietate publică a statului şi asigură principalele legături rutiere internaţionale, legătura între capitala ţării şi oraşele-reşedinţă, municipiile şi obiectivele de importanţă republicană, precum şi legătura între ele.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:language>rum</dc:language>
+      <dc:source>Datele au fost colectate cu ajutorul GPS Pathfinder Pro XRS.</dc:source>
+      <dc:format>PostgreSQL / PostGIS</dc:format>
+      <dc:format>ESRI Shapefile</dc:format>
+      <dc:format>OGC GeoPackage</dc:format>
+      <ows:BoundingBox crs="urn:ogc:def:crs:EPSG:6.6:4326">
+        <ows:LowerCorner>45.462 26.618</ows:LowerCorner>
+        <ows:UpperCorner>48.486 30.132</ows:UpperCorner>
+      </ows:BoundingBox>
+      <dc:URI protocol="" name="RoadLinkSequence" description="RoadLinkSequence">http://data.asd.md/geoserver/public/wms</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>08cba7d7-6f94-4249-900f-cdce406281ec</dc:identifier>
+      <dc:date>2026-08-24T10:50:35.553Z</dc:date>
+      <dc:title>Modificările acoperirii terestre, anul 2000-2018</dc:title>
+      <dc:type>dataset</dc:type>
+      <dc:subject>Acoperire terestră</dc:subject>
+      <dc:subject>Acoperire terestră</dc:subject>
+      <dc:subject>European</dc:subject>
+      <dc:subject>Domeniul Observarea Pământului și mediu</dc:subject>
+      <dc:subject>Acoperire terestră</dc:subject>
+      <dc:subject>environment</dc:subject>
+      <dc:subject>planningCadastre</dc:subject>
+      <dc:format>ESRI Shapefile</dc:format>
+      <dct:abstract>Setul de date conține modificările CLC care caracterizează acele modificări ale acoperirii terenurilor cu  o periodicitate mai mare decât cea anuală/stațională. Extinderea urbană, plantarea de copaci pentru a înlocui terenurile arabile, crearea unui nou rezervor, ect. - astfel de modificări pe termen lung ale acoperirii terenurilor sunt cartografiate ca modificări CLC. Pe de altă parte, modificările tranzitorii și modificările periodice pe termen scurt sunt fenomene care nu trebuie cartografiate ca modificări CLC.</dct:abstract>
+      <dc:description>Setul de date conține modificările CLC care caracterizează acele modificări ale acoperirii terenurilor cu  o periodicitate mai mare decât cea anuală/stațională. Extinderea urbană, plantarea de copaci pentru a înlocui terenurile arabile, crearea unui nou rezervor, ect. - astfel de modificări pe termen lung ale acoperirii terenurilor sunt cartografiate ca modificări CLC. Pe de altă parte, modificările tranzitorii și modificările periodice pe termen scurt sunt fenomene care nu trebuie cartografiate ca modificări CLC.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:language>rum</dc:language>
+      <dc:source>Abordarea standard pentru crearea bazei de date CLC s-a bazat pe interpretarea vizuală a imaginilor satelitare: Image2000, Image2018, hărți topografice la scara 1:50000, ortoimagini 2007, 2016, 2020, 2021, în conformitate cu metodologia CLC acceptată, oferind date vectoriale pe o scară de 1: 100.000, lățimea minimă a poligonului 100m, suprafața minimă de cartografiere de 25 ha pentru baza acoperirii terenului și 5 ha pentru baza modificărilor. Nomenclatura CLC definită include 23 de clase, fiecare descriind o acoperire diferită a terenului.</dc:source>
+      <dc:format>ESRI Shapefile</dc:format>
+      <ows:BoundingBox crs="urn:ogc:def:crs:EPSG:6.6:4326">
+        <ows:LowerCorner>45.462 26.618</ows:LowerCorner>
+        <ows:UpperCorner>48.486 30.132</ows:UpperCorner>
+      </ows:BoundingBox>
+      <dc:URI protocol="image/png">https://geoportalinds.gov.md/geonetwork/srv/api/records/08cba7d7-6f94-4249-900f-cdce406281ec/attachments/Corine2018data.png</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>d5e8127c-c5e6-4301-a439-1c163a39de8c</dc:identifier>
+      <dc:date>2026-08-24T10:36:38.244Z</dc:date>
+      <dc:title>Acoperire terestră, anul 2018 pentru întreg teritoriul R.Moldova</dc:title>
+      <dc:type>dataset</dc:type>
+      <dc:subject>Acoperire terestră</dc:subject>
+      <dc:subject>Acoperirea terestră</dc:subject>
+      <dc:subject>European</dc:subject>
+      <dc:subject>Domeniul Observarea Pământului și mediu</dc:subject>
+      <dc:subject>Acoperire terestră</dc:subject>
+      <dc:subject>environment</dc:subject>
+      <dc:format>ESRI Shapefile</dc:format>
+      <dct:abstract>CLC este o bază de date digitală privind starea și modificările acoperirii suprafeței terestre a Republicii Moldova, elaborată, în conformitate cu nomenclatura și metodologia standardizată CORINE, care asigură coerența și omogenitatea datelor la nivelul întregii Uniuni Europene.
+Nomenclatura standard CLC include 44 de clase de acoperire a terenului.  Acestea sunt grupate într-o ierarhie pe trei niveluri. În Republica Moldova acoperirea terestră este caracterizată de 23 din 44 de clase CORINE LAND COVER nomenclator. Principala acoperire a solului în proiectul CLC în Republica Moldova reprezintă  terenurile agricole (pășuni, teren arabil și modele complexe de cultivare). 
+Unitatea minimă de cartografiere este 25 ha; lățimea minimă a elemetelor liniare este 100m.
+Unitate de cartografiere minimă pentru cartografierea modificării: 5 hectare; modificările mai mici sunt generalizate.
+Baza de date CLC conține date privind ocuparea terenurilor pentru anii de referință 2000-2018, precum și date privind modificările de acoperire a terenurilor între anii de referință menționați.</dct:abstract>
+      <dc:description>CLC este o bază de date digitală privind starea și modificările acoperirii suprafeței terestre a Republicii Moldova, elaborată, în conformitate cu nomenclatura și metodologia standardizată CORINE, care asigură coerența și omogenitatea datelor la nivelul întregii Uniuni Europene.
+Nomenclatura standard CLC include 44 de clase de acoperire a terenului.  Acestea sunt grupate într-o ierarhie pe trei niveluri. În Republica Moldova acoperirea terestră este caracterizată de 23 din 44 de clase CORINE LAND COVER nomenclator. Principala acoperire a solului în proiectul CLC în Republica Moldova reprezintă  terenurile agricole (pășuni, teren arabil și modele complexe de cultivare). 
+Unitatea minimă de cartografiere este 25 ha; lățimea minimă a elemetelor liniare este 100m.
+Unitate de cartografiere minimă pentru cartografierea modificării: 5 hectare; modificările mai mici sunt generalizate.
+Baza de date CLC conține date privind ocuparea terenurilor pentru anii de referință 2000-2018, precum și date privind modificările de acoperire a terenurilor între anii de referință menționați.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:language>rum</dc:language>
+      <dc:source>Abordarea standard pentru crearea bazei de date CLC s-a bazat pe interpretarea vizuală a imaginilor satelitare: Image2000, Image2018, hărți topografice la scara 1:50000, ortoimagini 2007, 2016, 2020, 2021, în conformitate cu metodologia CLC acceptată, oferind date vectoriale pe o scară de 1: 100.000, lățimea minimă a poligonului 100m, suprafața minimă de cartografiere de 25 ha pentru baza acoperirii terenului și 5 ha pentru baza modificărilor. Nomenclatura CLC definită include 23 de clase, fiecare descriind o acoperire diferită a terenului.</dc:source>
+      <dc:format>ESRI Shapefile</dc:format>
+      <ows:BoundingBox crs="urn:ogc:def:crs:EPSG:6.6:4326">
+        <ows:LowerCorner>45.462 26.618</ows:LowerCorner>
+        <ows:UpperCorner>48.486 30.132</ows:UpperCorner>
+      </ows:BoundingBox>
+      <dc:URI protocol="" name="CLC 2018">https://geodata.gov.md</dc:URI>
+      <dc:URI protocol="image/png">https://geoportalinds.gov.md/geonetwork/srv/api/records/d5e8127c-c5e6-4301-a439-1c163a39de8c/attachments/Corine2018data.png</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>8f9a93b8-b468-4d9b-9420-2d9bec19061d</dc:identifier>
+      <dc:date>2025-07-04T15:04:49.813Z</dc:date>
+      <dc:title>Numărul de benzi</dc:title>
+      <dc:type>dataset</dc:type>
+      <dc:subject>Rețele de transport</dc:subject>
+      <dc:subject>road</dc:subject>
+      <dc:subject>drum</dc:subject>
+      <dc:subject>drumuri</dc:subject>
+      <dc:subject>public</dc:subject>
+      <dc:subject>număr</dc:subject>
+      <dc:subject>bandă</dc:subject>
+      <dc:subject>benzi</dc:subject>
+      <dc:subject>circulație</dc:subject>
+      <dc:subject>lanes</dc:subject>
+      <dc:subject>lane</dc:subject>
+      <dc:subject>number</dc:subject>
+      <dc:subject>transportation</dc:subject>
+      <dc:format>PostgreSQL / PostGIS</dc:format>
+      <dc:format>Text</dc:format>
+      <dct:abstract>Setul de date Numărul de benzi reprezintă un tabel atributiv relaționat cu setul de date RoadLinks (Segmente de drum). Conține informația despre numărul de benzi de circulație ale drumurilor publice.</dct:abstract>
+      <dc:description>Setul de date Numărul de benzi reprezintă un tabel atributiv relaționat cu setul de date RoadLinks (Segmente de drum). Conține informația despre numărul de benzi de circulație ale drumurilor publice.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:language>rum</dc:language>
+      <dc:source />
+      <dc:format>PostgreSQL / PostGIS</dc:format>
+      <dc:format>Text</dc:format>
+      <ows:BoundingBox crs="urn:ogc:def:crs:EPSG:6.6:4326">
+        <ows:LowerCorner>45.462 26.618</ows:LowerCorner>
+        <ows:UpperCorner>48.486 30.132</ows:UpperCorner>
+      </ows:BoundingBox>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>c551cc09-deea-4086-9b5b-5e3038e94874</dc:identifier>
+      <dc:date>2025-07-04T15:02:49.042Z</dc:date>
+      <dc:title>Clasificarea funcțională a drumului</dc:title>
+      <dc:type>dataset</dc:type>
+      <dc:subject>Rețele de transport</dc:subject>
+      <dc:subject>road</dc:subject>
+      <dc:subject>drum</dc:subject>
+      <dc:subject>drumuri</dc:subject>
+      <dc:subject>public</dc:subject>
+      <dc:subject>functional</dc:subject>
+      <dc:subject>clasificare</dc:subject>
+      <dc:subject>class</dc:subject>
+      <dc:subject>transportation</dc:subject>
+      <dc:format>PostgreSQL / PostGIS</dc:format>
+      <dc:format>Text</dc:format>
+      <dct:abstract>Setul de date Clasificarea funcțională a drumului reprezintă un tabel atributiv relaționat cu setul de date RoadLinks (Segmente de drum). Conține informația despre clasificarea drumurilor publice în baza în baza importanței pentru rețeaua națională de drumuri publice.</dct:abstract>
+      <dc:description>Setul de date Clasificarea funcțională a drumului reprezintă un tabel atributiv relaționat cu setul de date RoadLinks (Segmente de drum). Conține informația despre clasificarea drumurilor publice în baza în baza importanței pentru rețeaua națională de drumuri publice.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:language>rum</dc:language>
+      <dc:source />
+      <dc:format>PostgreSQL / PostGIS</dc:format>
+      <dc:format>Text</dc:format>
+      <ows:BoundingBox crs="urn:ogc:def:crs:EPSG:6.6:4326">
+        <ows:LowerCorner>45.462 26.618</ows:LowerCorner>
+        <ows:UpperCorner>48.486 30.132</ows:UpperCorner>
+      </ows:BoundingBox>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>76a54420-d0d9-4b73-8b96-05492e61d29e</dc:identifier>
+      <dc:date>2023-12-20T11:58:01.851Z</dc:date>
+      <dc:title>Servitute (WMS)</dc:title>
+      <dc:type>service</dc:type>
+      <dc:subject>Servicii de utilitate publică și servicii publice</dc:subject>
+      <dc:subject>Utilizarea terenului</dc:subject>
+      <dc:subject>Cale de acces</dc:subject>
+      <dc:subject>Cale de iesire</dc:subject>
+      <dc:subject>Servitute</dc:subject>
+      <dc:subject>Servicii de procesare geografică – metadate</dc:subject>
+      <dc:subject>Servicii de procesare geografică – aspecte spațiale</dc:subject>
+      <dc:subject>Serviciu de gestionare a modelelor geografice/a informațiilor</dc:subject>
+      <dct:modified>2022-02-01</dct:modified>
+      <dct:abstract>Cale de acces auto și pietonală pe care proprietarul o cedează spre folosința comuna proprietarilor aflați dincolo de proprietatea sa și care nu dispun de o altă cale de acces terestru la proprietate.</dct:abstract>
+      <dc:description>Cale de acces auto și pietonală pe care proprietarul o cedează spre folosința comuna proprietarilor aflați dincolo de proprietatea sa și care nu dispun de o altă cale de acces terestru la proprietate.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:URI protocol="OGC:WMS" name="s0100_servitude" description="Servitute mun. Chisinău">https://gislocal.md/geoserver/apl/wms</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>43f4f18c-5920-42fd-877c-ed0e27cb07c4</dc:identifier>
+      <dc:date>2023-12-20T12:05:34.006Z</dc:date>
+      <dc:title>Control funciar mun. Chișinău</dc:title>
+      <dc:type>dataset</dc:type>
+      <dc:subject>Zone de administrare/restricție/reglementare și unități de raportare</dc:subject>
+      <dc:subject>Utilizarea terenului</dc:subject>
+      <dc:subject>Unități statistice</dc:subject>
+      <dc:subject>Control funciar</dc:subject>
+      <dc:subject>Local</dc:subject>
+      <dc:subject>Regional</dc:subject>
+      <dc:subject>planningCadastre</dc:subject>
+      <dc:format>OGC:OWS-C</dc:format>
+      <dct:abstract>Controlul funciar este asigurarea utilizării conforme a terenurilor municipale și a calității procesului de planificare și dezvoltare urbană sustenabilă a municipiului Chișinău.</dct:abstract>
+      <dc:description>Controlul funciar este asigurarea utilizării conforme a terenurilor municipale și a calității procesului de planificare și dezvoltare urbană sustenabilă a municipiului Chișinău.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:language>rum</dc:language>
+      <dc:source>Set de date creat și menținut în conformitate cu Decizia Consiliului Municipal Chișinău nr. 3/23 din 02.04.2013 și prevederile Codului funciar nr.Nr. 828 din 25.12.1991</dc:source>
+      <dc:format>OGC:OWS-C</dc:format>
+      <ows:BoundingBox crs="urn:ogc:def:crs:EPSG:6.6:4326">
+        <ows:LowerCorner>46.9249 28.6817</ows:LowerCorner>
+        <ows:UpperCorner>47.1159 29.0072</ows:UpperCorner>
+      </ows:BoundingBox>
+      <dc:URI protocol="image/jpeg">https://geoportalinds.gov.md/geonetwork/srv/api/records/43f4f18c-5920-42fd-877c-ed0e27cb07c4/attachments/DATASET.jpg</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>62ad0015-812b-4114-91b2-6dda4d61d8e7</dc:identifier>
+      <dc:date>2023-12-20T12:05:43.683Z</dc:date>
+      <dc:title>Control funciar mun. Chișinău (WFS)</dc:title>
+      <dc:type>service</dc:type>
+      <dc:subject>Utilizarea terenului</dc:subject>
+      <dc:subject>Zone de administrare/restricție/reglementare și unități de raportare</dc:subject>
+      <dc:subject>Unități statistice</dc:subject>
+      <dc:subject>Control funciar</dc:subject>
+      <dc:subject>Servicii de procesare geografică – metadate</dc:subject>
+      <dc:subject>Servicii de procesare geografică – aspecte spațiale</dc:subject>
+      <dc:subject>Serviciu de gestionare a modelelor geografice/a informațiilor</dc:subject>
+      <dct:abstract>Controlul funciar este asigurarea calității procesului de planificare și dezvoltare urbană sustenabilă a municipiului Chișinău.</dct:abstract>
+      <dc:description>Controlul funciar este asigurarea calității procesului de planificare și dezvoltare urbană sustenabilă a municipiului Chișinău.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:URI protocol="OGC:WFS" name="apl:s0100_control_funciar" description="Control funciar mun. Chișinău">https://gislocal.md/geoserver/apl/wfs</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>1d1b5f2b-1e30-4040-9f12-7984bda1e6f5</dc:identifier>
+      <dc:date>2023-12-20T11:58:07.197Z</dc:date>
+      <dc:title>Servitute (WFS)</dc:title>
+      <dc:type>service</dc:type>
+      <dc:subject>Servicii de utilitate publică și servicii publice</dc:subject>
+      <dc:subject>Utilizarea terenului</dc:subject>
+      <dc:subject>Cale de acces</dc:subject>
+      <dc:subject>Cale de iesire</dc:subject>
+      <dc:subject>Servitute</dc:subject>
+      <dct:modified>2022-02-01</dct:modified>
+      <dct:abstract>Cale de acces auto și pietonală pe care proprietarul o cedează spre folosința comuna proprietarilor aflați dincolo de proprietatea sa și care nu dispun de o altă cale de acces terestru la proprietate.</dct:abstract>
+      <dc:description>Cale de acces auto și pietonală pe care proprietarul o cedează spre folosința comuna proprietarilor aflați dincolo de proprietatea sa și care nu dispun de o altă cale de acces terestru la proprietate.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:URI protocol="OGC:WFS" name="apl:s0100_servitude" description="Servitute mun. Chisinău">https://gislocal.md/geoserver/apl/wfs</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>d4f311f8-dbd4-4a2a-b081-edafae7d722a</dc:identifier>
+      <dc:date>2023-12-20T12:04:05.283Z</dc:date>
+      <dc:title>Geologia inginerească mun. Chișinău (WFS)</dc:title>
+      <dc:type>service</dc:type>
+      <dc:subject>Geologie</dc:subject>
+      <dc:subject>Ingineria geologică</dc:subject>
+      <dc:subject>Geologie inginerească</dc:subject>
+      <dc:subject>Serviciu de gestionare a modelelor geografice/a informațiilor</dc:subject>
+      <dc:subject>Servicii de procesare geografică – metadate</dc:subject>
+      <dc:subject>Servicii de procesare geografică – aspecte spațiale</dc:subject>
+      <dct:abstract>Ingineria geologică este activ implicată în principal prin geotehnică și geologie inginerească în construcții civile și industriale, lucrări miniere și de foraj, de reabilitare a zonelor afectate, precum și lucrări publice asociate infrastructurii rutiere, feroviare, lucrărilor de îndiguire, stabilizare a versanților etc.</dct:abstract>
+      <dc:description>Ingineria geologică este activ implicată în principal prin geotehnică și geologie inginerească în construcții civile și industriale, lucrări miniere și de foraj, de reabilitare a zonelor afectate, precum și lucrări publice asociate infrastructurii rutiere, feroviare, lucrărilor de îndiguire, stabilizare a versanților etc.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:URI protocol="OGC:WFS" name="apl:s0100_geology" description="Geologia inginerească mun. Chișinău">https://gislocal.md/geoserver/apl/wfs</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>c5c96f7e-257e-4673-830e-2103d1897894</dc:identifier>
+      <dc:date>2023-12-20T12:07:50.882Z</dc:date>
+      <dc:title>Valoarea terenului mun. Chișinău (WFS)</dc:title>
+      <dc:type>service</dc:type>
+      <dc:subject>Utilizarea terenului</dc:subject>
+      <dc:subject>Valoarea terenului</dc:subject>
+      <dc:subject>Prețul estimativ al terenului</dc:subject>
+      <dc:subject>Serviciu de gestionare a modelelor geografice/a informațiilor</dc:subject>
+      <dc:subject>Servicii de procesare geografică – metadate</dc:subject>
+      <dct:abstract>Valoarea estimativă a terenurilor municipale  determinată conform metodologiei aplicate pentru circumscripția mun. Chișinău reprezentat prin zone.</dct:abstract>
+      <dc:description>Valoarea estimativă a terenurilor municipale  determinată conform metodologiei aplicate pentru circumscripția mun. Chișinău reprezentat prin zone.</dc:description>
+      <dc:rights />
+      <dc:rights />
+      <dc:URI protocol="OGC:WFS" name="apl:s0100_valuarea_terenuri" description="Valuarea terenurilor mun. Chișinău">https://gislocal.md/geoserver/apl/wfs</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>f264b3bd-9600-4a70-9dee-af49f3f1a89f</dc:identifier>
+      <dc:date>2023-12-20T12:05:38.719Z</dc:date>
+      <dc:title>Control funciar mun. Chișinău (WMS)</dc:title>
+      <dc:type>service</dc:type>
+      <dc:subject>Zone de administrare/restricție/reglementare și unități de raportare</dc:subject>
+      <dc:subject>Utilizarea terenului</dc:subject>
+      <dc:subject>Unități statistice</dc:subject>
+      <dc:subject>Control funciar</dc:subject>
+      <dc:subject>Servicii de procesare geografică – aspecte spațiale</dc:subject>
+      <dc:subject>Servicii de procesare geografică – metadate</dc:subject>
+      <dct:abstract>Controlul funciar este asigurarea calității procesului de planificare și dezvoltare urbană sustenabilă a municipiului Chișinău.</dct:abstract>
+      <dc:description>Controlul funciar este asigurarea calității procesului de planificare și dezvoltare urbană sustenabilă a municipiului Chișinău.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:URI protocol="OGC:WMS" name="s0100_control_funciar" description="Control funciar mun. Chișinău">https://gislocal.md/geoserver/apl/wms</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>45d6b1f1-ddbf-4112-929e-65caa6fb9670</dc:identifier>
+      <dc:date>2023-12-20T12:07:44.649Z</dc:date>
+      <dc:title>Valoarea terenului mun. Chișinău (WMS)</dc:title>
+      <dc:type>service</dc:type>
+      <dc:subject>Utilizarea terenului</dc:subject>
+      <dc:subject>Valoarea terenului</dc:subject>
+      <dc:subject>Prețul estimativ al terenului</dc:subject>
+      <dc:subject>Serviciu de gestionare a modelelor geografice/a informațiilor</dc:subject>
+      <dc:subject>Servicii de procesare geografică – aspecte spațiale</dc:subject>
+      <dc:subject>Servicii de procesare geografică – metadate</dc:subject>
+      <dct:modified>2022-01-02</dct:modified>
+      <dct:abstract>Valoarea estimativă a terenurilor municipale  determinată conform metodologiei aplicate pentru circumscripția mun. Chișinău reprezentat prin zone.</dct:abstract>
+      <dc:description>Valoarea estimativă a terenurilor municipale  determinată conform metodologiei aplicate pentru circumscripția mun. Chișinău reprezentat prin zone.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:URI protocol="OGC:WMS" name="s0100_valuarea_terenuri" description="Valuarea terenurilor mun. Chișinău">https://gislocal.md/geoserver/apl/wms</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>169ec5c5-ba45-4bb8-a63f-dd49d2a70d2c</dc:identifier>
+      <dc:date>2023-12-20T12:03:58.472Z</dc:date>
+      <dc:title>Geologia inginerească mun. Chișinău (WMS)</dc:title>
+      <dc:type>service</dc:type>
+      <dc:subject>Geologie</dc:subject>
+      <dc:subject>Ingineria geologică</dc:subject>
+      <dc:subject>Geologie inginerească</dc:subject>
+      <dc:subject>Servicii de procesare geografică – aspecte spațiale</dc:subject>
+      <dc:subject>Servicii de procesare geografică – metadate</dc:subject>
+      <dc:subject>Serviciu de gestionare a modelelor geografice/a informațiilor</dc:subject>
+      <dct:abstract>Ingineria geologică este activ implicată în principal prin geotehnică și geologie inginerească în construcții civile și industriale, lucrări miniere și de foraj, de reabilitare a zonelor afectate, precum și lucrări publice asociate infrastructurii rutiere, feroviare, lucrărilor de îndiguire, stabilizare a versanților etc.</dct:abstract>
+      <dc:description>Ingineria geologică este activ implicată în principal prin geotehnică și geologie inginerească în construcții civile și industriale, lucrări miniere și de foraj, de reabilitare a zonelor afectate, precum și lucrări publice asociate infrastructurii rutiere, feroviare, lucrărilor de îndiguire, stabilizare a versanților etc.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:URI protocol="OGC:WMS" name="s0100_geology" description="Geologia inginerească mun. Chișinău">https://gislocal.md/geoserver/apl/wms</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>0891f2b9-ca78-4ed8-86c8-b20682e1d730</dc:identifier>
+      <dc:date>2023-12-20T11:57:53.544Z</dc:date>
+      <dc:title>Servitute</dc:title>
+      <dc:type>dataset</dc:type>
+      <dc:subject>Servicii de utilitate publică și servicii publice</dc:subject>
+      <dc:subject>Utilizarea terenului</dc:subject>
+      <dc:subject>Cale de acces</dc:subject>
+      <dc:subject>zonă de deservire</dc:subject>
+      <dc:subject>Servitute</dc:subject>
+      <dc:subject>planningCadastre</dc:subject>
+      <dc:format>OGC:OWS-C</dc:format>
+      <dct:abstract>Cale de acces auto și pietonală pe care proprietarul o cedează spre folosința comuna proprietarilor aflați dincolo de proprietatea sa și care nu dispun de o altă cale de acces terestru la proprietate.</dct:abstract>
+      <dc:description>Cale de acces auto și pietonală pe care proprietarul o cedează spre folosința comuna proprietarilor aflați dincolo de proprietatea sa și care nu dispun de o altă cale de acces terestru la proprietate.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:language>rum</dc:language>
+      <dc:source>Decizia Consiliului Municipal Chișinău nr.3/23  din 02 aprilie 2013 Cu privire la aprobarea Regulamentului privind gestionarea resurselor funciare municipale</dc:source>
+      <dc:format>OGC:OWS-C</dc:format>
+      <ows:BoundingBox crs="urn:ogc:def:crs:EPSG:6.6:4326">
+        <ows:LowerCorner>46.9346 28.7311</ows:LowerCorner>
+        <ows:UpperCorner>47.0907 28.966</ows:UpperCorner>
+      </ows:BoundingBox>
+      <dc:URI protocol="image/jpeg">https://geoportalinds.gov.md/geonetwork/srv/api/records/0891f2b9-ca78-4ed8-86c8-b20682e1d730/attachments/DATASET.jpg</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>49cd383c-723f-45c0-8959-8f88e774efe2</dc:identifier>
+      <dc:date>2023-12-20T12:07:39.435Z</dc:date>
+      <dc:title>Valoarea terenului din mun. Chișinău</dc:title>
+      <dc:type>dataset</dc:type>
+      <dc:subject>Utilizarea terenului</dc:subject>
+      <dc:subject>Valoarea terenului</dc:subject>
+      <dc:subject>Prețul estimativ al terenului</dc:subject>
+      <dc:subject>Local</dc:subject>
+      <dc:subject>Regional</dc:subject>
+      <dc:subject>boundaries</dc:subject>
+      <dc:subject>planningCadastre</dc:subject>
+      <dc:format>OGC:OWS-C</dc:format>
+      <dct:modified>2013-02-04</dct:modified>
+      <dct:modified>2022-02-01</dct:modified>
+      <dct:abstract>Valoarea estimativă a terenurilor municipale  determinată conform metodologiei aplicate pentru circumscripția mun. Chișinău reprezentat prin zone.</dct:abstract>
+      <dc:description>Valoarea estimativă a terenurilor municipale  determinată conform metodologiei aplicate pentru circumscripția mun. Chișinău reprezentat prin zone.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:language>rum</dc:language>
+      <dc:source>Set de date elaborat și aprobat în conformitate cu Decizia Consiliului Municipal Chișinău nr. 3/24 din 02.04.2013 ”Pentru aprobarea Metodologiei calculării prețului estimativ al terenurilor din intravilanul municipiului Chișinău”</dc:source>
+      <dc:format>OGC:OWS-C</dc:format>
+      <ows:BoundingBox crs="urn:ogc:def:crs:EPSG:6.6:4326">
+        <ows:LowerCorner>46.9223 28.6797</ows:LowerCorner>
+        <ows:UpperCorner>47.1185 29.0116</ows:UpperCorner>
+      </ows:BoundingBox>
+      <dc:URI protocol="image/jpeg">https://geoportalinds.gov.md/geonetwork/srv/api/records/49cd383c-723f-45c0-8959-8f88e774efe2/attachments/DATASET.jpg</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>2fbec4d0-835c-47bc-b471-16610e1c3f35</dc:identifier>
+      <dc:date>2025-07-04T15:05:49.765Z</dc:date>
+      <dc:title>Tipul drumului</dc:title>
+      <dc:type>dataset</dc:type>
+      <dc:subject>Rețele de transport</dc:subject>
+      <dc:subject>road</dc:subject>
+      <dc:subject>drum</dc:subject>
+      <dc:subject>drumuri</dc:subject>
+      <dc:subject>public</dc:subject>
+      <dc:subject>form</dc:subject>
+      <dc:subject>way</dc:subject>
+      <dc:subject>tipul</dc:subject>
+      <dc:subject>tip</dc:subject>
+      <dc:subject>transportation</dc:subject>
+      <dc:format>PostgreSQL / PostGIS</dc:format>
+      <dc:format>Text</dc:format>
+      <dct:abstract>Setul de date Tipul drumului  reprezintă un tabel atributiv relaționat cu setul de date RoadLinks (Segmente de drum). Conține informația despre clasificarea drumurilor publice în baza proprietăților fizice și destinație (șosea, autostradă, pistă de transport alternativ, drum de țară, zonă pietonală etc.).</dct:abstract>
+      <dc:description>Setul de date Tipul drumului  reprezintă un tabel atributiv relaționat cu setul de date RoadLinks (Segmente de drum). Conține informația despre clasificarea drumurilor publice în baza proprietăților fizice și destinație (șosea, autostradă, pistă de transport alternativ, drum de țară, zonă pietonală etc.).</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:language>rum</dc:language>
+      <dc:source />
+      <dc:format>PostgreSQL / PostGIS</dc:format>
+      <dc:format>Text</dc:format>
+      <ows:BoundingBox crs="urn:ogc:def:crs:EPSG:6.6:4326">
+        <ows:LowerCorner>45.462 26.618</ows:LowerCorner>
+        <ows:UpperCorner>48.486 30.132</ows:UpperCorner>
+      </ows:BoundingBox>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>8a66e4fc-913d-44a2-842c-0b8bceccf3fc</dc:identifier>
+      <dc:date>2026-08-24T10:37:47.9Z</dc:date>
+      <dc:title>Acoperire terestră anul 2000 pentru întreg teritoriul R. Moldova</dc:title>
+      <dc:type>dataset</dc:type>
+      <dc:subject>Acoperire terestră</dc:subject>
+      <dc:subject>Acoperire terestră</dc:subject>
+      <dc:subject>Local</dc:subject>
+      <dc:subject>Domeniul Observarea Pământului și mediu</dc:subject>
+      <dc:subject>Acoperire terestră</dc:subject>
+      <dc:subject>environment</dc:subject>
+      <dc:subject>planningCadastre</dc:subject>
+      <dc:format>ESRI Shapefile</dc:format>
+      <dct:abstract>CLC este o bază de date digitală privind starea și modificările acoperirii suprafeței terestre a Republicii Moldova, elaborată, în conformitate cu nomenclatura și metodologia standardizată CORINE, care asigură coerența și omogenitatea datelor la nivelul întregii Uniuni Europene.
+Nomenclatura standard CLC include 44 de clase de acoperire a terenului.  Acestea sunt grupate într-o ierarhie pe trei niveluri. În Republica Moldova acoperirea terestră este caracterizată de 23 din 44 de clase CORINE LAND COVER nomenclator. Principala acoperire a solului în proiectul CLC în Republica Moldova reprezintă  terenurile agricole (pășuni, teren arabil și modele complexe de cultivare).
+Unitatea minimă de cartografiere este 25 ha; lățimea minimă a elemetelor liniare este 100m.
+Unitate de cartografiere minimă pentru cartografierea modificării: 5 hectare; modificările mai mici sunt generalizate.
+Baza de date CLC conține date privind ocuparea terenurilor pentru anii de referință 2000-2018, precum și date privind modificările de acoperire a terenurilor între anii de referință menționați.</dct:abstract>
+      <dc:description>CLC este o bază de date digitală privind starea și modificările acoperirii suprafeței terestre a Republicii Moldova, elaborată, în conformitate cu nomenclatura și metodologia standardizată CORINE, care asigură coerența și omogenitatea datelor la nivelul întregii Uniuni Europene.
+Nomenclatura standard CLC include 44 de clase de acoperire a terenului.  Acestea sunt grupate într-o ierarhie pe trei niveluri. În Republica Moldova acoperirea terestră este caracterizată de 23 din 44 de clase CORINE LAND COVER nomenclator. Principala acoperire a solului în proiectul CLC în Republica Moldova reprezintă  terenurile agricole (pășuni, teren arabil și modele complexe de cultivare).
+Unitatea minimă de cartografiere este 25 ha; lățimea minimă a elemetelor liniare este 100m.
+Unitate de cartografiere minimă pentru cartografierea modificării: 5 hectare; modificările mai mici sunt generalizate.
+Baza de date CLC conține date privind ocuparea terenurilor pentru anii de referință 2000-2018, precum și date privind modificările de acoperire a terenurilor între anii de referință menționați.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:language>rum</dc:language>
+      <dc:source>Abordarea standard pentru crearea bazei de date CLC s-a bazat pe interpretarea vizuală a imaginilor satelitare: Image2000, Image2018, hărți topografice la scara 1:50000, ortoimagini 2007, 2016, 2020, 2021, în conformitate cu metodologia CLC acceptată, oferind date vectoriale pe o scară de 1: 100.000, lățimea minimă a poligonului 100m, suprafața minimă de cartografiere de 25 ha pentru baza acoperirii terenului și 5 ha pentru baza modificărilor. Nomenclatura CLC definită include 23 de clase, fiecare descriind o acoperire diferită a terenului.</dc:source>
+      <dc:format>ESRI Shapefile</dc:format>
+      <ows:BoundingBox crs="urn:ogc:def:crs:EPSG:6.6:4326">
+        <ows:LowerCorner>45.462 26.618</ows:LowerCorner>
+        <ows:UpperCorner>48.486 30.132</ows:UpperCorner>
+      </ows:BoundingBox>
+      <dc:URI protocol="WWW:LINK-1.0-http--link" name="Acoperire terestră 2000 pentru întreg teritoriul R. Moldova">http://geodata.gov.md//geoserver/corine/wms?</dc:URI>
+      <dc:URI protocol="image/png">https://geoportalinds.gov.md/geonetwork/srv/api/records/8a66e4fc-913d-44a2-842c-0b8bceccf3fc/attachments/Corine2018data.png</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>e32fa953-3488-4ed1-b494-9011255436f8</dc:identifier>
+      <dc:date>2024-11-05T07:16:21.529Z</dc:date>
+      <dc:title>Acoperire terestră 2023 R.Moldova (WMS)</dc:title>
+      <dc:type>service</dc:type>
+      <dc:subject>Acoperire terestră</dc:subject>
+      <dc:subject>Acoperire terestră</dc:subject>
+      <dc:subject>Modificările terestre</dc:subject>
+      <dc:subject>Serviciu de acces la produs</dc:subject>
+      <dct:abstract>Acest serviciu permite vizualizarea datelor spațiale ce conține setul de date Acoperirii terestre pentru anul 2023. CLC este o bază de date digitală privind starea și modificările acoperirii suprafeței terestre a Republicii Moldova, elaborată, în conformitate cu nomenclatura și metodologia standardizată CORINE, care asigură coerența și omogenitatea datelor la nivelul întregii Uniuni Europene.
+Nomenclatura standard CLC include 44 de clase de acoperire a terenului. Acestea sunt grupate într-o ierarhie pe trei niveluri. În Republica Moldova acoperirea terestră este caracterizată de 23 din 44 de clase CORINE LAND COVER nomenclator. Principala acoperire a solului în proiectul CLC în Republica Moldova reprezintă terenurile agricole (pășuni, teren arabil și modele complexe de cultivare).
+Unitatea minimă de cartografiere este 25 ha; lățimea minimă a elemetelor liniare este 100m.
+Unitate de cartografiere minimă pentru cartografierea modificării: 5 hectare; modificările mai mici sunt generalizate.
+Baza de date CLC conține date privind ocuparea terenurilor pentru anii de referință 2023, precum și date privind modificările de acoperire a terenurilor între anii de referință menționați.</dct:abstract>
+      <dc:description>Acest serviciu permite vizualizarea datelor spațiale ce conține setul de date Acoperirii terestre pentru anul 2023. CLC este o bază de date digitală privind starea și modificările acoperirii suprafeței terestre a Republicii Moldova, elaborată, în conformitate cu nomenclatura și metodologia standardizată CORINE, care asigură coerența și omogenitatea datelor la nivelul întregii Uniuni Europene.
+Nomenclatura standard CLC include 44 de clase de acoperire a terenului. Acestea sunt grupate într-o ierarhie pe trei niveluri. În Republica Moldova acoperirea terestră este caracterizată de 23 din 44 de clase CORINE LAND COVER nomenclator. Principala acoperire a solului în proiectul CLC în Republica Moldova reprezintă terenurile agricole (pășuni, teren arabil și modele complexe de cultivare).
+Unitatea minimă de cartografiere este 25 ha; lățimea minimă a elemetelor liniare este 100m.
+Unitate de cartografiere minimă pentru cartografierea modificării: 5 hectare; modificările mai mici sunt generalizate.
+Baza de date CLC conține date privind ocuparea terenurilor pentru anii de referință 2023, precum și date privind modificările de acoperire a terenurilor între anii de referință menționați.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:URI protocol="" name="clc_2023_aggregate" description="Corine Land Cover 2023">http://geodata.gov.md//geoserver/corine/wms?</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>51d491d1-aa0a-49c5-ac38-4f7f0deafdf9</dc:identifier>
+      <dc:date>2025-03-12T12:27:40.352Z</dc:date>
+      <dc:title>Acoperire terestră 2000 R.Moldova (WMS)</dc:title>
+      <dc:type>service</dc:type>
+      <dc:subject>Acoperire terestră</dc:subject>
+      <dc:subject>Acoperire terestră</dc:subject>
+      <dc:subject>Modificările terestre</dc:subject>
+      <dc:subject>Serviciu de acces la produs</dc:subject>
+      <dct:abstract>Acest serviciu permite vizualizarea datelor spațiale ce conține setul de date Acoperirii terestre pentru anul 2000. CLC este o bază de date digitală privind starea și modificările acoperirii suprafeței terestre a Republicii Moldova, elaborată, în conformitate cu nomenclatura și metodologia standardizată CORINE, care asigură coerența și omogenitatea datelor la nivelul întregii Uniuni Europene.
+Nomenclatura standard CLC include 44 de clase de acoperire a terenului. Acestea sunt grupate într-o ierarhie pe trei niveluri. În Republica Moldova acoperirea terestră este caracterizată de 23 din 44 de clase CORINE LAND COVER nomenclator. Principala acoperire a solului în proiectul CLC în Republica Moldova reprezintă terenurile agricole (pășuni, teren arabil și modele complexe de cultivare).
+Unitatea minimă de cartografiere este 25 ha; lățimea minimă a elemetelor liniare este 100m.
+Unitate de cartografiere minimă pentru cartografierea modificării: 5 hectare; modificările mai mici sunt generalizate.
+Baza de date CLC conține date privind ocuparea terenurilor pentru anii de referință 2000, precum și date privind modificările de acoperire a terenurilor între anii de referință menționați.</dct:abstract>
+      <dc:description>Acest serviciu permite vizualizarea datelor spațiale ce conține setul de date Acoperirii terestre pentru anul 2000. CLC este o bază de date digitală privind starea și modificările acoperirii suprafeței terestre a Republicii Moldova, elaborată, în conformitate cu nomenclatura și metodologia standardizată CORINE, care asigură coerența și omogenitatea datelor la nivelul întregii Uniuni Europene.
+Nomenclatura standard CLC include 44 de clase de acoperire a terenului. Acestea sunt grupate într-o ierarhie pe trei niveluri. În Republica Moldova acoperirea terestră este caracterizată de 23 din 44 de clase CORINE LAND COVER nomenclator. Principala acoperire a solului în proiectul CLC în Republica Moldova reprezintă terenurile agricole (pășuni, teren arabil și modele complexe de cultivare).
+Unitatea minimă de cartografiere este 25 ha; lățimea minimă a elemetelor liniare este 100m.
+Unitate de cartografiere minimă pentru cartografierea modificării: 5 hectare; modificările mai mici sunt generalizate.
+Baza de date CLC conține date privind ocuparea terenurilor pentru anii de referință 2000, precum și date privind modificările de acoperire a terenurilor între anii de referință menționați.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:URI protocol="" name="clc_2000_aggregate" description="clc_2000_aggregate">http://geodata.gov.md//geoserver/corine/wms?</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>81c8d06f-e19b-48d2-9887-b4d9e3b1be13</dc:identifier>
+      <dc:date>2025-07-04T15:03:21.335Z</dc:date>
+      <dc:title>Lățimea drumului</dc:title>
+      <dc:type>dataset</dc:type>
+      <dc:subject>Rețele de transport</dc:subject>
+      <dc:subject>road</dc:subject>
+      <dc:subject>drum</dc:subject>
+      <dc:subject>drumuri</dc:subject>
+      <dc:subject>public</dc:subject>
+      <dc:subject>width</dc:subject>
+      <dc:subject>lățimea</dc:subject>
+      <dc:subject>transportation</dc:subject>
+      <dc:format>PostgreSQL / PostGIS</dc:format>
+      <dc:format>Text</dc:format>
+      <dct:abstract>Setul de date Lățimea drumului reprezintă un tabel atributiv relaționat cu setul de date RoadLinks (Segmente de drum). Conține informația despre lățimile drumurilor publice.</dct:abstract>
+      <dc:description>Setul de date Lățimea drumului reprezintă un tabel atributiv relaționat cu setul de date RoadLinks (Segmente de drum). Conține informația despre lățimile drumurilor publice.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:language>rum</dc:language>
+      <dc:source />
+      <dc:format>PostgreSQL / PostGIS</dc:format>
+      <dc:format>Text</dc:format>
+      <ows:BoundingBox crs="urn:ogc:def:crs:EPSG:6.6:4326">
+        <ows:LowerCorner>45.462 26.618</ows:LowerCorner>
+        <ows:UpperCorner>48.486 30.132</ows:UpperCorner>
+      </ows:BoundingBox>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>995f920c-91c0-402d-b3b4-227c47aa5b12</dc:identifier>
+      <dc:date>2023-12-18T18:13:05.922Z</dc:date>
+      <dc:title>Alunecări de teren mun. Chișinău</dc:title>
+      <dc:type>dataset</dc:type>
+      <dc:subject>Zone de administrare/restricție/reglementare și unități de raportare</dc:subject>
+      <dc:subject>Sănătate și siguranță umană</dc:subject>
+      <dc:subject>Soluri</dc:subject>
+      <dc:subject>Zone de risc natural</dc:subject>
+      <dc:subject>Utilizarea terenului</dc:subject>
+      <dc:subject>alunecări de teren</dc:subject>
+      <dc:subject>alunecare de pământ</dc:subject>
+      <dc:subject>environment</dc:subject>
+      <dc:subject>geoscientificInformation</dc:subject>
+      <dc:format>OGC:OWS-C</dc:format>
+      <dct:abstract>Alunecările de teren sunt o categorie de fenomene naturale de risc, ce definesc procesul de deplasare naturală a maselor de roci pe o suprafață înclinată, cu participarea apei, sub acțiunea variaților bruște ale forței de gravitație.</dct:abstract>
+      <dc:description>Alunecările de teren sunt o categorie de fenomene naturale de risc, ce definesc procesul de deplasare naturală a maselor de roci pe o suprafață înclinată, cu participarea apei, sub acțiunea variaților bruște ale forței de gravitație.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:language>rum</dc:language>
+      <dc:source>Set de date aprobat prin Decizia Consiliului Municipal Chișinău nr. 68/1-2 din 22 martie 2007 „Cu privire la aprobarea Planului Urbanistic General al orașului Chișinău”</dc:source>
+      <dc:format>OGC:OWS-C</dc:format>
+      <ows:BoundingBox crs="urn:ogc:def:crs:EPSG:6.6:4326">
+        <ows:LowerCorner>46.9297 28.6857</ows:LowerCorner>
+        <ows:UpperCorner>47.1111 28.9989</ows:UpperCorner>
+      </ows:BoundingBox>
+      <dc:URI protocol="image/png">https://geoportalinds.gov.md/geonetwork/srv/api/records/995f920c-91c0-402d-b3b4-227c47aa5b12/attachments/alunecari.png</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>3dd18c48-ec94-4332-814e-4712297df25c</dc:identifier>
+      <dc:date>2023-01-25T11:17:26.777Z</dc:date>
+      <dc:title>Accidente de transport</dc:title>
+      <dc:type>dataset</dc:type>
+      <dc:subject>Sănătate și siguranță umană</dc:subject>
+      <dc:subject>Accident de transport</dc:subject>
+      <dc:subject>Accident rutier</dc:subject>
+      <dc:subject>Accident</dc:subject>
+      <dc:subject>Transport</dc:subject>
+      <dc:subject>Zone de administrare</dc:subject>
+      <dc:subject>Sănătate şi siguranţă umană</dc:subject>
+      <dc:subject>transportation</dc:subject>
+      <dc:format>ESRI Shapefile</dc:format>
+      <dct:abstract>Setul de date prezintă informația statistică cu privire la accidentele de transport de pe teritoriul Republicii Moldova.</dct:abstract>
+      <dc:description>Setul de date prezintă informația statistică cu privire la accidentele de transport de pe teritoriul Republicii Moldova.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:language>rum</dc:language>
+      <dc:source>În procesul de stocare a informațiilor despre situațiile excepționale, evenimentele respective sunt adăugate pe hartă prin intermediul aplicaţiilor GIS, în baza imaginilor ortofoto.</dc:source>
+      <dc:format>ESRI Shapefile</dc:format>
+      <ows:BoundingBox crs="urn:ogc:def:crs:EPSG:6.6:4326">
+        <ows:LowerCorner>45.462 26.618</ows:LowerCorner>
+        <ows:UpperCorner>48.486 30.132</ows:UpperCorner>
+      </ows:BoundingBox>
+      <dc:URI protocol="WWW:LINK-1.0-http--related" name="Link-ul de acces la serviciul de vizualizare">http://ndois.giscuit.com/ro/default/wms/private?</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>08b732f2-eae0-48d6-b6e9-21d7da1d635b</dc:identifier>
+      <dc:date>2019-11-19T09:40:42</dc:date>
+      <dc:title>Drumuri publice</dc:title>
+      <dc:type>dataset</dc:type>
+      <dc:subject />
+      <dc:subject />
+      <dc:subject>Drumuri</dc:subject>
+      <dc:subject>Drum</dc:subject>
+      <dc:subject>Itinerar</dc:subject>
+      <dc:subject>Transport</dc:subject>
+      <dc:subject>Reţele de transport</dc:subject>
+      <dc:subject>transportation</dc:subject>
+      <dc:format>Mapinfo MIF/MID</dc:format>
+      <dc:format>Mapinfo TAB</dc:format>
+      <dc:format>DAT</dc:format>
+      <dc:format>ID</dc:format>
+      <dct:modified>2019-06-01</dct:modified>
+      <dct:abstract>Setul de date spaţiale care conţine drumurile publice – drumuri de utilitate publică destinate circulaţiei rutiere şi pietonale în scopul satisfacerii cerinţelor generale de transport rutier ale economiei naţionale şi ale populaţiei şi de apărare a ţării. Aceste drumuri sînt proprietate publică a statului şi asigură principalele legături rutiere internaţionale, legătura între capitala ţării şi oraşele-reşedinţă, municipiile şi obiectivele de importanţă republicană, precum şi legătura între ele.</dct:abstract>
+      <dc:description>Setul de date spaţiale care conţine drumurile publice – drumuri de utilitate publică destinate circulaţiei rutiere şi pietonale în scopul satisfacerii cerinţelor generale de transport rutier ale economiei naţionale şi ale populaţiei şi de apărare a ţării. Aceste drumuri sînt proprietate publică a statului şi asigură principalele legături rutiere internaţionale, legătura între capitala ţării şi oraşele-reşedinţă, municipiile şi obiectivele de importanţă republicană, precum şi legătura între ele.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:language>rum</dc:language>
+      <dc:source>Datele au fost colectate cu ajutorul GPS Pathfinder Pro XRS.</dc:source>
+      <dc:format>Mapinfo MIF/MID</dc:format>
+      <dc:format>Mapinfo TAB</dc:format>
+      <dc:format>DAT</dc:format>
+      <dc:format>ID</dc:format>
+      <ows:BoundingBox crs="urn:ogc:def:crs:EPSG:6.6:4326">
+        <ows:LowerCorner>45.462 26.618</ows:LowerCorner>
+        <ows:UpperCorner>48.486 30.132</ows:UpperCorner>
+      </ows:BoundingBox>
+      <dc:URI protocol="WWW:LINK-1.0-http--link" name="Site-ul oficial al Administraţiei de Stat a Drumurilor">http://www.asd.md/</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>c5d12add-0274-447c-a600-5c7077c25064</dc:identifier>
+      <dc:date>2026-05-27T06:47:18.289Z</dc:date>
+      <dc:title>Denumirea drumului</dc:title>
+      <dc:type>dataset</dc:type>
+      <dc:subject>Rețele de transport</dc:subject>
+      <dc:subject>road</dc:subject>
+      <dc:subject>drum</dc:subject>
+      <dc:subject>drumuri</dc:subject>
+      <dc:subject>public</dc:subject>
+      <dc:subject>name</dc:subject>
+      <dc:subject>denumire</dc:subject>
+      <dc:subject>index</dc:subject>
+      <dc:subject>transportation</dc:subject>
+      <dc:format>PostgreSQL / PostGIS</dc:format>
+      <dc:format>Text</dc:format>
+      <dct:abstract>Setul de date Denumirea drumului reprezintă un tabel atributiv relaționat cu setul de date RoadLinks (Segmente de drum). Conține informația despre denumirea sau indexul drumurilor publice atribuite de autoritatea responsabilă S.A. "Administrația Naţională a Drumurilor".</dct:abstract>
+      <dc:description>Setul de date Denumirea drumului reprezintă un tabel atributiv relaționat cu setul de date RoadLinks (Segmente de drum). Conține informația despre denumirea sau indexul drumurilor publice atribuite de autoritatea responsabilă S.A. "Administrația Naţională a Drumurilor".</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:language>rum</dc:language>
+      <dc:source />
+      <dc:format>PostgreSQL / PostGIS</dc:format>
+      <dc:format>Text</dc:format>
+      <ows:BoundingBox crs="urn:ogc:def:crs:EPSG:6.6:4326">
+        <ows:LowerCorner>45.462 26.618</ows:LowerCorner>
+        <ows:UpperCorner>48.486 30.132</ows:UpperCorner>
+      </ows:BoundingBox>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>c0ec1053-bd48-4e3e-99bb-0c09867d95d2</dc:identifier>
+      <dc:date>2026-08-24T10:45:20.906Z</dc:date>
+      <dc:title>Acoperire terestră, pentru întreg teritoriul R. Moldova anul 2023</dc:title>
+      <dc:type>dataset</dc:type>
+      <dc:subject>Acoperire terestră</dc:subject>
+      <dc:subject>Acoperire terestră</dc:subject>
+      <dc:subject>European</dc:subject>
+      <dc:subject>Domeniul Observarea Pământului și mediu</dc:subject>
+      <dc:subject>Acoperire terestră</dc:subject>
+      <dc:subject>environment</dc:subject>
+      <dc:subject>planningCadastre</dc:subject>
+      <dc:format>ESRI Shapefile</dc:format>
+      <dct:modified>2024-05-31</dct:modified>
+      <dct:abstract>CLC este o bază de date digitală privind starea și modificările acoperirii suprafeței terestre a Republicii Moldova, elaborată, în conformitate cu nomenclatura și metodologia standardizată CORINE, care asigură coerența și omogenitatea datelor la nivelul întregii Uniuni Europene.
+Nomenclatura standard CLC include 44 de clase de acoperire a terenului.  Acestea sunt grupate într-o ierarhie pe trei niveluri. În Republica Moldova acoperirea terestră este caracterizată de 23 din 44 de clase CORINE LAND COVER nomenclator. Principala acoperire a solului în proiectul CLC în Republica Moldova reprezintă  terenurile agricole (pășuni, teren arabil și modele complexe de cultivare).
+ 
+Unitatea minimă de cartografiere este 25 ha; lățimea minimă a elemetelor liniare este 100m.
+Unitate de cartografiere minimă pentru cartografierea modificării: 5 hectare; modificările mai mici sunt generalizate.
+
+Baza de date CLC conține date privind ocuparea terenurilor pentru anii de referință 2023, precum și date privind modificările de acoperire a terenurilor între anii de referință menționați.</dct:abstract>
+      <dc:description>CLC este o bază de date digitală privind starea și modificările acoperirii suprafeței terestre a Republicii Moldova, elaborată, în conformitate cu nomenclatura și metodologia standardizată CORINE, care asigură coerența și omogenitatea datelor la nivelul întregii Uniuni Europene.
+Nomenclatura standard CLC include 44 de clase de acoperire a terenului.  Acestea sunt grupate într-o ierarhie pe trei niveluri. În Republica Moldova acoperirea terestră este caracterizată de 23 din 44 de clase CORINE LAND COVER nomenclator. Principala acoperire a solului în proiectul CLC în Republica Moldova reprezintă  terenurile agricole (pășuni, teren arabil și modele complexe de cultivare).
+ 
+Unitatea minimă de cartografiere este 25 ha; lățimea minimă a elemetelor liniare este 100m.
+Unitate de cartografiere minimă pentru cartografierea modificării: 5 hectare; modificările mai mici sunt generalizate.
+
+Baza de date CLC conține date privind ocuparea terenurilor pentru anii de referință 2023, precum și date privind modificările de acoperire a terenurilor între anii de referință menționați.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:language>rum</dc:language>
+      <dc:source>Abordarea standard pentru crearea bazei de date CLC s-a bazat pe interpretarea vizuală a imaginilor satelitare: Image2000, Image2018, hărți topografice la scara 1:50000, ortoimagini 2007, 2016, 2020, 2021, în conformitate cu metodologia CLC acceptată, oferind date vectoriale pe o scară de 1: 100.000, lățimea minimă a poligonului 100m, suprafața minimă de cartografiere de 25 ha pentru baza acoperirii terenului și 5 ha pentru baza modificărilor. Nomenclatura CLC definită include 23 de clase, fiecare descriind o acoperire diferită a terenului.</dc:source>
+      <dc:format>ESRI Shapefile</dc:format>
+      <ows:BoundingBox crs="urn:ogc:def:crs:EPSG:6.6:4326">
+        <ows:LowerCorner>45.462 26.618</ows:LowerCorner>
+        <ows:UpperCorner>48.486 30.132</ows:UpperCorner>
+      </ows:BoundingBox>
+      <dc:URI protocol="WWW:LINK-1.0-http--link" name="Acoperire terestră 2023">https://geodata.gov.md</dc:URI>
+      <dc:URI protocol="image/png">https://geoportalinds.gov.md/geonetwork/srv/api/records/c0ec1053-bd48-4e3e-99bb-0c09867d95d2/attachments/Corine2018data.png</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>d97ec626-b1b1-45cc-9b9c-d53b3a94287e</dc:identifier>
+      <dc:date>2025-07-04T15:06:24.248Z</dc:date>
+      <dc:title>Drumuri publice naționale</dc:title>
+      <dc:type>dataset</dc:type>
+      <dc:subject>Rețele de transport</dc:subject>
+      <dc:subject>Național</dc:subject>
+      <dc:subject>Local</dc:subject>
+      <dc:subject>European</dc:subject>
+      <dc:subject>Regional</dc:subject>
+      <dc:subject>Mondial</dc:subject>
+      <dc:subject>Drumuri</dc:subject>
+      <dc:subject>Drum</dc:subject>
+      <dc:subject>Itinerar</dc:subject>
+      <dc:subject>Transport</dc:subject>
+      <dc:subject>Reţele de transport</dc:subject>
+      <dc:subject>transportation</dc:subject>
+      <dc:format>ESRI Shapefile</dc:format>
+      <dct:modified>2019-06-01</dct:modified>
+      <dct:abstract>Setul de date spaţiale care conţine drumurile publice – drumuri de utilitate publică destinate circulaţiei rutiere şi pietonale în scopul satisfacerii cerinţelor generale de transport rutier ale economiei naţionale şi ale populaţiei şi de apărare a ţării. Aceste drumuri sînt proprietate publică a statului şi asigură principalele legături rutiere internaţionale, legătura între capitala ţării şi oraşele-reşedinţă, municipiile şi obiectivele de importanţă republicană, precum şi legătura între ele.</dct:abstract>
+      <dc:description>Setul de date spaţiale care conţine drumurile publice – drumuri de utilitate publică destinate circulaţiei rutiere şi pietonale în scopul satisfacerii cerinţelor generale de transport rutier ale economiei naţionale şi ale populaţiei şi de apărare a ţării. Aceste drumuri sînt proprietate publică a statului şi asigură principalele legături rutiere internaţionale, legătura între capitala ţării şi oraşele-reşedinţă, municipiile şi obiectivele de importanţă republicană, precum şi legătura între ele.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:language>rum</dc:language>
+      <dc:source>Datele au fost colectate cu ajutorul GPS Pathfinder Pro XRS.</dc:source>
+      <dc:relation>08b732f2-eae0-48d6-b6e9-21d7da1d635b</dc:relation>
+      <dc:format>ESRI Shapefile</dc:format>
+      <ows:BoundingBox crs="urn:ogc:def:crs:EPSG:6.6:4326">
+        <ows:LowerCorner>45.462 26.618</ows:LowerCorner>
+        <ows:UpperCorner>48.486 30.132</ows:UpperCorner>
+      </ows:BoundingBox>
+      <dc:URI protocol="WWW:LINK-1.0-http--partners" name="Site-ul oficial al S.A. &quot;Administrația Naţională a Drumurilor">http://www.asd.md/</dc:URI>
+      <dc:URI name="Harta Drumurilor" description="Harta interactivă a drumurilor publice naționale">https://harta.asd.md/</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>36eab804-d7b8-4f91-88e0-40a918a7d2ab</dc:identifier>
+      <dc:date>2023-12-20T12:00:45.532Z</dc:date>
+      <dc:title>Zone seismice mun. Chișinău</dc:title>
+      <dc:type>dataset</dc:type>
+      <dc:subject>Utilizarea terenului</dc:subject>
+      <dc:subject>Zone de risc natural</dc:subject>
+      <dc:subject>Soluri</dc:subject>
+      <dc:subject>zone de cutremur</dc:subject>
+      <dc:subject>zone seismice</dc:subject>
+      <dc:subject>environment</dc:subject>
+      <dc:subject>geoscientificInformation</dc:subject>
+      <dc:format>OGC:OWS-C</dc:format>
+      <dct:abstract>Seismele sunt mișcări ale pământului, ce constau în vibrații generate în zonele interne ale Terrei, propagate în formă de unde prin roci. Aceste vibrații rezultă din mișcările plăcilor tectonice, fiind des cauzate de o activitate vulcanică.</dct:abstract>
+      <dc:description>Seismele sunt mișcări ale pământului, ce constau în vibrații generate în zonele interne ale Terrei, propagate în formă de unde prin roci. Aceste vibrații rezultă din mișcările plăcilor tectonice, fiind des cauzate de o activitate vulcanică.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:language>rum</dc:language>
+      <dc:source>Set de date aprobat prin Decizia Consiliului Municipal Chișinău nr. 68/1-2 din 22 martie 2007 „Cu privire la aprobarea Planului Urbanistic General al orașului Chișinău”</dc:source>
+      <dc:format>OGC:OWS-C</dc:format>
+      <ows:BoundingBox crs="urn:ogc:def:crs:EPSG:6.6:4326">
+        <ows:LowerCorner>46.9285 28.6857</ows:LowerCorner>
+        <ows:UpperCorner>47.1123 29.0009</ows:UpperCorner>
+      </ows:BoundingBox>
+      <dc:URI protocol="image/jpeg">https://geoportalinds.gov.md/geonetwork/srv/api/records/36eab804-d7b8-4f91-88e0-40a918a7d2ab/attachments/DATASET.jpg</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>3cd3ae1b-aa1c-49ce-970c-c9da00df8178</dc:identifier>
+      <dc:date>2026-08-24T10:38:50.057Z</dc:date>
+      <dc:title>Acoperirea terestră 2000 (zona de centru)</dc:title>
+      <dc:type>dataset</dc:type>
+      <dc:subject>Acoperire terestră</dc:subject>
+      <dc:subject>Acoperire terestră</dc:subject>
+      <dc:subject>Corine Land Cover</dc:subject>
+      <dc:subject>CLC</dc:subject>
+      <dc:subject>Regional</dc:subject>
+      <dc:subject>Domeniul Observarea Pământului și mediu</dc:subject>
+      <dc:subject>Acoperire terestră</dc:subject>
+      <dc:subject>environment</dc:subject>
+      <dc:subject>planningCadastre</dc:subject>
+      <dc:format>ESRI Shapefile</dc:format>
+      <dct:abstract>CLC este o bază de date digitală privind starea și modificările acoperirii suprafeței terestre a Republicii Moldova, elaborată cu suportul Agentiei Europene de Mediu, în conformitate cu nomenclatura și metodologia standardizată CORINE, care asigură coerența și omogenitatea datelor la nivelul întregii Uniuni Europene. Corine Land Cover, care reprezintă o metodologie standartizată ce cuprinde 44 de clase împărțite pe 3 nivele(suprafețe artificiale; suprafețe agricole; păduri și arii seminaturale) 
+unitatea minimă de cartografiere este 25 ha; lățimea minimă a elemetelor liniare este 100m. Baza de date CLC conține date privind ocuparea terenurilor pentru anii de referință 2000-2018, precum și date privind schimbările de acoperire a terenurilor între anii de referință menționați.</dct:abstract>
+      <dc:description>CLC este o bază de date digitală privind starea și modificările acoperirii suprafeței terestre a Republicii Moldova, elaborată cu suportul Agentiei Europene de Mediu, în conformitate cu nomenclatura și metodologia standardizată CORINE, care asigură coerența și omogenitatea datelor la nivelul întregii Uniuni Europene. Corine Land Cover, care reprezintă o metodologie standartizată ce cuprinde 44 de clase împărțite pe 3 nivele(suprafețe artificiale; suprafețe agricole; păduri și arii seminaturale) 
+unitatea minimă de cartografiere este 25 ha; lățimea minimă a elemetelor liniare este 100m. Baza de date CLC conține date privind ocuparea terenurilor pentru anii de referință 2000-2018, precum și date privind schimbările de acoperire a terenurilor între anii de referință menționați.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:language>rum</dc:language>
+      <dc:source>Abordarea standard pentru crearea  bazei de date CLC s-a bazat pe interpretarea vizuală a imaginilor satelitare în conformitate cu metodologia CLC acceptată, oferind date vectoriale pe o scară de 1: 100.000, lățimea minimă a poligonului 100m, suprafața minimă de cartografiere de 25 ha pentru baza acoperirii terenului și 5 ha pentru baza modificărilor. Nomenclatura CLC definită include 44 de clase, dispuse pe 5 niveluri, fiecare descriind o acoperire diferită a terenului.</dc:source>
+      <dc:format>ESRI Shapefile</dc:format>
+      <ows:BoundingBox crs="urn:ogc:def:crs:EPSG:6.6:4326">
+        <ows:LowerCorner>46.9845 28.2438</ows:LowerCorner>
+        <ows:UpperCorner>47.5029 29.01</ows:UpperCorner>
+      </ows:BoundingBox>
+      <dc:URI protocol="WWW:LINK-1.0-http--link" name="Acoperire terestră 2000 (zona de centru)">https://geodata.gov.md</dc:URI>
+      <dc:URI protocol="image/png">https://geoportalinds.gov.md/geonetwork/srv/api/records/3cd3ae1b-aa1c-49ce-970c-c9da00df8178/attachments/Corine2Kdata.png</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>52cec4e9-ca6c-46e9-9dc3-4cbadbfc89bf</dc:identifier>
+      <dc:date>2025-03-11T07:04:19.101Z</dc:date>
+      <dc:title>Modelul Digital al Terenului 2021 (WMS)</dc:title>
+      <dc:type>service</dc:type>
+      <dc:subject>Elevație</dc:subject>
+      <dc:subject>DTM</dc:subject>
+      <dc:subject>relief</dc:subject>
+      <dc:subject>elevație</dc:subject>
+      <dc:subject>Servicii de procesare geografică – aspecte spațiale</dc:subject>
+      <dct:abstract>Serviciul WMS care permite vizualizarea Modelului digital al terenului  pentru zona de sud realizat prin metoda fotogrametrică. Aerofotografierea digitală a fost executată în perioada lunii aprilie pentru partea de Sud a R. Moldova cu suprafața de aproximativ 9000 km.p,  de către S.C.PRIMUL MERIDIAN S.R.L., România,  Camera UltraCam Eagle Prime, Serial Number UC-Fp-1-70013023-f100 Focal Length - 100.5 mm; Pixel Size 4.600µm x 4.600µm. Rezoluția geometrică a imaginilor digitale este de 0,20m. DTM este împărțit în planșe cu mărimea 2.5*2.5km ce corespunde rețelei 1: 5000. Precizia de poziționare a DTM-ului în zonele construite și rurale este maximul 0,5m. Precizia de poziționare a DTM-ului în zone împădurite este 2m.</dct:abstract>
+      <dc:description>Serviciul WMS care permite vizualizarea Modelului digital al terenului  pentru zona de sud realizat prin metoda fotogrametrică. Aerofotografierea digitală a fost executată în perioada lunii aprilie pentru partea de Sud a R. Moldova cu suprafața de aproximativ 9000 km.p,  de către S.C.PRIMUL MERIDIAN S.R.L., România,  Camera UltraCam Eagle Prime, Serial Number UC-Fp-1-70013023-f100 Focal Length - 100.5 mm; Pixel Size 4.600µm x 4.600µm. Rezoluția geometrică a imaginilor digitale este de 0,20m. DTM este împărțit în planșe cu mărimea 2.5*2.5km ce corespunde rețelei 1: 5000. Precizia de poziționare a DTM-ului în zonele construite și rurale este maximul 0,5m. Precizia de poziționare a DTM-ului în zone împădurite este 2m.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:URI protocol="" name="DTM_2021_Sud" description="DTM 2021">https://geodata.gov.md/geoserver/DTM/wms</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>8bc4629d-06ca-4887-9ed5-43966f5e7c68</dc:identifier>
+      <dc:date>2023-12-18T18:14:05.355Z</dc:date>
+      <dc:title>Alunecări de teren mun. Chișinău (WMS)</dc:title>
+      <dc:type>service</dc:type>
+      <dc:subject>Soluri</dc:subject>
+      <dc:subject>Sănătate și siguranță umană</dc:subject>
+      <dc:subject>Zone de risc natural</dc:subject>
+      <dc:subject>Utilizarea terenului</dc:subject>
+      <dc:subject>Zone de administrare/restricție/reglementare și unități de raportare</dc:subject>
+      <dc:subject>alunecări de teren</dc:subject>
+      <dc:subject>alunecare de pământ</dc:subject>
+      <dc:subject>Servicii de procesare geografică – metadate</dc:subject>
+      <dc:subject>Servicii de procesare geografică – aspecte spațiale</dc:subject>
+      <dc:subject>Serviciu de gestionare a modelelor geografice/a informațiilor</dc:subject>
+      <dct:abstract>Alunecările de teren sunt o categorie de fenomene naturale de risc, ce definesc procesul de deplasare naturală a maselor de roci pe o suprafață înclinată,cu participarea apei, sub acțiunea variaților bruște ale forței de gravitație.</dct:abstract>
+      <dc:description>Alunecările de teren sunt o categorie de fenomene naturale de risc, ce definesc procesul de deplasare naturală a maselor de roci pe o suprafață înclinată,cu participarea apei, sub acțiunea variaților bruște ale forței de gravitație.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:URI protocol="OGC:WMS" name="s0100_landslides" description="Alunecări de teren mun. Chișinău">https://gislocal.md/geoserver/apl/wms</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>045be4a5-4608-4511-8f72-de66259e808b</dc:identifier>
+      <dc:date>2025-03-11T07:53:24.957Z</dc:date>
+      <dc:title>Modelul Digital al Terenului 2007(WMS)</dc:title>
+      <dc:type>service</dc:type>
+      <dc:subject>Elevație</dc:subject>
+      <dc:subject>DTM</dc:subject>
+      <dc:subject>relief</dc:subject>
+      <dc:subject>elevație</dc:subject>
+      <dc:subject>model digital al terenului</dc:subject>
+      <dc:subject>Servicii de procesare geografică – aspecte spațiale</dc:subject>
+      <dct:modified>2016-01-01</dct:modified>
+      <dct:abstract>Serviciul Web Mapping Service (WMS) care permite accesul la Modelul Digital al Terenului a Republicii Moldova anul 2007.
+DTM-ul a fost creat în cadrul proiectului de aerofotografiere, de către BLOOM Info GENET S.R.L. pentru toată suprafața R. Moldova. Rezoluția geometrică a imaginilor digitale este de 0.40m.
+Precizia ortofotoimaginilor 1.5m</dct:abstract>
+      <dc:description>Serviciul Web Mapping Service (WMS) care permite accesul la Modelul Digital al Terenului a Republicii Moldova anul 2007.
+DTM-ul a fost creat în cadrul proiectului de aerofotografiere, de către BLOOM Info GENET S.R.L. pentru toată suprafața R. Moldova. Rezoluția geometrică a imaginilor digitale este de 0.40m.
+Precizia ortofotoimaginilor 1.5m</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:URI protocol="" name="DTM_shadows_gray" description="DTM 2007 cm (umbre suri)">https://geodata.gov.md/geoserver/DTM/wms?</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>7ee29be5-2926-4387-9ec9-a12513e2b7a9</dc:identifier>
+      <dc:date>2026-08-24T10:13:04.083Z</dc:date>
+      <dc:title>Modelul Digital al Terenului 2011 (LineMap)</dc:title>
+      <dc:type>dataset</dc:type>
+      <dc:subject>Elevație</dc:subject>
+      <dc:subject>Elevație</dc:subject>
+      <dc:subject>DTM</dc:subject>
+      <dc:subject>Local</dc:subject>
+      <dc:subject>Domeniul Observarea Pământului și mediu</dc:subject>
+      <dc:subject>Elevație</dc:subject>
+      <dc:subject>elevation</dc:subject>
+      <dc:format>ESRI Shapefile</dc:format>
+      <dct:abstract>Setul de date conține date a Modelului Digital al Terenului realizat în urma procesului de aerofotografiere 2011. Modelului digital al terenului a fost efectuat pentru zona de centru a țării cu suprafața 6275 km.p. Aerofotografierea a fost  realizat de Consorțiul format din companiile germane Hansa Luftbild și Astec în luna septembrie 2011. Planșele au mărimea 2.5*2.5km ce corespunde rețelei cu scara 1:5000. Precizia (abaterea standart) este 0.4m.</dct:abstract>
+      <dc:description>Setul de date conține date a Modelului Digital al Terenului realizat în urma procesului de aerofotografiere 2011. Modelului digital al terenului a fost efectuat pentru zona de centru a țării cu suprafața 6275 km.p. Aerofotografierea a fost  realizat de Consorțiul format din companiile germane Hansa Luftbild și Astec în luna septembrie 2011. Planșele au mărimea 2.5*2.5km ce corespunde rețelei cu scara 1:5000. Precizia (abaterea standart) este 0.4m.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:language>rum</dc:language>
+      <dc:source>2,5 m RMS</dc:source>
+      <dc:format>ESRI Shapefile</dc:format>
+      <ows:BoundingBox crs="urn:ogc:def:crs:EPSG:6.6:4326">
+        <ows:LowerCorner>46.5865 28.0633</ows:LowerCorner>
+        <ows:UpperCorner>47.6847 29.5258</ows:UpperCorner>
+      </ows:BoundingBox>
+      <dc:URI protocol="" name="DTM 2011 (Line map)">https://geodata.gov.md</dc:URI>
+      <dc:URI protocol="image/png">https://geoportalinds.gov.md/geonetwork/srv/api/records/7ee29be5-2926-4387-9ec9-a12513e2b7a9/attachments/DTMLINEMAP.png</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>e9941118-761a-4636-a6aa-ba2662bfa510</dc:identifier>
+      <dc:date>2023-12-20T12:01:07.178Z</dc:date>
+      <dc:title>Zone seismice mun Chișinău (WFS)</dc:title>
+      <dc:type>service</dc:type>
+      <dc:subject>Utilizarea terenului</dc:subject>
+      <dc:subject>Zone de risc natural</dc:subject>
+      <dc:subject>Soluri</dc:subject>
+      <dc:subject>zone de cutremur</dc:subject>
+      <dc:subject>zone seismice</dc:subject>
+      <dc:subject>Servicii de procesare geografică – metadate</dc:subject>
+      <dc:subject>Servicii de procesare geografică – aspecte spațiale</dc:subject>
+      <dc:subject>Serviciu de gestionare a modelelor geografice/a informațiilor</dc:subject>
+      <dct:abstract>Seismele sunt mișcări ale pământului, ce constau în vibrații generate în zonele interne ale Terrei, propagate în formă de unde prin roci. Aceste vibrații rezultă din mișcările plăcilor tectonice, fiind des cauzate de o activitate vulcanică.</dct:abstract>
+      <dc:description>Seismele sunt mișcări ale pământului, ce constau în vibrații generate în zonele interne ale Terrei, propagate în formă de unde prin roci. Aceste vibrații rezultă din mișcările plăcilor tectonice, fiind des cauzate de o activitate vulcanică.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:URI protocol="OGC:WFS" name="apl:s0100_seismic_zones" description="Zone Seismice mun. Chișinău">https://gislocal.md/geoserver/apl/wms</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>81ed8d76-affa-4c7d-9287-5823414a410d</dc:identifier>
+      <dc:date>2016-10-04T16:39:04</dc:date>
+      <dc:title>Situații excepționale cu caracter biologico-social</dc:title>
+      <dc:type>dataset</dc:type>
+      <dc:subject>Sănătate și siguranță umană</dc:subject>
+      <dc:subject />
+      <dc:subject>Accident de transport</dc:subject>
+      <dc:subject>Accident rutier</dc:subject>
+      <dc:subject>Accident</dc:subject>
+      <dc:subject>Transport</dc:subject>
+      <dc:subject>Zone de administrare</dc:subject>
+      <dc:subject>Sănătate şi siguranţă umană</dc:subject>
+      <dc:subject>transportation</dc:subject>
+      <dc:format>ESRI Shapefile</dc:format>
+      <dct:abstract>Setul de date prezintă informația statistică cu privire la situațiile excepționale cu caracter biologico-social de pe teritoriul Republicii Moldova.</dct:abstract>
+      <dc:description>Setul de date prezintă informația statistică cu privire la situațiile excepționale cu caracter biologico-social de pe teritoriul Republicii Moldova.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:language>rum</dc:language>
+      <dc:source>În procesul de stocare a informațiilor despre situațiile excepționale, evenimentele respective sunt adăugate pe hartă prin intermediul aplicaţiilor GIS, în baza imaginilor ortofoto.</dc:source>
+      <dc:format>ESRI Shapefile</dc:format>
+      <ows:BoundingBox crs="urn:ogc:def:crs:EPSG:6.6:4326">
+        <ows:LowerCorner>45.462 26.618</ows:LowerCorner>
+        <ows:UpperCorner>48.486 30.132</ows:UpperCorner>
+      </ows:BoundingBox>
+      <dc:URI protocol="WWW:LINK-1.0-http--related" name="Link-ul de acces la serviciul de vizualizare">http://ndois.giscuit.com/ro/default/wms/private?</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>0bffdbe2-470e-4792-8348-16a2806b095d</dc:identifier>
+      <dc:date>2026-05-27T06:41:05.963Z</dc:date>
+      <dc:title>Îmbrăcămintea rutieră</dc:title>
+      <dc:type>dataset</dc:type>
+      <dc:subject>Rețele de transport</dc:subject>
+      <dc:subject>Regional</dc:subject>
+      <dc:subject>Local</dc:subject>
+      <dc:subject>European</dc:subject>
+      <dc:subject>Național</dc:subject>
+      <dc:subject>Mondial</dc:subject>
+      <dc:subject>Drumuri</dc:subject>
+      <dc:subject>Drum</dc:subject>
+      <dc:subject>Itinerar</dc:subject>
+      <dc:subject>Transport</dc:subject>
+      <dc:subject>Reţele de transport</dc:subject>
+      <dc:subject>transportation</dc:subject>
+      <dc:format>ESRI Shapefile</dc:format>
+      <dct:modified>2019-06-01</dct:modified>
+      <dct:abstract>În funcţie de tipul structurii rutiere, drumurile se împart în:a) drumuri cu structura rutieră capitală (permanentă) – cu îmbrăcăminţi din beton asfaltic sau beton de ciment;b) drumuri cu structura rutieră uşoară (semipermanentă) – cu îmbrăcăminţi rutiere din materiale locale anrobate cu lianţi bituminoşi;c) drumuri cu structura rutieră provizorie – drumurile pietruite.</dct:abstract>
+      <dc:description>În funcţie de tipul structurii rutiere, drumurile se împart în:a) drumuri cu structura rutieră capitală (permanentă) – cu îmbrăcăminţi din beton asfaltic sau beton de ciment;b) drumuri cu structura rutieră uşoară (semipermanentă) – cu îmbrăcăminţi rutiere din materiale locale anrobate cu lianţi bituminoşi;c) drumuri cu structura rutieră provizorie – drumurile pietruite.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:language>rum</dc:language>
+      <dc:source>Datele au fost colectate cu ajutorul GPS Pathfinder Pro XRS.</dc:source>
+      <dc:relation>08b732f2-eae0-48d6-b6e9-21d7da1d635b</dc:relation>
+      <dc:format>ESRI Shapefile</dc:format>
+      <ows:BoundingBox crs="urn:ogc:def:crs:EPSG:6.6:4326">
+        <ows:LowerCorner>45.462 26.618</ows:LowerCorner>
+        <ows:UpperCorner>48.486 30.132</ows:UpperCorner>
+      </ows:BoundingBox>
+      <dc:URI protocol="WWW:LINK-1.0-http--partners" name="Site-ul oficial al Administraţiei de Stat a Drumurilor">http://data.asd.md/geoserver/public/wms</dc:URI>
+      <dc:URI name="Harta Drumurilor" description="Harta interactivă a drumurilor publice naționale">http://data.asd.md/geoserver/public/wms</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>3611a221-40d3-419e-b294-76cbfeefcda3</dc:identifier>
+      <dc:date>2023-12-20T12:03:53.913Z</dc:date>
+      <dc:title>Geologia inginerească mun. Chișinău</dc:title>
+      <dc:type>dataset</dc:type>
+      <dc:subject>Geologie</dc:subject>
+      <dc:subject>Ingineria geologică</dc:subject>
+      <dc:subject>Geologie inginerească</dc:subject>
+      <dc:subject>geoscientificInformation</dc:subject>
+      <dc:format>OGC:OWS-C</dc:format>
+      <dct:modified>2003-12-05</dct:modified>
+      <dct:modified>2015-01-03</dct:modified>
+      <dct:abstract>Ingineria geologică este activ implicată în principal prin geotehnică și geologie inginerească în construcții civile și industriale, lucrări miniere și de foraj, de reabilitare a zonelor afectate, precum și lucrări publice asociate infrastructurii rutiere, feroviare, lucrărilor de îndiguire, stabilizare a versanților etc.</dct:abstract>
+      <dc:description>Ingineria geologică este activ implicată în principal prin geotehnică și geologie inginerească în construcții civile și industriale, lucrări miniere și de foraj, de reabilitare a zonelor afectate, precum și lucrări publice asociate infrastructurii rutiere, feroviare, lucrărilor de îndiguire, stabilizare a versanților etc.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:language>rum</dc:language>
+      <dc:source>Set de date aprobat prin Decizia Consiliului Municipal Chișinău nr. 68/1-2 din 22 martie 2007 „Cu privire la aprobarea Planului Urbanistic General al orașului Chișinău”</dc:source>
+      <dc:format>OGC:OWS-C</dc:format>
+      <ows:BoundingBox crs="urn:ogc:def:crs:EPSG:6.6:4326">
+        <ows:LowerCorner>46.9249 28.6827</ows:LowerCorner>
+        <ows:UpperCorner>47.1159 29.0072</ows:UpperCorner>
+      </ows:BoundingBox>
+      <dc:URI protocol="image/jpeg">https://geoportalinds.gov.md/geonetwork/srv/api/records/3611a221-40d3-419e-b294-76cbfeefcda3/attachments/DATASET.jpg</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>38dac355-7cc1-4110-ab04-7406e3e5fbb5</dc:identifier>
+      <dc:date>2026-08-24T10:19:39.259Z</dc:date>
+      <dc:title>Modelul Digital al Terenului, 2007</dc:title>
+      <dc:type>dataset</dc:type>
+      <dc:subject>Elevație</dc:subject>
+      <dc:subject>Elevație</dc:subject>
+      <dc:subject>DTM</dc:subject>
+      <dc:subject>Domeniul Observarea Pământului și mediu</dc:subject>
+      <dc:subject>Elevație</dc:subject>
+      <dc:subject>elevation</dc:subject>
+      <dc:format>ESRI Shapefile</dc:format>
+      <dct:modified>2008-11-30</dct:modified>
+      <dct:abstract>Setul de date conţine Modelul Digital al Terenului (MDT, DTM) a Republicii Moldova (cu excepția teritoriului din stînga Nistrului), creat în cadrul proiectului de aerofotografiere, de către BLOOM Info GENET S.R.L. pentru toată suprafața R. Moldova. Rezoluția geometrică a imaginilor digitale este de 0.40m. Precizia ortofotoimaginilor 1.5m.</dct:abstract>
+      <dc:description>Setul de date conţine Modelul Digital al Terenului (MDT, DTM) a Republicii Moldova (cu excepția teritoriului din stînga Nistrului), creat în cadrul proiectului de aerofotografiere, de către BLOOM Info GENET S.R.L. pentru toată suprafața R. Moldova. Rezoluția geometrică a imaginilor digitale este de 0.40m. Precizia ortofotoimaginilor 1.5m.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:language>rum</dc:language>
+      <dc:source>2,5 m RMS</dc:source>
+      <dc:format>ESRI Shapefile</dc:format>
+      <ows:BoundingBox crs="urn:ogc:def:crs:EPSG:6.6:4326">
+        <ows:LowerCorner>45.462 26.618</ows:LowerCorner>
+        <ows:UpperCorner>48.486 30.132</ows:UpperCorner>
+      </ows:BoundingBox>
+      <dc:URI protocol="" name="DTM 207">https://geodata.gov.md</dc:URI>
+      <dc:URI protocol="image/png">https://geoportalinds.gov.md/geonetwork/srv/api/records/38dac355-7cc1-4110-ab04-7406e3e5fbb5/attachments/MODELTEREN2007.png</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>b6b56db3-40f2-47c3-9694-8a180e67ea78</dc:identifier>
+      <dc:date>2026-08-24T08:19:11.751Z</dc:date>
+      <dc:title>Acoperirea terestră 2018 (zona de centru)</dc:title>
+      <dc:type>dataset</dc:type>
+      <dc:subject>Acoperire terestră</dc:subject>
+      <dc:subject>Acoperire terestră</dc:subject>
+      <dc:subject>Corine Land Cover</dc:subject>
+      <dc:subject>CLC</dc:subject>
+      <dc:subject>Regional</dc:subject>
+      <dc:subject>Domeniul Observarea Pământului și mediu</dc:subject>
+      <dc:subject>Acoperire terestră</dc:subject>
+      <dc:subject>environment</dc:subject>
+      <dc:subject>planningCadastre</dc:subject>
+      <dc:format>ESRI Shapefile</dc:format>
+      <dct:abstract>CLC este o bază de date digitală privind starea și modificările acoperirii suprafeței terestre a Republicii Moldova, elaborată cu suportul Agentiei Europene de Mediu, în conformitate cu nomenclatura și metodologia standardizată CORINE, care asigură coerența și omogenitatea datelor la nivelul întregii Uniuni Europene. Corine Land Cover, care reprezintă o metodologie standartizată ce cuprinde 44 de clase împărțite pe 3 nivele(suprafețe artificiale; suprafețe agricole; păduri și arii seminaturale) unitatea minimă de cartografiere este 25 ha; lățimea minimă a elemetelor liniare este 100m. Baza de date CLC conține date privind ocuparea terenurilor pentru anii de referință 2000-2018, precum și date privind schimbările de acoperire a terenurilor între anii de referință menționați.</dct:abstract>
+      <dc:description>CLC este o bază de date digitală privind starea și modificările acoperirii suprafeței terestre a Republicii Moldova, elaborată cu suportul Agentiei Europene de Mediu, în conformitate cu nomenclatura și metodologia standardizată CORINE, care asigură coerența și omogenitatea datelor la nivelul întregii Uniuni Europene. Corine Land Cover, care reprezintă o metodologie standartizată ce cuprinde 44 de clase împărțite pe 3 nivele(suprafețe artificiale; suprafețe agricole; păduri și arii seminaturale) unitatea minimă de cartografiere este 25 ha; lățimea minimă a elemetelor liniare este 100m. Baza de date CLC conține date privind ocuparea terenurilor pentru anii de referință 2000-2018, precum și date privind schimbările de acoperire a terenurilor între anii de referință menționați.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:language>rum</dc:language>
+      <dc:source>Abordarea standard pentru crearea  bazei de date CLC s-a bazat pe interpretarea vizuală a imaginilor satelitare în conformitate cu metodologia CLC acceptată, oferind date vectoriale pe o scară de 1: 100.000, lățimea minimă a poligonului 100m, suprafața minimă de cartografiere de 25 ha pentru baza acoperirii terenului și 5 ha pentru baza modificărilor. Nomenclatura CLC definită include 44 de clase, dispuse pe 3 niveluri, fiecare descriind o acoperire diferită a terenului.</dc:source>
+      <dc:format>ESRI Shapefile</dc:format>
+      <ows:BoundingBox crs="urn:ogc:def:crs:EPSG:6.6:4326">
+        <ows:LowerCorner>46.9845 28.2438</ows:LowerCorner>
+        <ows:UpperCorner>47.5029 29.01</ows:UpperCorner>
+      </ows:BoundingBox>
+      <dc:URI protocol="WWW:LINK-1.0-http--link" name="Acoperire terestră 2018 (zona de centru)">https://geodata.gov.md</dc:URI>
+      <dc:URI protocol="image/png">https://geoportalinds.gov.md/geonetwork/srv/api/records/b6b56db3-40f2-47c3-9694-8a180e67ea78/attachments/Corine2018data.png</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>48f094a1-48aa-4b34-8780-8c05a4556301</dc:identifier>
+      <dc:date>2024-08-12T06:26:51.395Z</dc:date>
+      <dc:title>Harta digitala de bază la scara 1:50 000 (2013), WFS</dc:title>
+      <dc:type>service</dc:type>
+      <dc:subject>hartă</dc:subject>
+      <dc:subject>hartă topografică</dc:subject>
+      <dc:subject>topografie</dc:subject>
+      <dc:subject>Vizualizator catalog</dc:subject>
+      <dct:abstract>Serviciul WFS permite vizualizarea și descărcarea hărții topografice la scara 1: 50 000.    Studiu dat acoperă suprafață totală a  teritoriul țării. Harta conține informații structurate tematic: hotarele administrative, clădiri, construcții, relief, hidrografie, utilizarea terenului, transport, utilități, puncta de control. A fost realizată în proiecția Transverse Mercator zona 35N, Elipsoidul WGS 84, sistemul de altitudini - M.Baltică, sistemul de coordonate geografice - GCS_WGS_1984. Actualizarea hărții topografice s-a efectuat în 2 etape: pentru întreg teritoriul țării cu o suprafață de aproximativ 30 000km- în 2012 cu excepția UTA din stânga Nistrului și Bender;  2014 – pentru UTA din stânga Nistrului și Bender.</dct:abstract>
+      <dc:description>Serviciul WFS permite vizualizarea și descărcarea hărții topografice la scara 1: 50 000.    Studiu dat acoperă suprafață totală a  teritoriul țării. Harta conține informații structurate tematic: hotarele administrative, clădiri, construcții, relief, hidrografie, utilizarea terenului, transport, utilități, puncta de control. A fost realizată în proiecția Transverse Mercator zona 35N, Elipsoidul WGS 84, sistemul de altitudini - M.Baltică, sistemul de coordonate geografice - GCS_WGS_1984. Actualizarea hărții topografice s-a efectuat în 2 etape: pentru întreg teritoriul țării cu o suprafață de aproximativ 30 000km- în 2012 cu excepția UTA din stânga Nistrului și Bender;  2014 – pentru UTA din stânga Nistrului și Bender.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:URI protocol="" name="Harta 1:50 000" description="Serviciul WFS permite vizualizarea și descărcarea hărții topografice la scara 1: 50 000">https://geodata.gov.md/geoserver/maps/wfs?service=wfs&amp;version=1.1.0&amp;request=GetCapabilities</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>ad53e63f-a68a-4e3a-92ce-4fc67240141f</dc:identifier>
+      <dc:date>2023-12-20T11:55:45.035Z</dc:date>
+      <dc:title>Zonare Urbană (RLU) (WFS)</dc:title>
+      <dc:type>service</dc:type>
+      <dc:subject>Servicii de utilitate publică și servicii publice</dc:subject>
+      <dc:subject>Ghidul Zonarei Urbane</dc:subject>
+      <dc:subject>Zonare municipiului Chișinău</dc:subject>
+      <dc:subject>Modul de folosire a terenului</dc:subject>
+      <dc:subject>Servicii de procesare geografică – metadate</dc:subject>
+      <dc:subject>Servicii de procesare geografică – aspecte spațiale</dc:subject>
+      <dc:subject>Serviciu de gestionare a modelelor geografice/a informațiilor</dc:subject>
+      <dct:modified>2022-02-01</dct:modified>
+      <dct:abstract>Zonarea este controlul modului de folosire a terenului așa cum aceasta a fost formulată și aprobat în planul de politici de dezvoltare a municipiului Chișinău.</dct:abstract>
+      <dc:description>Zonarea este controlul modului de folosire a terenului așa cum aceasta a fost formulată și aprobat în planul de politici de dezvoltare a municipiului Chișinău.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:URI protocol="OGC:WFS" name="apl:s0100_urban_zoning" description="Zonarea Urbana (RLU)">https://gislocal.md/geoserver/apl/wfs</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>355292b6-b243-4cf5-8834-e09ef9e4685f</dc:identifier>
+      <dc:date>2026-08-24T10:44:18.942Z</dc:date>
+      <dc:title>Modificările acoperirii terestre, anul 2018-2023</dc:title>
+      <dc:type>dataset</dc:type>
+      <dc:subject>Acoperire terestră</dc:subject>
+      <dc:subject>Acoperire terestră</dc:subject>
+      <dc:subject>European</dc:subject>
+      <dc:subject>Domeniul Observarea Pământului și mediu</dc:subject>
+      <dc:subject>Acoperire terestră</dc:subject>
+      <dc:subject>environment</dc:subject>
+      <dc:subject>planningCadastre</dc:subject>
+      <dc:format>ESRI Shapefile</dc:format>
+      <dct:abstract>Setul de date conține modificările CLC care caracterizează acele modificări ale acoperirii terenurilor cu  o periodicitate mai mare decât cea anuală/stațională. Extinderea urbană, plantarea de copaci pentru a înlocui terenurile arabile, crearea unui nou rezervor, ect. - astfel de modificări pe termen lung ale acoperirii terenurilor sunt cartografiate ca modificări CLC. Pe de altă parte, modificările tranzitorii și modificările periodice pe termen scurt sunt fenomene care nu trebuie cartografiate ca modificări CLC.</dct:abstract>
+      <dc:description>Setul de date conține modificările CLC care caracterizează acele modificări ale acoperirii terenurilor cu  o periodicitate mai mare decât cea anuală/stațională. Extinderea urbană, plantarea de copaci pentru a înlocui terenurile arabile, crearea unui nou rezervor, ect. - astfel de modificări pe termen lung ale acoperirii terenurilor sunt cartografiate ca modificări CLC. Pe de altă parte, modificările tranzitorii și modificările periodice pe termen scurt sunt fenomene care nu trebuie cartografiate ca modificări CLC.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:language>rum</dc:language>
+      <dc:source>Abordarea standard pentru crearea bazei de date CLC s-a bazat pe interpretarea vizuală a imaginilor satelitare: Image2000, Image2018, hărți topografice la scara 1:50000, ortoimagini 2007, 2016, 2020, 2021, în conformitate cu metodologia CLC acceptată, oferind date vectoriale pe o scară de 1: 100.000, lățimea minimă a poligonului 100m, suprafața minimă de cartografiere de 25 ha pentru baza acoperirii terenului și 5 ha pentru baza modificărilor. Nomenclatura CLC definită include 23 de clase, fiecare descriind o acoperire diferită a terenului.</dc:source>
+      <dc:format>ESRI Shapefile</dc:format>
+      <ows:BoundingBox crs="urn:ogc:def:crs:EPSG:6.6:4326">
+        <ows:LowerCorner>45.462 26.618</ows:LowerCorner>
+        <ows:UpperCorner>48.486 30.132</ows:UpperCorner>
+      </ows:BoundingBox>
+      <dc:URI protocol="WWW:LINK-1.0-http--link" name="Modificări CLC 2018-2023">https://geodata.gov.md</dc:URI>
+      <dc:URI protocol="image/png">https://geoportalinds.gov.md/geonetwork/srv/api/records/355292b6-b243-4cf5-8834-e09ef9e4685f/attachments/Corine2018data.png</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>5f1369b6-1cab-44ea-85b8-2e941c143ead</dc:identifier>
+      <dc:date>2023-12-20T11:55:40.424Z</dc:date>
+      <dc:title>Zonare Urbană (RLU) (WMS)</dc:title>
+      <dc:type>service</dc:type>
+      <dc:subject>Servicii de utilitate publică și servicii publice</dc:subject>
+      <dc:subject>Ghidul Zonarei Urbane</dc:subject>
+      <dc:subject>Zonare municipiului Chișinău</dc:subject>
+      <dc:subject>Modul de folosire a terenului</dc:subject>
+      <dc:subject>Servicii de procesare geografică – metadate</dc:subject>
+      <dc:subject>Servicii de procesare geografică – aspecte spațiale</dc:subject>
+      <dc:subject>Serviciu de gestionare a modelelor geografice/a informațiilor</dc:subject>
+      <dct:modified>2022-02-01</dct:modified>
+      <dct:abstract>Zonarea este controlul modului de folosire a terenului așa cum aceasta a fost formulată și aprobat în planul de politici de dezvoltare a municipiului Chișinău.</dct:abstract>
+      <dc:description>Zonarea este controlul modului de folosire a terenului așa cum aceasta a fost formulată și aprobat în planul de politici de dezvoltare a municipiului Chișinău.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:URI protocol="OGC:WMS" name="s0100_urban_zoning" description="Zonarea Urbana (RLU)">https://gislocal.md/geoserver/apl/wms</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>0dd09bd5-4a55-482f-9315-bdac307c506f</dc:identifier>
+      <dc:date>2025-03-11T07:48:18.203Z</dc:date>
+      <dc:title>Harta digitala de bază la scara 1:50 000 (2013)</dc:title>
+      <dc:type>dataset</dc:type>
+      <dc:subject>Acoperire terestră</dc:subject>
+      <dc:subject>harta topografică</dc:subject>
+      <dc:subject>Național</dc:subject>
+      <dc:subject>imageryBaseMapsEarthCover</dc:subject>
+      <dc:format>ESRI Shapefile</dc:format>
+      <dct:modified>2012-11-30</dct:modified>
+      <dct:abstract>Setul de date conține harta topografică (date vectoriale) la scara 1: 50 000.    Studiu dat acoperă suprafață totală a  teritoriul țării. Harta conține informații structurate tematic: hotarele administrative, clădiri, construcții, relief, hidrografie, utilizarea terenului, transport, utilități, puncte de control. Harta topografică fost realizată în proiecția Transverse Mercator zona 35N, Elipsoidul WGS 84, sistemul de altitudini -M.Baltică, sistemul de coordonate geografice  - GCS_WGS_1984. Actualizarea hărții topografice s-a efectuat în 2 etape: pentru întreg teritoriul țării cu o suprafață de aproximativ 30 000km - în 2012 cu excepția UTA din stânga Nistrului și Bender;  2014 – pentru UTA din stânga Nistrului și Bender.</dct:abstract>
+      <dc:description>Setul de date conține harta topografică (date vectoriale) la scara 1: 50 000.    Studiu dat acoperă suprafață totală a  teritoriul țării. Harta conține informații structurate tematic: hotarele administrative, clădiri, construcții, relief, hidrografie, utilizarea terenului, transport, utilități, puncte de control. Harta topografică fost realizată în proiecția Transverse Mercator zona 35N, Elipsoidul WGS 84, sistemul de altitudini -M.Baltică, sistemul de coordonate geografice  - GCS_WGS_1984. Actualizarea hărții topografice s-a efectuat în 2 etape: pentru întreg teritoriul țării cu o suprafață de aproximativ 30 000km - în 2012 cu excepția UTA din stânga Nistrului și Bender;  2014 – pentru UTA din stânga Nistrului și Bender.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:language>rum</dc:language>
+      <dc:source>Harta topografică a fost creată pe baza de ortofoto, planuri, imagini satelitare și descifrări pe teren.</dc:source>
+      <dc:format>ESRI Shapefile</dc:format>
+      <ows:BoundingBox crs="urn:ogc:def:crs:EPSG:6.6:4326">
+        <ows:LowerCorner>45.462 26.618</ows:LowerCorner>
+        <ows:UpperCorner>48.486 30.132</ows:UpperCorner>
+      </ows:BoundingBox>
+      <dc:URI protocol="" name="Harta digitala de bază la scara 1:50 000">https://geodata.gov.md</dc:URI>
+      <dc:URI protocol="image/png">https://geoportalinds.gov.md/geonetwork/srv/api/records/0dd09bd5-4a55-482f-9315-bdac307c506f/attachments/HARTATOPOGRAFICA.png</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>4f614240-979e-41d6-9f1b-dba80812b34f</dc:identifier>
+      <dc:date>2025-03-11T07:54:54.999Z</dc:date>
+      <dc:title>Modelul Digital al Terenului 2011 (LineMap)</dc:title>
+      <dc:type>service</dc:type>
+      <dc:subject>Elevație</dc:subject>
+      <dc:subject>DTM</dc:subject>
+      <dc:subject>relief</dc:subject>
+      <dc:subject>elevație</dc:subject>
+      <dc:subject>Servicii de procesare geografică – aspecte spațiale</dc:subject>
+      <dct:abstract>Serviciul Web Mapping Service (WMS) care permite vizualizarea setului de date ce conține Modelul Digital al Terenului pentru zona de centru a R. Moldova cu suprafață de 6275 km.p. Realizat în cadrul proiectului de aerofotografiere,livrată de Consorțiul format din companiile germane Hansa Luftbild și Astec. Rezoluția este 20cm.  Planșele au mărimea 2.5*2.5km ce corespunde rețelei cu scara 1:5000. Precizia ortoimaginilor (abaterea standart) este 0.4m.</dct:abstract>
+      <dc:description>Serviciul Web Mapping Service (WMS) care permite vizualizarea setului de date ce conține Modelul Digital al Terenului pentru zona de centru a R. Moldova cu suprafață de 6275 km.p. Realizat în cadrul proiectului de aerofotografiere,livrată de Consorțiul format din companiile germane Hansa Luftbild și Astec. Rezoluția este 20cm.  Planșele au mărimea 2.5*2.5km ce corespunde rețelei cu scara 1:5000. Precizia ortoimaginilor (abaterea standart) este 0.4m.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:URI protocol="" name="DTM_LineMap2011" description="DTM LineMap 2011">https://geodata.gov.md/geoserver/DTM/wms</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>f682d007-2050-4fe5-80ad-319b437c95a8</dc:identifier>
+      <dc:date>2024-02-15T13:44:35.834Z</dc:date>
+      <dc:title>Lacuri</dc:title>
+      <dc:type>dataset</dc:type>
+      <dc:subject>Hidrografie</dc:subject>
+      <dc:subject>Lacuri</dc:subject>
+      <dc:subject>Lacuri de acumulare</dc:subject>
+      <dc:subject>inlandWaters</dc:subject>
+      <dc:format>gml</dc:format>
+      <dct:abstract>Setul de date armonizate Lacuri conține corpuri de apă care sunt în întregime înconjurate de uscat. Ele se poate forma într-o depresiune naturală a terenului în care apa se adună, sau pot fi formate de un baraj, sau formate prin scobirea patului său din sol sau prin terasarea și/sau îndiguirea unei depresiuni naturale (de exemplu: de un baraj de castori). Poate fi conectat la cursuri de apă care debușează în el sau îl traversează. Geometria a fost construită de pe imaginea ortofoto din 2016 adaptate la nivelul normal de retenție.</dct:abstract>
+      <dc:description>Setul de date armonizate Lacuri conține corpuri de apă care sunt în întregime înconjurate de uscat. Ele se poate forma într-o depresiune naturală a terenului în care apa se adună, sau pot fi formate de un baraj, sau formate prin scobirea patului său din sol sau prin terasarea și/sau îndiguirea unei depresiuni naturale (de exemplu: de un baraj de castori). Poate fi conectat la cursuri de apă care debușează în el sau îl traversează. Geometria a fost construită de pe imaginea ortofoto din 2016 adaptate la nivelul normal de retenție.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:language>eng</dc:language>
+      <dc:source>Acest set de date a fost armonizat conform specificației de date INSPIRE privind hidrografie (schema de aplicare fizică a apei)</dc:source>
+      <dc:format>gml</dc:format>
+      <ows:BoundingBox crs="urn:ogc:def:crs:EPSG:6.6:4326">
+        <ows:LowerCorner>46.4291 27.3924</ows:LowerCorner>
+        <ows:UpperCorner>47.5508 29.5529</ows:UpperCorner>
+      </ows:BoundingBox>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>5613c3e8-cf90-4ba9-8391-f102d0820a9e</dc:identifier>
+      <dc:date>2026-08-24T10:11:00.536Z</dc:date>
+      <dc:title>Modelul Digital al Terenului, 2021</dc:title>
+      <dc:type>dataset</dc:type>
+      <dc:subject>Elevație</dc:subject>
+      <dc:subject>Modelul digital al terenului</dc:subject>
+      <dc:subject>Național</dc:subject>
+      <dc:subject>Domeniul Observarea Pământului și mediu</dc:subject>
+      <dc:subject>Elevație</dc:subject>
+      <dc:subject>imageryBaseMapsEarthCover</dc:subject>
+      <dc:format>TIFF</dc:format>
+      <dct:modified>2022-03-01</dct:modified>
+      <dct:abstract>Setul de date conține Modelului digital al terenului pentru zona de sud realizat prin metoda fotogrametrică. Aerofotografierea digitală a fost executată în perioada lunii aprilie pentru partea de Sud a R. Moldova cu suprafața de aproximativ 9000 km.p, de către S.C.PRIMUL MERIDIAN S.R.L., România, Camera UltraCam Eagle Prime, Serial Number UC-Fp-1-70013023-f100 Focal Length - 100.5 mm; Pixel Size 4.600µm x 4.600µm. Rezoluția geometrică a imaginilor digitale este de 0,20m. DTM este împărțit în planșe cu mărimea 2.5*2.5km ce corespunde rețelei 1: 5000. Precizia de poziționare a DTM-ului în zonele construite și rurale este maximul 0,5m. Precizia de poziționare a DTM-ului în zone împădurite este 2m.</dct:abstract>
+      <dc:description>Setul de date conține Modelului digital al terenului pentru zona de sud realizat prin metoda fotogrametrică. Aerofotografierea digitală a fost executată în perioada lunii aprilie pentru partea de Sud a R. Moldova cu suprafața de aproximativ 9000 km.p, de către S.C.PRIMUL MERIDIAN S.R.L., România, Camera UltraCam Eagle Prime, Serial Number UC-Fp-1-70013023-f100 Focal Length - 100.5 mm; Pixel Size 4.600µm x 4.600µm. Rezoluția geometrică a imaginilor digitale este de 0,20m. DTM este împărțit în planșe cu mărimea 2.5*2.5km ce corespunde rețelei 1: 5000. Precizia de poziționare a DTM-ului în zonele construite și rurale este maximul 0,5m. Precizia de poziționare a DTM-ului în zone împădurite este 2m.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:language>rum</dc:language>
+      <dc:source>Setul de date conține Modelului digital al terenului pentru zona de sud realizat prin metoda fotogrametrică. Aerofotografierea digitală a fost executată în perioada lunii aprilie pentru partea de Sud a R. Moldova cu suprafața de aproximativ 9000 km.p, de către S.C.PRIMUL MERIDIAN S.R.L., România, Camera UltraCam Eagle Prime, Serial Number UC-Fp-1-70013023-f100 Focal Length - 100.5 mm; Pixel Size 4.600µm x 4.600µm. Rezoluția geometrică a imaginilor digitale este de 0,20m. DTM este împărțit în planșe cu mărimea 2.5*2.5km ce corespunde rețelei 1: 5000. Precizia de poziționare a DTM-ului în zonele construite și rurale este maximul 0,5m. Precizia de poziționare a DTM-ului în zone împădurite este 2m.</dc:source>
+      <dc:format>TIFF</dc:format>
+      <ows:BoundingBox crs="urn:ogc:def:crs:EPSG:6.6:4326">
+        <ows:LowerCorner>45.4226 28.044</ows:LowerCorner>
+        <ows:UpperCorner>46.7274 30.2318</ows:UpperCorner>
+      </ows:BoundingBox>
+      <dc:URI protocol="" name="DTM 2021">https://geodata.gov.md</dc:URI>
+      <dc:URI protocol="image/png">https://geoportalinds.gov.md/geonetwork/srv/api/records/5613c3e8-cf90-4ba9-8391-f102d0820a9e/attachments/DTM_SD.png</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>78ac310f-7911-445b-b29a-19ccd3343f56</dc:identifier>
+      <dc:date>2023-12-18T18:13:40.241Z</dc:date>
+      <dc:title>Alunecări de teren mun. Chișinău (WFS)</dc:title>
+      <dc:type>service</dc:type>
+      <dc:subject>Soluri</dc:subject>
+      <dc:subject>Sănătate și siguranță umană</dc:subject>
+      <dc:subject>Zone de risc natural</dc:subject>
+      <dc:subject>Utilizarea terenului</dc:subject>
+      <dc:subject>alunecări de teren</dc:subject>
+      <dc:subject>alunecări de pământ</dc:subject>
+      <dc:subject>Servicii de procesare geografică – metadate</dc:subject>
+      <dc:subject>Servicii de procesare geografică – aspecte spațiale</dc:subject>
+      <dc:subject>Serviciu de gestionare a modelelor geografice/a informațiilor</dc:subject>
+      <dct:abstract>Alunecările de teren sunt o categorie de fenomene naturale de risc, ce definesc procesul de deplasare naturală a maselor de roci pe o suprafață înclinată,cu participarea apei, sub acțiunea variaților bruște ale forței de gravitație.</dct:abstract>
+      <dc:description>Alunecările de teren sunt o categorie de fenomene naturale de risc, ce definesc procesul de deplasare naturală a maselor de roci pe o suprafață înclinată,cu participarea apei, sub acțiunea variaților bruște ale forței de gravitație.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:URI protocol="OGC:WFS" name="apl:s0100_landslides" description="Alunecări de teren mun. Chișinău">https://gislocal.md/geoserver/apl/wfs</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>feb7d9f3-4a05-4b33-b9fc-bd0a3d08bba2</dc:identifier>
+      <dc:date>2026-08-21T12:29:58.687Z</dc:date>
+      <dc:title>EuroDEM</dc:title>
+      <dc:type>dataset</dc:type>
+      <dc:subject>Elevație</dc:subject>
+      <dc:subject>elevație</dc:subject>
+      <dc:subject>European</dc:subject>
+      <dc:subject>elevation</dc:subject>
+      <dc:format>GeoTIFF</dc:format>
+      <dct:modified>2023-10-10</dct:modified>
+      <dct:abstract>EuroDEM este un set de date paneuropean privind altitudinile, realizat la o scară de aproximativ 1:100 000. Acest set de date digital descrie relieful terenului Europei, fără vegetație și construcții, și este alcătuit dintr-o rețea regulată de puncte altimetrice.
+EuroDEM a fost realizat pe baza bazelor de date naționale oficiale, prin cooperarea agențiilor naționale de cartografie și cadastru (NMCA) din Europa. Setul de date este continuu și armonizat la frontierele dintre țări.</dct:abstract>
+      <dc:description>EuroDEM este un set de date paneuropean privind altitudinile, realizat la o scară de aproximativ 1:100 000. Acest set de date digital descrie relieful terenului Europei, fără vegetație și construcții, și este alcătuit dintr-o rețea regulată de puncte altimetrice.
+EuroDEM a fost realizat pe baza bazelor de date naționale oficiale, prin cooperarea agențiilor naționale de cartografie și cadastru (NMCA) din Europa. Setul de date este continuu și armonizat la frontierele dintre țări.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:language>eng</dc:language>
+      <dc:source>Calitatea produsului depinde de seturile de date originale furnizate de fiecare țară. Informațiile pot fi găsite în fișierul de proveniență a datelor („lineage”) al țării respective.
+
+MERIT DEM este un model digital al elevației cu acces liber. Acesta a fost utilizat pentru completarea zonelor în care datele naționale fie nu erau disponibile, fie nu fusese acordată permisiunea de utilizare de către autoritățile naționale de cartografie și cadastru (NMCA), a se vedea capitolul 1.6. Datele originale au fost reproiectate pentru a corespunde specificațiilor EuroDEM.</dc:source>
+      <dc:format>GeoTIFF</dc:format>
+      <ows:BoundingBox crs="urn:ogc:def:crs:EPSG:6.6:4326">
+        <ows:LowerCorner>35.6706 -9.2118</ows:LowerCorner>
+        <ows:UpperCorner>68.7497 34.5965</ows:UpperCorner>
+      </ows:BoundingBox>
+      <dc:URI protocol="image/jpeg">https://geoportalinds.gov.md/geonetwork/srv/api/records/feb7d9f3-4a05-4b33-b9fc-bd0a3d08bba2/attachments/euro-dem.jpg</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>78133e72-cd0d-421f-bc3c-570f4153cdb0</dc:identifier>
+      <dc:date>2016-11-01T09:49:06</dc:date>
+      <dc:title>Drumuri publice</dc:title>
+      <dc:type>service</dc:type>
+      <dc:subject />
+      <dc:subject />
+      <dc:subject>Drum</dc:subject>
+      <dc:subject>Drumuri</dc:subject>
+      <dc:subject>Itinerar</dc:subject>
+      <dc:subject>Transport</dc:subject>
+      <dc:subject>Reţele de transport</dc:subject>
+      <dct:abstract>Serviciul Web Mapping Service (WMS) care asigură accesul la datele spaţiele despre drumurile publice – drumuri de utilitate publică destinate circulaţiei rutiere şi pietonale în scopul satisfacerii cerinţelor generale de transport rutier ale economiei naţionale şi ale populaţiei şi de apărare a ţării. Aceste drumuri sînt proprietate publică a statului şi asigură principalele legături rutiere internaţionale, legătura între capitala ţării şi oraşele-reşedinţă, municipiile şi obiectivele de importanţă republicană, precum şi legătura între ele.</dct:abstract>
+      <dc:description>Serviciul Web Mapping Service (WMS) care asigură accesul la datele spaţiele despre drumurile publice – drumuri de utilitate publică destinate circulaţiei rutiere şi pietonale în scopul satisfacerii cerinţelor generale de transport rutier ale economiei naţionale şi ale populaţiei şi de apărare a ţării. Aceste drumuri sînt proprietate publică a statului şi asigură principalele legături rutiere internaţionale, legătura între capitala ţării şi oraşele-reşedinţă, municipiile şi obiectivele de importanţă republicană, precum şi legătura între ele.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:URI protocol="WWW:LINK-1.0-http--related" name="Link-ul pentru accesarea serviciului WMS : http://185.108.182.106:809/geoserver/wms?">http://185.108.182.106:809/geoserver/wms?</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>bd7eb6a4-9d80-4319-8b0f-268379fe46e3</dc:identifier>
+      <dc:date>2026-08-24T10:21:07.732Z</dc:date>
+      <dc:title>Modelul Digital al Terenului, 2020</dc:title>
+      <dc:type>dataset</dc:type>
+      <dc:subject>Elevație</dc:subject>
+      <dc:subject>Modelul digital al terenului</dc:subject>
+      <dc:subject>Local</dc:subject>
+      <dc:subject>Domeniul Observarea Pământului și mediu</dc:subject>
+      <dc:subject>Elevație</dc:subject>
+      <dc:subject>imageryBaseMapsEarthCover</dc:subject>
+      <dc:format>TIFF</dc:format>
+      <dct:modified>2022-03-01</dct:modified>
+      <dct:abstract>Setul de date conține Modelului digital al terenului a fost efectuat pentru zona centrală a R.Moldova, realizat prin metoda fotogrametrică. DTM este împărțit în planșe cu mărimea 2.5*2.5km ce corespunde rețelei 1: 5000. Precizia de poziționare a DTM-ului în zonele construite și rurale este maximul 0.5m. Precizia de poziționare a DTM-ului în zone împădurite este 2m.</dct:abstract>
+      <dc:description>Setul de date conține Modelului digital al terenului a fost efectuat pentru zona centrală a R.Moldova, realizat prin metoda fotogrametrică. DTM este împărțit în planșe cu mărimea 2.5*2.5km ce corespunde rețelei 1: 5000. Precizia de poziționare a DTM-ului în zonele construite și rurale este maximul 0.5m. Precizia de poziționare a DTM-ului în zone împădurite este 2m.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:language>rum</dc:language>
+      <dc:source>Setul de date conține Modelului digital al terenului pentru zona de sud realizat prin metoda fotogrametrică. Aerofotografierea digitală a fost executată în perioada lunii aprilie pentru partea de Sud a R. Moldova cu suprafața de aproximativ 9000 km.p, de către S.C.PRIMUL MERIDIAN S.R.L., România, Camera UltraCam Eagle Prime, Serial Number UC-Fp-1-70013023-f100 Focal Length - 100.5 mm; Pixel Size 4.600µm x 4.600µm. Rezoluția geometrică a imaginilor digitale este de 0,20m. DTM este împărțit în planșe cu mărimea 2.5*2.5km ce corespunde rețelei 1: 5000. Precizia de poziționare a DTM-ului în zonele construite și rurale este maximul 0,5m. Precizia de poziționare a DTM-ului în zone împădurite este 2m.</dc:source>
+      <dc:format>TIFF</dc:format>
+      <ows:BoundingBox crs="urn:ogc:def:crs:EPSG:6.6:4326">
+        <ows:LowerCorner>46.6174 27.4369</ows:LowerCorner>
+        <ows:UpperCorner>47.5448 29.5291</ows:UpperCorner>
+      </ows:BoundingBox>
+      <dc:URI protocol="" name="DTM 2020">https://geodata.gov.md</dc:URI>
+      <dc:URI protocol="image/png">https://geoportalinds.gov.md/geonetwork/srv/api/records/bd7eb6a4-9d80-4319-8b0f-268379fe46e3/attachments/DTM_SD.png</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>aab1ac96-1cf2-42ae-9467-4a54d57460d1</dc:identifier>
+      <dc:date>2023-12-20T11:55:35.337Z</dc:date>
+      <dc:title>Zonare Urbană (RLU)</dc:title>
+      <dc:type>dataset</dc:type>
+      <dc:subject>Servicii de utilitate publică și servicii publice</dc:subject>
+      <dc:subject>Ghidul Zonarei Urbane</dc:subject>
+      <dc:subject>Zonare municipiului Chișinău</dc:subject>
+      <dc:subject>Modul de folosire a terenului</dc:subject>
+      <dc:subject>planningCadastre</dc:subject>
+      <dc:format>OGC:OWS-C</dc:format>
+      <dct:abstract>Zonarea este cel mai eficace instrument public de control al utilizai terenului, reflectând separarea spațială a incompatibilităților de utilizare a terenului urban și influențând, în consecință structura fizică economică și socială a orașului.</dct:abstract>
+      <dc:description>Zonarea este cel mai eficace instrument public de control al utilizai terenului, reflectând separarea spațială a incompatibilităților de utilizare a terenului urban și influențând, în consecință structura fizică economică și socială a orașului.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:language>rum</dc:language>
+      <dc:source>Mecanismul separării a fost realizat prin împărțirea teritoriului municipiului în zone cu folosințe specifice ale terenului, care descriu intensitățile de utilizare (ex. zone rezidențiale individuale sau colective), tipuri de activități comerciale, industriale, etc aprobat prin Decizia nr. 22/40 din 25 decembrie 2008 cu privire la aprobarea Regulamentului local de urbanism al orașului Chișinău.</dc:source>
+      <dc:format>OGC:OWS-C</dc:format>
+      <ows:BoundingBox crs="urn:ogc:def:crs:EPSG:6.6:4326">
+        <ows:LowerCorner>46.9451 28.7461</ows:LowerCorner>
+        <ows:UpperCorner>47.0908 28.9461</ows:UpperCorner>
+      </ows:BoundingBox>
+      <dc:URI protocol="image/jpeg">https://geoportalinds.gov.md/geonetwork/srv/api/records/aab1ac96-1cf2-42ae-9467-4a54d57460d1/attachments/DATASET.jpg</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>73834f4b-ae7a-4d76-b76f-acc59adfeec5</dc:identifier>
+      <dc:date>2026-05-27T06:46:10.932Z</dc:date>
+      <dc:title>Drumuri</dc:title>
+      <dc:type>dataset</dc:type>
+      <dc:subject>Rețele de transport</dc:subject>
+      <dc:subject>road</dc:subject>
+      <dc:subject>drum</dc:subject>
+      <dc:subject>drumuri</dc:subject>
+      <dc:subject>public</dc:subject>
+      <dc:subject>itinerar</dc:subject>
+      <dc:subject>transportation</dc:subject>
+      <dc:format>PostgreSQL / PostGIS</dc:format>
+      <dc:format>ESRI Shapefile</dc:format>
+      <dc:format>OGC GeoPackage</dc:format>
+      <dct:abstract>Setul de date Drumuri este format din colecții de segmente de drum caracterizate prin printr-un index unic atribuit de către autoritatea responsabilă S.A. "Administrația Naţională a Drumurilor. Setul reprezintă drumurile publice – drumuri de utilitate publică destinate circulaţiei rutiere şi pietonale în scopul satisfacerii cerinţelor generale de transport rutier ale economiei naţionale şi ale populaţiei şi de apărare a ţării. Aceste drumuri sînt proprietate publică a statului şi asigură principalele legături rutiere internaţionale, legătura între capitala ţării şi oraşele-reşedinţă, municipiile şi obiectivele de importanţă republicană, precum şi legătura între ele.</dct:abstract>
+      <dc:description>Setul de date Drumuri este format din colecții de segmente de drum caracterizate prin printr-un index unic atribuit de către autoritatea responsabilă S.A. "Administrația Naţională a Drumurilor. Setul reprezintă drumurile publice – drumuri de utilitate publică destinate circulaţiei rutiere şi pietonale în scopul satisfacerii cerinţelor generale de transport rutier ale economiei naţionale şi ale populaţiei şi de apărare a ţării. Aceste drumuri sînt proprietate publică a statului şi asigură principalele legături rutiere internaţionale, legătura între capitala ţării şi oraşele-reşedinţă, municipiile şi obiectivele de importanţă republicană, precum şi legătura între ele.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:language>rum</dc:language>
+      <dc:source>Datele au fost colectate cu ajutorul GPS Pathfinder Pro XRS.</dc:source>
+      <dc:format>PostgreSQL / PostGIS</dc:format>
+      <dc:format>ESRI Shapefile</dc:format>
+      <dc:format>OGC GeoPackage</dc:format>
+      <ows:BoundingBox crs="urn:ogc:def:crs:EPSG:6.6:4326">
+        <ows:LowerCorner>45.462 26.618</ows:LowerCorner>
+        <ows:UpperCorner>48.486 30.132</ows:UpperCorner>
+      </ows:BoundingBox>
+      <dc:URI protocol="" name="Road" description="Road">http://data.asd.md/geoserver/public/wms</dc:URI>
+      <dc:URI protocol="image/jpeg">https://geoportalinds.gov.md/geonetwork/srv/api/records/73834f4b-ae7a-4d76-b76f-acc59adfeec5/attachments/road.jpeg</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>1d9c4260-142b-468d-befc-464769240b55</dc:identifier>
+      <dc:date>2025-03-11T07:58:45.164Z</dc:date>
+      <dc:title>Modelul Digital al Terenului, 2020</dc:title>
+      <dc:type>service</dc:type>
+      <dc:subject>Elevație</dc:subject>
+      <dc:subject>DTM</dc:subject>
+      <dc:subject>relief</dc:subject>
+      <dc:subject>elevație</dc:subject>
+      <dc:subject>Servicii de procesare geografică – aspecte spațiale</dc:subject>
+      <dct:abstract>Serviciul WMS care permite vizualizarea Modelului digital al terenului a fost efectuat pentru zona centrală a R.Moldova, realizat prin metoda fotogrametrică. DTM este împărțit în planșe cu mărimea 2.5*2.5km ce corespunde rețelei 1: 5000. Precizia de poziționare a DTM-ului în zonele construite și rurale este maximul 0.5m. Precizia de poziționare a DTM-ului în zone împădurite este 2m.</dct:abstract>
+      <dc:description>Serviciul WMS care permite vizualizarea Modelului digital al terenului a fost efectuat pentru zona centrală a R.Moldova, realizat prin metoda fotogrametrică. DTM este împărțit în planșe cu mărimea 2.5*2.5km ce corespunde rețelei 1: 5000. Precizia de poziționare a DTM-ului în zonele construite și rurale este maximul 0.5m. Precizia de poziționare a DTM-ului în zone împădurite este 2m.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:URI protocol="" name="DTM_2020_centru" description="DTM 2020">https://geodata.gov.md/geoserver/DTM/wms</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>e4764a39-6e25-4f29-a903-52aba0f016b0</dc:identifier>
+      <dc:date>2026-04-16T08:44:43.968Z</dc:date>
+      <dc:title>Harta digitala de bază la scara 1:50 000 (2013), WMS</dc:title>
+      <dc:type>service</dc:type>
+      <dc:subject>Sisteme de caroiaj geografic</dc:subject>
+      <dc:subject>Resurse minerale</dc:subject>
+      <dc:subject>Instalații agricole și pentru acvacultură</dc:subject>
+      <dc:subject>Acoperire terestră</dc:subject>
+      <dc:subject>Denumiri geografice</dc:subject>
+      <dc:subject>Clădiri</dc:subject>
+      <dc:subject>Zone protejate</dc:subject>
+      <dc:subject>Unități administrative</dc:subject>
+      <dc:subject>Utilizarea terenului</dc:subject>
+      <dc:subject>Elevație</dc:subject>
+      <dc:subject>hartă</dc:subject>
+      <dc:subject>hartă topografică</dc:subject>
+      <dc:subject>topografie</dc:subject>
+      <dc:subject>Vizualizator catalog</dc:subject>
+      <dct:abstract>Serviciul WMS permite vizualizarea hărții topografice la scara 1: 50 000.    Studiu dat acoperă suprafață totală a  teritoriul țării. Harta conține informații structurate tematic: hotarele administrative, clădiri, construcții, relief, hidrografie, utilizarea terenului, transport, utilități, puncta de control. A fost realizată în proiecția Transverse Mercator zona 35N, Elipsoidul WGS 84, sistemul de altitudini -M.Baltică, sistemul de coordonate geografice GCS_WGS_1984. Actualizarea hărții topografice s-a efectuat în 2 etape: pentru întreg teritoriul țării cu o suprafață de aproximativ 30 000km- în 2012 cu excepția UTA din stânga Nistrului și Bender;  2014 – pentru UTA din stânga Nistrului și Bender.</dct:abstract>
+      <dc:description>Serviciul WMS permite vizualizarea hărții topografice la scara 1: 50 000.    Studiu dat acoperă suprafață totală a  teritoriul țării. Harta conține informații structurate tematic: hotarele administrative, clădiri, construcții, relief, hidrografie, utilizarea terenului, transport, utilități, puncta de control. A fost realizată în proiecția Transverse Mercator zona 35N, Elipsoidul WGS 84, sistemul de altitudini -M.Baltică, sistemul de coordonate geografice GCS_WGS_1984. Actualizarea hărții topografice s-a efectuat în 2 etape: pentru întreg teritoriul țării cu o suprafață de aproximativ 30 000km- în 2012 cu excepția UTA din stânga Nistrului și Bender;  2014 – pentru UTA din stânga Nistrului și Bender.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:URI protocol="" name="Map50k" description="Map of Moldova 1:50 000 (2013">https://geodata.gov.md/geoserver/maps/wms</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>3315c83b-cbf2-4941-902e-8962476d0a5f</dc:identifier>
+      <dc:date>2023-12-20T12:00:58.332Z</dc:date>
+      <dc:title>Zone seismice mun Chișinău (WMS)</dc:title>
+      <dc:type>service</dc:type>
+      <dc:subject>Soluri</dc:subject>
+      <dc:subject>Utilizarea terenului</dc:subject>
+      <dc:subject>Zone de risc natural</dc:subject>
+      <dc:subject>zone de cutremur</dc:subject>
+      <dc:subject>zone seismice</dc:subject>
+      <dc:subject>Servicii de procesare geografică – metadate</dc:subject>
+      <dc:subject>Serviciu de gestionare a modelelor geografice/a informațiilor</dc:subject>
+      <dc:subject>Servicii de procesare geografică – aspecte spațiale</dc:subject>
+      <dct:abstract>Seismele sunt mișcări ale pământului, ce constau în vibrații generate în zonele interne ale Terrei, propagate în formă de unde prin roci. Aceste vibrații rezultă din mișcările plăcilor tectonice, fiind des cauzate de o activitate vulcanică.</dct:abstract>
+      <dc:description>Seismele sunt mișcări ale pământului, ce constau în vibrații generate în zonele interne ale Terrei, propagate în formă de unde prin roci. Aceste vibrații rezultă din mișcările plăcilor tectonice, fiind des cauzate de o activitate vulcanică.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:URI protocol="OGC:WMS" name="s0100_seismic_zones" description="Zone Seismice mun. Chișinău">https://gislocal.md/geoserver/apl/wms</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>31c1d31f-2b9a-4beb-b8c2-5e99d229e30e</dc:identifier>
+      <dc:date>2026-07-31T00:20:57.98Z</dc:date>
+      <dc:title>Harta de contur a evidenței grafice a terenurilor (1990–1998) - WMS</dc:title>
+      <dc:type>service</dc:type>
+      <dc:subject>Serviciu de acces la hărți</dc:subject>
+      <dc:subject>harta de contur</dc:subject>
+      <dc:subject>evidența grafică a terenurilor</dc:subject>
+      <dc:subject>Land use</dc:subject>
+      <dc:subject>evidența cantitativă și calitativă</dc:subject>
+      <dc:subject>modul de folosință</dc:subject>
+      <dc:subject>Utilizarea terenului</dc:subject>
+      <dct:modified />
+      <dct:abstract>Web Mapping Service (WMS) versiunea 1.1.1 care permite accesul la setul de hărți de contur ale evidenței grafice a terenurilor, întocmite în perioada 1990–1998 pe unități administrativ-teritoriale, la scara 1:10 000, în scopul evidenței cantitative și calitative a terenurilor.
+Serviciul furnizează date în format raster și afișează contururile terenurilor în funcție de mpdul de folosință și categoriile de destinație, cu numerotarea contururilor și suprafețele înscrise pe hartă. Informațiile detaliate (de ex. bonitate, gradația pantei etc.) nu sunt incluse în WMS și se regăsesc în materialele aferente de evidență ale UAT-ului.</dct:abstract>
+      <dc:description>Web Mapping Service (WMS) versiunea 1.1.1 care permite accesul la setul de hărți de contur ale evidenței grafice a terenurilor, întocmite în perioada 1990–1998 pe unități administrativ-teritoriale, la scara 1:10 000, în scopul evidenței cantitative și calitative a terenurilor.
+Serviciul furnizează date în format raster și afișează contururile terenurilor în funcție de mpdul de folosință și categoriile de destinație, cu numerotarea contururilor și suprafețele înscrise pe hartă. Informațiile detaliate (de ex. bonitate, gradația pantei etc.) nu sunt incluse în WMS și se regăsesc în materialele aferente de evidență ale UAT-ului.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:URI protocol="" name="rm_10k" description="Evidența cantitativă a terenurilor">https://maps2.ingeocad.md/geoserver/rm_10k/wms</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>3bb381d5-32a8-4720-84ae-6bdbc813c979</dc:identifier>
+      <dc:date>2024-08-14T08:41:52.888Z</dc:date>
+      <dc:title>Harta topografică la scara 1:50 000, 2013 (raster)</dc:title>
+      <dc:type>service</dc:type>
+      <dc:subject>Acoperire terestră</dc:subject>
+      <dc:subject>Hartă topografică</dc:subject>
+      <dc:subject>Serviciu de acces la hărți</dc:subject>
+      <dct:abstract>Harta topografică 1: 50000 este  rezultatul proiectului "JICA", finanțat de către Guvernul Japoniei. Baza geografică a hărții o constituie 27 de seturi de date grupate în 10 teme: unități administrative, aeroporturi, clădiri, construcții, puncte de control, hidrografie, relief, utilizarea terenului, rețele de transport, utilități. Harta este realizată în proiecția Transverse Mercator 35N, elipsoidul WGS-84, sistemul de coordonate: GCS_WGS_84, unități de măsură: metri.</dct:abstract>
+      <dc:description>Harta topografică 1: 50000 este  rezultatul proiectului "JICA", finanțat de către Guvernul Japoniei. Baza geografică a hărții o constituie 27 de seturi de date grupate în 10 teme: unități administrative, aeroporturi, clădiri, construcții, puncte de control, hidrografie, relief, utilizarea terenului, rețele de transport, utilități. Harta este realizată în proiecția Transverse Mercator 35N, elipsoidul WGS-84, sistemul de coordonate: GCS_WGS_84, unități de măsură: metri.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:URI protocol="OGC:WMS-1.1.1-http-get-capabilities" name="harta_topografica_50k_2013" description="Harta topografică la scara 1:50 000">http://geodata.gov.md/geoserver/maps/wms?</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>a40bc5db-1dda-4491-96d1-ce1eeb3aaa54</dc:identifier>
+      <dc:date>2024-03-26T08:42:28.821Z</dc:date>
+      <dc:title>Planuri topografice la scara 1:5 000, Gauss-Krüger 1942, zona 5</dc:title>
+      <dc:type>service</dc:type>
+      <dc:subject>Acoperire terestră</dc:subject>
+      <dc:subject>Utilizarea terenului</dc:subject>
+      <dc:subject>Vizualizator geografic</dc:subject>
+      <dc:subject>Harta topografică</dc:subject>
+      <dct:abstract>Planuri topografice la scara 1:5 000 realizat în proiecția Gauss-Krüger la scara 1:5 000, zona 5 din anul 1942 (EPSG:2552).</dct:abstract>
+      <dc:description>Planuri topografice la scara 1:5 000 realizat în proiecția Gauss-Krüger la scara 1:5 000, zona 5 din anul 1942 (EPSG:2552).</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:URI protocol="OGC:WMS-1.1.1-http-get-capabilities" name="harta_topografica_5k_sc1942" description="Harta topografică la scara 1:5 000 (SC 1942)">https://geodata.gov.md/geoserver/maps/wms?</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>725f2f10-dce1-4d47-a0d5-5d73735c8a4a</dc:identifier>
+      <dc:date>2026-07-31T00:22:37.638Z</dc:date>
+      <dc:title>Harta de contur a evidenței grafice a terenurilor (1990–1998)</dc:title>
+      <dc:type>dataset</dc:type>
+      <dc:subject>Utilizarea terenului</dc:subject>
+      <dc:subject>harta de contur</dc:subject>
+      <dc:subject>evidența grafică a terenurilor</dc:subject>
+      <dc:subject>Land use</dc:subject>
+      <dc:subject>evidența cantitativă și calitativă</dc:subject>
+      <dc:subject>modul de folosință</dc:subject>
+      <dc:subject>Național</dc:subject>
+      <dc:subject>planningCadastre</dc:subject>
+      <dc:format>GeoTIFF</dc:format>
+      <dct:abstract>Hărțile de contur ale evidenței grafice a terenurilor, la scara 1:10 000, au fost întocmite în perioada 1992–1998 pe teritoriul unităților administrativ-teritoriale și au servit drept bază grafică pentru ținerea evidenței cantitative și calitative a terenurilor.
+Datele sunt prezentate în format raster și reunesc toate hărțile într-un set unic. Hărțile redau contururile terenurilor în funcție de tipurile de folosință, precum și apartenența acestora la categoriile de destinație și la utilizările terenurilor. Fiecare contur are un număr de identificare indicat pe hartă (în cadrul UAT-ului corespunzător). Tot pe hartă sunt indicate suprafața conturului și tipul de folosință (prin semn convențional și/sau inscripție).
+Caracteristicile detaliate ale conturului (categoria de destinație, tipul de folosință, gradația pantei, bonitatea etc.) se regăsesc în materialele aferente de evidență grafică ale UAT-ului corespunzător și se păstrează în arhiva executorului nemijlocit al lucrărilor — Institutul de Proiectări pentru Organizarea Teritoriului.</dct:abstract>
+      <dc:description>Hărțile de contur ale evidenței grafice a terenurilor, la scara 1:10 000, au fost întocmite în perioada 1992–1998 pe teritoriul unităților administrativ-teritoriale și au servit drept bază grafică pentru ținerea evidenței cantitative și calitative a terenurilor.
+Datele sunt prezentate în format raster și reunesc toate hărțile într-un set unic. Hărțile redau contururile terenurilor în funcție de tipurile de folosință, precum și apartenența acestora la categoriile de destinație și la utilizările terenurilor. Fiecare contur are un număr de identificare indicat pe hartă (în cadrul UAT-ului corespunzător). Tot pe hartă sunt indicate suprafața conturului și tipul de folosință (prin semn convențional și/sau inscripție).
+Caracteristicile detaliate ale conturului (categoria de destinație, tipul de folosință, gradația pantei, bonitatea etc.) se regăsesc în materialele aferente de evidență grafică ale UAT-ului corespunzător și se păstrează în arhiva executorului nemijlocit al lucrărilor — Institutul de Proiectări pentru Organizarea Teritoriului.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:language>rum</dc:language>
+      <dc:source>Hărțile de contur a evidenței grafice a terenurilor au fost întocmite în perioada 1990–1998. Autorul materialelor inițiale este Institutul de Proiectări pentru Organizarea Teritoriului.
+În anii 1999–2000, calcile și lavsanele existente au fost scanate și georeferențiate în Sistemul de coordonate din anul 1963 (СК-63), proiecția Gauss–Krüger, zonele 2 și 3.
+În anul 2025, datele au fost transformate în sistemul de coordonate MOLDREF99. În cazurile în care sistemul de coordonate inițial nu a putut fi determinat în mod univoc, a fost efectuată o georeferențiere suplimentară pentru asigurarea poziționării spațiale corecte.
+În anul 2025, setul de date a fost publicat în acces public prin intermediul unui serviciu cartografic de rețea WMS.</dc:source>
+      <dc:format>GeoTIFF</dc:format>
+      <ows:BoundingBox crs="urn:ogc:def:crs:EPSG:6.6:4326">
+        <ows:LowerCorner>45.462 26.618</ows:LowerCorner>
+        <ows:UpperCorner>48.486 30.132</ows:UpperCorner>
+      </ows:BoundingBox>
+      <dc:URI protocol="" name="rm_10k" description="Evidența cantitativă a terenurilor">https://maps2.ingeocad.md/geoserver/rm_10k/wms</dc:URI>
+      <dc:URI protocol="image/png">https://geoportalinds.gov.md/geonetwork/srv/api/records/725f2f10-dce1-4d47-a0d5-5d73735c8a4a/attachments/Thumbnail_evedenta2.png</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>0881c54c-40a5-4650-b9d7-ffffaab66721</dc:identifier>
+      <dc:date>2026-06-04T07:12:17.91Z</dc:date>
+      <dc:title>Puncte Negre</dc:title>
+      <dc:type>dataset</dc:type>
+      <dc:subject>Rețele de transport</dc:subject>
+      <dc:subject>Național</dc:subject>
+      <dc:subject>Regional</dc:subject>
+      <dc:subject>Local</dc:subject>
+      <dc:subject>Drumuri</dc:subject>
+      <dc:subject>Drum</dc:subject>
+      <dc:subject>Transport</dc:subject>
+      <dc:subject>Reţele de transport</dc:subject>
+      <dc:subject>transportation</dc:subject>
+      <dc:format>ESRI Shapefile</dc:format>
+      <dc:format>GeoPackage</dc:format>
+      <dct:abstract>Setul de date spaţiale care conţine sectoarele și locațiile de drum cu concentrații ridicate de accidente rutiere, utilizat pentru analiza siguranței circulației și prioritizarea măsurilor de îmbunătățire a infrastructurii rutiere.</dct:abstract>
+      <dc:description>Setul de date spaţiale care conţine sectoarele și locațiile de drum cu concentrații ridicate de accidente rutiere, utilizat pentru analiza siguranței circulației și prioritizarea măsurilor de îmbunătățire a infrastructurii rutiere.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:language>rum</dc:language>
+      <dc:source>Datele au fost colectate cu ajutorul GPS Pathfinder Pro XRS.</dc:source>
+      <dc:format>ESRI Shapefile</dc:format>
+      <dc:format>GeoPackage</dc:format>
+      <ows:BoundingBox crs="urn:ogc:def:crs:EPSG:6.6:4326">
+        <ows:LowerCorner>45.462 26.618</ows:LowerCorner>
+        <ows:UpperCorner>48.486 30.132</ows:UpperCorner>
+      </ows:BoundingBox>
+      <dc:URI protocol="WWW:LINK-1.0-http--partners" name="Site-ul oficial al Administraţiei de Stat a Drumurilor">http://www.asd.md/</dc:URI>
+      <dc:URI name="Harta Drumurilor" description="Harta interactivă a drumurilor publice naționale">https://harta.asd.md/</dc:URI>
+      <dc:URI protocol="image/png">https://geoportalinds.gov.md/geonetwork/srv/api/records/0881c54c-40a5-4650-b9d7-ffffaab66721/attachments/Screensho.png</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>c64ef8f4-9cd6-49cb-a500-0bd12c9ce16c</dc:identifier>
+      <dc:date>2026-06-05T08:29:50.925Z</dc:date>
+      <dc:title>Serviciu de vizualizare Terenuri (parcele cadastrale)</dc:title>
+      <dc:type>service</dc:type>
+      <dc:subject>Parcele cadastrale</dc:subject>
+      <dc:subject>Terenuri</dc:subject>
+      <dc:subject>Vizualizare</dc:subject>
+      <dc:subject>Parcele cadastrale</dc:subject>
+      <dc:subject>View service (view)</dc:subject>
+      <dc:subject>Cadastral Parcel</dc:subject>
+      <dc:subject>Servicii de procesare geografică – metadate</dc:subject>
+      <dc:subject>Servicii de procesare geografică – aspecte tematice</dc:subject>
+      <dc:subject>Servicii de procesare geografică – aspecte spațiale</dc:subject>
+      <dc:subject>Servicii de procesare geografică – aspecte temporale</dc:subject>
+      <dc:subject>Servicii geografice cu interacțiune umană</dc:subject>
+      <dct:abstract>Serviciul  este un Web Mapping Service (WMS) versiunea 1.1.0,  care  permite vizualizarea datelor privind bunurile imobile la nivel de  teren.
+Se vizualizează terenurile cu indicarea numărului cadastral al terenului (ultimele trei  cifre).  
+Geometria obiectelor este  poligon.</dct:abstract>
+      <dc:description>Serviciul  este un Web Mapping Service (WMS) versiunea 1.1.0,  care  permite vizualizarea datelor privind bunurile imobile la nivel de  teren.
+Se vizualizează terenurile cu indicarea numărului cadastral al terenului (ultimele trei  cifre).  
+Geometria obiectelor este  poligon.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:URI protocol="" name="w_cbi:cad_terenuri" description="2.2. Terenuri cadastrale">https://map.cadastru.md/geoserver/w_cbi/wms/?</dc:URI>
+    </csw:Record>
+    <csw:Record xmlns:geonet="http://www.fao.org/geonetwork" xmlns:ows="http://www.opengis.net/ows" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/">
+      <dc:identifier>03854f78-d48c-4c82-b8bc-05af0100e0a5</dc:identifier>
+      <dc:date>2025-03-11T06:49:31.237Z</dc:date>
+      <dc:title>Harta topografică la scara 1:50 000, anul 2013 (raster)</dc:title>
+      <dc:type>dataset</dc:type>
+      <dc:subject>Acoperire terestră</dc:subject>
+      <dc:subject>harta topografică</dc:subject>
+      <dc:subject>Național</dc:subject>
+      <dc:subject>imageryBaseMapsEarthCover</dc:subject>
+      <dc:format>TIFF</dc:format>
+      <dct:abstract>Setul de date conține harta topografică 1: 50000 este rezultatul proiectului "JICA", finanțat de către Guvernul Japoniei. Baza geografică a hărții o constituie 27 de seturi de date grupate în 10 teme: unități administrative, aeroporturi, clădiri, construcții, puncte de control, hidrografie, relief, utilizarea terenului, rețele de transport, utilități. Harta este realizată în proiecția Transverse Mercator 35N, elipsoidul WGS-84, sistemul de coordonate: GCS_WGS_84, unități de măsură: metri.</dct:abstract>
+      <dc:description>Setul de date conține harta topografică 1: 50000 este rezultatul proiectului "JICA", finanțat de către Guvernul Japoniei. Baza geografică a hărții o constituie 27 de seturi de date grupate în 10 teme: unități administrative, aeroporturi, clădiri, construcții, puncte de control, hidrografie, relief, utilizarea terenului, rețele de transport, utilități. Harta este realizată în proiecția Transverse Mercator 35N, elipsoidul WGS-84, sistemul de coordonate: GCS_WGS_84, unități de măsură: metri.</dc:description>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:rights>otherRestrictions</dc:rights>
+      <dc:language>eng</dc:language>
+      <dc:source>Setul de date conține harta topografică 1: 50000 este rezultatul proiectului "JICA", finanțat de către Guvernul Japoniei. Baza geografică a hărții o constituie 27 de seturi de date grupate în 10 teme: unități administrative, aeroporturi, clădiri, construcții, puncte de control, hidrografie, relief, utilizarea terenului, rețele de transport, utilități. Harta este realizată în proiecția Transverse Mercator 35N, elipsoidul WGS-84, sistemul de coordonate: GCS_WGS_84, unități de măsură: metri.</dc:source>
+      <dc:format>TIFF</dc:format>
+      <ows:BoundingBox crs="urn:ogc:def:crs:EPSG:6.6:4326">
+        <ows:LowerCorner>45.462 26.618</ows:LowerCorner>
+        <ows:UpperCorner>48.486 30.132</ows:UpperCorner>
+      </ows:BoundingBox>
+      <dc:URI protocol="" name="Harta_topografică_50000_2013">https://geodata.gov.md</dc:URI>
+      <dc:URI protocol="image/png">https://geoportalinds.gov.md/geonetwork/srv/api/records/03854f78-d48c-4c82-b8bc-05af0100e0a5/attachments/HARTATOPOGRAFICA.png</dc:URI>
+    </csw:Record>
+  </csw:SearchResults>
+</csw:GetRecordsResponse>
+

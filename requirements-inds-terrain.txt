@@ -1,0 +1,5 @@
+# Optional research dependencies for scripts/fetch_inds_terrain.py.
+numpy>=2.2,<3
+Pillow>=11,<13
+pyproj>=3.7,<4
+rasterio>=1.4,<2
