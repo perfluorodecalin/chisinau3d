@@ -38,6 +38,7 @@ They also compare optimized terrain draping against the previous algorithm, veri
 | `dist/terrain.js` | Build-time terrain patches, bridges and geometry draping |
 | `dist/terrain-runtime.js` | Runtime DEM and road/deck height queries |
 | `dist/world-loader.js` | Binary chunk loading and shared materials |
+| `dist/lod.js` | Throttled distance-based visual detail policy |
 | `scripts/build-world.mjs` | Offline world compilation |
 | `dist/realism.js` | Build-time lane markings, vegetation and lamp geometry |
 | `dist/atmosphere.js` | Runtime nearby lights, labels and visibility |

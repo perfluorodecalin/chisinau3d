@@ -72,16 +72,29 @@ try{
   await call('Network.setCacheDisabled',{cacheDisabled:true});
   await call('Emulation.setDeviceMetricsOverride',{width:1280,height:720,deviceScaleFactor:1,mobile:false});
   await call('Page.addScriptToEvaluateOnNewDocument',{source:`
-    window.__benchmark={frames:[],longTasks:[],last:0,record:false};
+    window.__benchmark={frames:[],longTasks:[],lodSamples:[],lodLast:0,last:0,record:false};
+    // LOD is optional while older snapshots are benchmarked. Newer runtimes
+    // can expose either a metrics snapshot or the controller itself through
+    // one of these stable diagnostic handles.
+    __benchmark.readLod=()=>{try{
+      const raw=globalThis.__chisinau3d?.lodMetrics??globalThis.__lodMetrics??globalThis.__chisinau3d?.lod??null;
+      if(raw==null)return null;
+      const value=typeof raw==='function'?raw():typeof raw.snapshot==='function'?raw.snapshot():typeof raw.stats==='function'?raw.stats():raw;
+      return structuredClone(value);
+    }catch(error){return {error:String(error)}}};
     new PerformanceObserver(list=>{for(const e of list.getEntries())__benchmark.longTasks.push({start:e.startTime,duration:e.duration});}).observe({type:'longtask',buffered:true});
-    function frame(now){if(__benchmark.record&&__benchmark.last)__benchmark.frames.push(now-__benchmark.last);__benchmark.last=now;requestAnimationFrame(frame);}requestAnimationFrame(frame);
+    function frame(now){
+      if(__benchmark.record&&__benchmark.last)__benchmark.frames.push(now-__benchmark.last);
+      if(__benchmark.record&&now-__benchmark.lodLast>=500){const lod=__benchmark.readLod();if(lod!=null)__benchmark.lodSamples.push({t:now,data:lod});__benchmark.lodLast=now;}
+      __benchmark.last=now;requestAnimationFrame(frame);
+    }requestAnimationFrame(frame);
   `});
   if(options.profile){await call('Profiler.enable');await call('Profiler.setSamplingInterval',{interval:1000});await call('Profiler.start');}
   await call('Page.navigate',{url});
   const start=Date.now();let state,ready=false;
   while(Date.now()-start<Number(options.timeout)*1000){
     await sleep(5000);
-    state=await evaluate(`({status:document.querySelector('#status')?.textContent,detail:document.querySelector('#substatus')?.textContent,buildings:document.querySelector('#count')?.textContent,street:document.querySelector('#street-count')?.textContent,performance:document.querySelector('#perf')?.textContent,ms:performance.now()})`);
+    state=await evaluate(`({status:document.querySelector('#status')?.textContent,detail:document.querySelector('#substatus')?.textContent,buildings:document.querySelector('#count')?.textContent,street:document.querySelector('#street-count')?.textContent,performance:document.querySelector('#perf')?.textContent,lod:__benchmark.readLod(),ms:performance.now()})`);
     console.log(JSON.stringify({phase:'loading',...state}));
     if(state.status==='Ready to explore'&&/benches/.test(state.street)){ready=true;break;}
     if(/could not|unavailable/i.test(state.status))break;
@@ -90,9 +103,9 @@ try{
   const environment=await evaluate(`(()=>{const canvas=document.querySelector('canvas'),gl=canvas?.getContext('webgl2'),ext=gl?.getExtension('WEBGL_debug_renderer_info');return {userAgent:navigator.userAgent,width:innerWidth,height:innerHeight,dpr:devicePixelRatio,gpu:ext?gl.getParameter(ext.UNMASKED_RENDERER_WEBGL):null,heap:performance.memory?.usedJSHeapSize};})()`);
   const phases=[];
   async function measure(name){
-    await evaluate('__benchmark.frames=[];__benchmark.record=true');
+    await evaluate('__benchmark.frames=[];__benchmark.lodSamples=[];__benchmark.lodLast=0;__benchmark.record=true');
     await sleep(10000);
-    const result=await evaluate(`(()=>{__benchmark.record=false;const frames=__benchmark.frames.slice().sort((a,b)=>a-b);return {frames:frames.length,fps:1000/(frames.reduce((a,b)=>a+b,0)/frames.length),p95:frames[Math.floor(frames.length*.95)],max:frames.at(-1),hud:document.querySelector('#perf').textContent,heap:performance.memory?.usedJSHeapSize,driving:document.body.classList.contains('driving')};})()`);
+    const result=await evaluate(`(()=>{__benchmark.record=false;const frames=__benchmark.frames.slice().sort((a,b)=>a-b);return {frames:frames.length,fps:1000/(frames.reduce((a,b)=>a+b,0)/frames.length),p95:frames[Math.floor(frames.length*.95)],max:frames.at(-1),hud:document.querySelector('#perf').textContent,heap:performance.memory?.usedJSHeapSize,driving:document.body.classList.contains('driving'),lod: {latest:__benchmark.lodSamples.at(-1)?.data??__benchmark.readLod(),samples:__benchmark.lodSamples.slice()}};})()`);
     phases.push({name,...result});console.log(JSON.stringify({phase:name,...result}));
   }
   if(ready){
@@ -128,7 +141,7 @@ try{
       const metrics=await evaluate("import(performance.getEntriesByType('resource').find(e=>new URL(e.name).pathname.endsWith('/world-loader.js'))?.name||'./world-loader.js').then(m=>({...m.worldMetrics,driving:document.body.classList.contains('driving')}))");
       if(!metrics.driving||metrics.disposedChunks<1)throw Error('Driving did not evict distant chunks: '+JSON.stringify(metrics));
       if(requests.some(r=>r.url.includes('/data/')))throw Error('Runtime fetched a source snapshot');
-      console.log(JSON.stringify({phase:'world-smoke',picking:true,...metrics}));
+      console.log(JSON.stringify({phase:'world-smoke',picking:true,lod:await evaluate('__benchmark.readLod()'),...metrics}));
     }
   }
   const screenshot=await call('Page.captureScreenshot',{format:'png'});

@@ -81,6 +81,10 @@ Night lamps have depth-tested, instanced billboard glows fading between 1.2–1.
 Validation: `node tests/quality.mjs` after installing the optional development dependencies checks frame-rate-independent driving at 15–144 FPS, collision/reverse behavior, ribbons and short width transitions, all saved road geometry for finite coordinates, terrain triangle preservation, 1,301 shared bridge endpoint heights, and local light activation. The available cloud test browser had WebGL disabled, so no rendered visual acceptance or GPU FPS improvement is claimed. The optional Vite development preview uses the same Three.js 0.180.0 as the vendored static deployment; production uses the offline world compiler described in [ARCHITECTURE.md](ARCHITECTURE.md).
 
 
+## Runtime visual LOD
+
+The runtime applies distance-based visual LOD to building, park and small street-detail batches. Roads, terrain, bridge geometry, collision data and building metadata remain available at full simulation detail. LOD updates are throttled and use hysteresis; the Low/Balanced/High graphics setting adjusts the visibility budget. The offline compiler emits content-addressed 40 m and 80 m terrain variants with locked patch boundaries; buildings and street details remain canonical until topology-safe simplification is available. Vegetation and lamp visibility continue to follow the existing atmosphere and day/night rules. Texture streaming is planned next.
+
 ## Basic soundscape
 
 Opt-in Web Audio synthesis adds engine harmonics with speed/throttle and approximate gear changes, filtered tire noise with rough-surface emphasis, soft wind/distant city noise, daytime bird calls and nighttime insect chirps. These are procedural approximations, not Chișinău field recordings. One reusable audio graph, short looping buffers and 10 Hz parameter updates require no audio downloads. Sound starts only after tapping Sound off; a volume slider remains available while driving. Muting and backgrounding suspend audio.

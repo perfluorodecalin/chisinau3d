@@ -7,7 +7,7 @@
     "predev": "node --max-old-space-size=8192 scripts/ensure-world.mjs",
     "verify:world": "node scripts/verify-world.mjs",
     "dev": "vite --config vite.config.mjs",
-    "test": "node tests/quality.mjs && node tests/geometry-quality.mjs && node tests/world-quality.mjs",
+    "test": "node tests/quality.mjs && node tests/geometry-quality.mjs && node tests/world-quality.mjs && node tests/lod-quality.mjs && node tests/lod-compiler-quality.mjs",
     "benchmark": "node scripts/benchmark-browser.mjs"
   },
   "devDependencies": {

@@ -83,7 +83,13 @@ camera target, disposing their geometry and instance buffers and rebuilding the
 resident collision indexes. Eviction has hysteresis relative to the preload area.
 The atlas's explicit **Load wider city** mode can retain the entire city; it is not
 a bounded-memory mode. The global DEM, bridge profiles, POIs and lamp index remain
-resident. This pass does not add LOD, texture streaming or traffic simulation.
+resident. Runtime visual LOD now culls distant building, park and small-detail
+batches while leaving roads, terrain and all physics data available. Geometry
+variants, texture streaming and traffic simulation are still future work. The
+offline compiler emits optional content-addressed terrain variants in each
+terrain chunk; `visualVariants` records near, middle and far files with error
+and byte/triangle counts. These files contain visual meshes with empty physics,
+while the canonical `file` remains authoritative for physics and inspection.
 
 `npm test` exercises the original geometry/physics behavior plus binary roundtrips,
 instancing, picking metadata, collision holes/heights and the browser import boundary.

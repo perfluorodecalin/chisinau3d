@@ -12,6 +12,7 @@ import {createCityCompiler} from './compile-city.mjs';
 import {createPhysicsCompiler} from './compile-physics.mjs';
 import {encodeChunk} from './world-format.mjs';
 import {worldInputHash} from './world-inputs.mjs';
+import {VISUAL_LEVELS,reduceGeometry,makeVisualMesh,variantError,visualStats} from './lod-variants.mjs';
 
 const root=new URL('../dist/',import.meta.url),output=new URL('world/',root);
 const inputHash=await worldInputHash();
@@ -32,6 +33,29 @@ function materialId(m){
  }return materialIds.get(m);
 }
 async function asset(prefix,bytes){const compressed=gzipSync(bytes,{level:9}),hash=createHash('sha256').update(compressed).digest('hex').slice(0,20),name=prefix+'-'+hash+'.bin.gz';await fs.writeFile(new URL(name,output),compressed);return name;}
+// Terrain has a regular grid with locked borders, so it can be reduced while
+// retaining topology. Other layers stay canonical until a topology-aware
+// simplifier is available; arbitrary triangle dropping opens façades and
+// breaks street/detail silhouettes.
+const REDUCIBLE_LAYERS=new Set(['terrain']);
+const PROTECTED_LAYERS=new Set(['roads']);
+function variantMeshes(meshes,stride,level){
+ const out=[];let changed=false;
+ for(const source of meshes){
+  const layer=source.userData?.layer;
+  const terrain=layer==='terrain';
+  let geometry;
+  if(REDUCIBLE_LAYERS.has(layer))geometry=reduceGeometry(source.geometry,stride,{terrain});
+  else geometry=source.geometry.clone();
+  if(!geometry)continue;
+  const sourceCount=(source.geometry.index?.count??source.geometry.getAttribute('position')?.count??0)/3*(source.isInstancedMesh?source.count:1);
+  const count=(geometry.index?.count??geometry.getAttribute('position')?.count??0)/3*(source.isInstancedMesh?source.count:1);
+  if(count<sourceCount)changed=true;
+  const mesh=makeVisualMesh(source,geometry);if(!mesh)geometry.dispose();else{mesh.userData.lodLevel=level;mesh.userData.lodVisualOnly=true;out.push(mesh);}
+ }
+ return {meshes:out,changed};
+}
+function disposeMeshes(meshes){const disposed=new Set();for(const m of meshes){if(m.geometry&&!disposed.has(m.geometry)){disposed.add(m.geometry);m.geometry.dispose();}if(m.isInstancedMesh)m.dispose();}}
 const latitude=z=>ORIGIN.lat-z/111320,longitude=x=>ORIGIN.lon+x/(111320*Math.cos(ORIGIN.lat*Math.PI/180));
 let sequence=0;
 async function emit(groups,physics){
@@ -51,7 +75,31 @@ async function emit(groups,physics){
  }
  for(const [key,c] of cells){
   const id=String(sequence++),file=await asset('chunk',encodeChunk(c.meshes,c.physics,materialId));
-  chunks.push({id,cell:key,file,bbox:[latitude(c.bounds.max.z),longitude(c.bounds.min.x),latitude(c.bounds.min.z),longitude(c.bounds.max.x)]});
+  const entry={id,cell:key,file,bbox:[latitude(c.bounds.max.z),longitude(c.bounds.min.x),latitude(c.bounds.min.z),longitude(c.bounds.max.x)]};
+  // Keep one canonical file for physics and inspection. Reduced files are
+  // independent visual payloads so runtime swaps never duplicate obstacles.
+  if(c.meshes.some(m=>REDUCIBLE_LAYERS.has(m.userData?.layer))){
+   const high=visualStats(c.meshes),variants=[{level:'near',maxDistance:VISUAL_LEVELS[0].maxDistance,file,error:{max:0,rms:0},triangles:high.triangles,instances:high.instances,decodedBytes:high.decodedBytes,compressedBytes:null}];
+   for(const spec of VISUAL_LEVELS.slice(1)){
+    const reduced=variantMeshes(c.meshes,spec.stride,spec.level);
+    if(!reduced.changed){disposeMeshes(reduced.meshes);continue;}
+    const stats=visualStats(reduced.meshes),errors=[];
+    for(let i=0;i<c.meshes.length;i++){
+     const original=c.meshes[i],variant=reduced.meshes.find(m=>m.userData?.layer===original.userData?.layer);
+     if(variant&&original.userData?.layer==='terrain')errors.push(variantError(original.geometry,variant.geometry,{terrain:true}));
+    }
+    const error=errors.length?{max:Math.max(...errors.map(e=>e.max)),rms:Math.sqrt(errors.reduce((s,e)=>s+e.rms*e.rms,0)/errors.length)}:variantError(c.meshes[0]?.geometry,reduced.meshes[0]?.geometry);
+    const variantFile=await asset('lod-'+spec.level,encodeChunk(reduced.meshes,{obstacles:[],streets:[]},materialId));
+    const compressedBytes=(await fs.stat(new URL(variantFile,output))).size;
+    variants.push({level:spec.level,maxDistance:spec.maxDistance,file:variantFile,error,triangles:stats.triangles,instances:stats.instances,decodedBytes:stats.decodedBytes,compressedBytes});
+    disposeMeshes(reduced.meshes);
+   }
+   // The near entry intentionally aliases the canonical file. This lets the
+   // current loader keep working while the variant-aware loader refines it.
+   const canonicalSize=(await fs.stat(new URL(file,output))).size;variants[0].compressedBytes=canonicalSize;
+   entry.visualVariants=variants;
+  }
+  chunks.push(entry);
  }
  const disposed=new Set();for(const group of Object.values(groups))group.traverse(m=>{if(m.geometry&&!disposed.has(m.geometry)){disposed.add(m.geometry);m.geometry.dispose();}});
 }
