@@ -45,6 +45,7 @@ room.onPeerJoin('alice');
 assert.deepEqual(joined, ['alice']);
 assert.equal(transportRoom.sendState(good), true);
 assert.equal(transportRoom.sendState({ ...good, x: 4 }), true);
+await new Promise(resolve => setTimeout(resolve, 0));
 assert.deepEqual(sent.map(packet => packet.seq), [0, 1]);
 assert.equal(transportRoom.sendState({ ...good, x: Infinity }), false);
 assert.equal(sent.length, 2);
@@ -58,4 +59,33 @@ transportRoom.leave();
 assert.equal(room.closed, true);
 assert.equal(transportRoom.sendState(good), false);
 transportRoom.leave();
+
+// Slow transports must never accumulate sends; intermediate snapshots collapse
+// to the newest state while a packet is in flight.
+let resolveFirst, resolveLatest, inFlight = 0, maxInFlight = 0;
+const deferredSent = [];
+const deferredTransport = createRoomTransport({
+  roomId: '9553d952-d468-4306-836e-16af36dcfece', worldId: 'city-v1',
+}, (_config, _id) => ({
+  makeAction: () => ({ send(payload) {
+    deferredSent.push(payload);
+    inFlight += 1;
+    maxInFlight = Math.max(maxInFlight, inFlight);
+    if (deferredSent.length === 1) return new Promise(resolve => { resolveFirst = () => { inFlight -= 1; resolve(); }; });
+    return new Promise(resolve => { resolveLatest = () => { inFlight -= 1; resolve(); }; });
+  } }),
+  leave() {},
+}));
+deferredTransport.sendState({ ...good, x: 1 });
+deferredTransport.sendState({ ...good, x: 2 });
+deferredTransport.sendState({ ...good, x: 3 });
+deferredTransport.sendState({ ...good, x: 4 });
+assert.deepEqual(deferredSent.map(packet => packet.x), [1]);
+resolveFirst();
+await new Promise(resolve => setTimeout(resolve, 0));
+assert.deepEqual(deferredSent.map(packet => packet.x), [1, 4]);
+assert.equal(maxInFlight, 1);
+resolveLatest();
+await new Promise(resolve => setTimeout(resolve, 0));
+deferredTransport.leave();
 console.log('Multiplayer transport validation passed.');

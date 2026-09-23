@@ -40,6 +40,35 @@ export function createRoomTransport({ roomId, worldId, onPeerJoin, onPeerLeave, 
   let seq = 0;
   let send;
   let room;
+  let sending = false;
+  let pendingState = null;
+
+  // Snapshot traffic is replaceable: if the peer transport is slower than the
+  // simulation tick, retain only the newest snapshot and send it next.
+  function flushState(payload) {
+    if (closed || sending) return;
+    sending = true;
+    let result;
+    try { result = send(payload); }
+    catch (error) {
+      report(onError, error);
+      sending = false;
+      const next = pendingState;
+      pendingState = null;
+      if (next) flushState(next);
+      return;
+    }
+    Promise.resolve(result).then(
+      undefined,
+      error => report(onError, error),
+    ).then(() => {
+      sending = false;
+      if (closed) { pendingState = null; return; }
+      const next = pendingState;
+      pendingState = null;
+      if (next) flushState(next);
+    });
+  }
   try {
     room = join({ appId: APP_ID }, roomId, {
       onJoinError: details => report(onError, details?.error || new Error('Unable to connect to multiplayer peer')),
@@ -82,13 +111,16 @@ export function createRoomTransport({ roomId, worldId, onPeerJoin, onPeerLeave, 
         report(onError, new TypeError('Refusing invalid local vehicle state'));
         return false;
       }
-      // Trystero handles serialization; the small snapshot is safe for realtime datagrams.
-      send(payload).catch(error => report(onError, error));
+      // Trystero handles serialization; bound outstanding work to one send
+      // and one replaceable newest snapshot.
+      if (sending) pendingState = payload;
+      else flushState(payload);
       return true;
     },
     leave() {
       if (closed) return;
       closed = true;
+      pendingState = null;
       room.onPeerJoin = null;
       room.onPeerLeave = null;
       room.leave();
