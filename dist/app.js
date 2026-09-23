@@ -10,6 +10,7 @@ import {createRoomTransport} from './multiplayer-network.js';
 import {createMultiplayerUI} from './multiplayer-ui.js';
 import {OrbitControls} from './vendor/OrbitControls.js';
 import {ORIGIN,project} from './model.js';
+import {buildingCsv} from './csv-export.js';
 const $=s=>document.querySelector(s),scene=new THREE.Scene();scene.background=new THREE.Color('#172b36');scene.fog=new THREE.Fog('#172b36',13000,33000);
 let renderer;try{renderer=new THREE.WebGLRenderer({antialias:true,powerPreference:'high-performance'});}catch(e){$('#status').textContent='WebGL is unavailable';$('#substatus').textContent='Enable hardware acceleration / WebGL in your browser, then reload.';$('#loading').className='error';throw e;}
 const ratios={low:.85,balanced:1.25,high:1.8};renderer.setPixelRatio(Math.min(devicePixelRatio,ratios.balanced));$('#quality').onchange=()=>{renderer.setPixelRatio(Math.min(devicePixelRatio,ratios[$('#quality').value]));renderer.setSize(innerWidth,innerHeight);};renderer.setSize(innerWidth,innerHeight);renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.3;$('#view').appendChild(renderer.domElement);
@@ -23,7 +24,7 @@ const resident=new Map(),records=[],pickables=[],loaded=new Set(),chunks=[],plac
 const facadeSetting={set value(v){for(const m of world?.materials||[])if(m.userData.facadeUniform)m.userData.facadeUniform.value=v;}};
 let terrainInfo=null;
 let realismData={pois:[]},atmosphere=null;
-let active=places.center,manifest=[],busy=false,stop=false,queuedTiles=null,flight=null,topView=false,selected=null,totalMapped=0;
+let active=places.center,manifest=[],busy=false,stop=false,queuedTiles=null,retryTiles=null,flight=null,topView=false,selected=null,totalMapped=0;
 const remoteCars=createRemoteCars(scene),roomPeers=new Set();let roomTransport=null,multiplayerUI=null,lastRoomSend=0;
 const driving=createDriving({scene,camera,controls,onExit(){document.querySelector('#drive').textContent='Drive a car';},onTravel(x,z){if(busy)return;const lat=ORIGIN.lat-z/111320,lon=ORIGIN.lon+x/(111320*Math.cos(ORIGIN.lat*Math.PI/180));const ts=nearTiles(lat,lon).filter(t=>!loaded.has(t.id));if(ts.length)loadTiles(ts);else evictDistant(x,z);}});
 createSoundscape(()=>({...driving.audioState,hour:+$('#time-of-day').value}));
@@ -95,6 +96,7 @@ async function loadTiles(tiles,wide=false){
   if(driving.active)evictDistant();
  }catch(e){failed++;console.error(e);}
  finally{busy=false;$('#load').disabled=false;$('#city').textContent='Load wider city';}
+ retryTiles=failed?pending.filter(t=>!loaded.has(t.id)):null;
  status(failed?'Some sections could not load':records.length?'Ready to explore':'No buildings loaded',failed?'Loaded areas remain visible. Retry to reload missing saved sections.':`${records.length.toLocaleString()} buildings · ${loaded.size} / ${manifest.length} city sections loaded`,failed?'error':'done');
  if(queuedTiles){const next=queuedTiles;queuedTiles=null;void loadTiles(next);}
 }
@@ -102,7 +104,7 @@ async function loadTiles(tiles,wide=false){
 function requestTiles(tiles){if(busy){queuedTiles=tiles;stop=true;$('#city').textContent='Switching area…';}else void loadTiles(tiles);}
 $('#load').onclick=()=>{const [x,z]=[controls.target.x,controls.target.z];active=[ORIGIN.lat-z/111320,ORIGIN.lon+x/(111320*Math.cos(ORIGIN.lat*Math.PI/180))];const ts=nearTiles(...active);if(!ts.length){status('Outside the covered city area','Choose a neighbourhood to return to Chișinău.','error');return;}requestTiles(ts);};
 $('#city').onclick=()=>{if(busy){stop=true;queuedTiles=null;$('#city').textContent='Finishing current section…';}else loadTiles(manifest,true);};
-$('#retry').onclick=()=>requestTiles(nearTiles(...active));$('#place').onchange=()=>{active=places[$('#place').value];fly(...active,$('#place').value.startsWith('bridge')?450:1800);requestTiles(nearTiles(...active));};$('#home').onclick=()=>{active=places.center;$('#place').value='center';fly(...active);};
+$('#retry').onclick=()=>requestTiles(retryTiles?.length?retryTiles:nearTiles(...active));$('#place').onchange=()=>{active=places[$('#place').value];fly(...active,$('#place').value.startsWith('bridge')?450:1800);requestTiles(nearTiles(...active));};$('#home').onclick=()=>{active=places.center;$('#place').value='center';fly(...active);};
 $('#textures').onchange=e=>{facadeSetting.value=e.target.checked&&$('#mode').value==='material'?1:0;};
 $('#parks').onchange=e=>greens.visible=e.target.checked;$('#roads').onchange=e=>roads.visible=e.target.checked;$('#orbit').onchange=e=>controls.autoRotate=e.target.checked;
 
@@ -114,7 +116,7 @@ const ray=new THREE.Raycaster(),pointer=new THREE.Vector2();let pointerStart;
 renderer.domElement.addEventListener('pointerdown',e=>pointerStart=[e.clientX,e.clientY]);renderer.domElement.addEventListener('pointerup',e=>{if(driving.active||!pointerStart||Math.hypot(e.clientX-pointerStart[0],e.clientY-pointerStart[1])>5)return;pointer.set(e.clientX/innerWidth*2-1,1-e.clientY/innerHeight*2);ray.setFromCamera(pointer,camera);const hit=ray.intersectObjects(pickables,false)[0];if(!hit)return;const spans=hit.object.userData.spans;let low=0,high=spans.length-1;while(low<high){const mid=(low+high)>>1;if(hit.faceIndex<spans[mid].end)high=mid;else low=mid+1;}const r=spans[low].r;$('#inspect').hidden=false;$('#bname').textContent=r.tags.name||r.tags['name:ro']||[r.tags['addr:street'],r.tags['addr:housenumber']].filter(Boolean).join(' ')||'Mapped '+(r.tags.building==='yes'?'building':r.tags.building);$('#bdetails').replaceChildren();for(const [a,b] of [['Height',r.height.toFixed(1)+' m'],['Method',{height:'Mapped height',levels:'Mapped floors → height',estimate:'Estimated'}[r.source]],['Footprint',Math.round(r.area).toLocaleString()+' m²'],['Mapped floors',r.floors??'Not available']]){const p=document.createElement('p'),s=document.createElement('strong');p.textContent=a;s.textContent=b;p.append(s);$('#bdetails').append(p);}$('#osmlink').href='https://www.openstreetmap.org/'+r.type+'/'+r.id;if(selected){scene.remove(selected);selected.geometry.dispose();selected.material.dispose();}const start=low?spans[low-1].end*3:0,end=spans[low].end*3;const pos=hit.object.geometry.attributes.position.array.slice(start*3,end*3),g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(pos,3));selected=new THREE.LineSegments(new THREE.EdgesGeometry(g,25),new THREE.LineBasicMaterial({color:'#f3fcab',depthTest:false}));g.dispose();selected.renderOrder=5;scene.add(selected);});
 $('#close').onclick=()=>{$('#inspect').hidden=true;if(selected){scene.remove(selected);selected.geometry.dispose();selected.material.dispose();selected=null;}};
 $('#about').onclick=()=>$('#info').showModal();$('#info-close').onclick=()=>$('#info').close();$('#info').addEventListener('click',e=>{if(e.target===$('#info')){const r=e.target.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)e.target.close();}});
-$('#export').onclick=()=>{const esc=v=>'"'+String(v??'').replaceAll('"','""')+'"',rows=[['osm_type','osm_id','name','building','height_m','height_method','mapped_floors','footprint_m2','height_explanation']];const unique=new Set();for(const r of records){const id=r.type+'/'+r.id;if(unique.has(id))continue;unique.add(id);rows.push([r.type,r.id,r.tags.name||'',r.tags.building,r.height,r.source,r.floors,Math.round(r.area),r.reason]);}const blob=new Blob(['\uFEFF'+rows.map(r=>r.map(esc).join(',')).join('\r\n')],{type:'text/csv;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='chisinau-buildings.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),10000);};
+$('#export').onclick=()=>{const blob=new Blob([buildingCsv(records)],{type:'text/csv;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='chisinau-buildings.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),10000);};
 addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);});
 renderer.domElement.addEventListener('webglcontextlost',e=>{e.preventDefault();status('Graphics context lost','Reload the page to restart the map.','error');});
 let perfStart=performance.now(),perfFrames=0,perfMs=[];

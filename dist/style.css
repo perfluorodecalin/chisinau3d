@@ -17,3 +17,49 @@
 @media(max-width:760px){.multiplayer-driving{top:64px;left:12px;right:12px;max-width:none;justify-content:space-between;padding-top:6px;padding-bottom:6px}}
 .driving .multiplayer-driving.room-active{top:132px}
 @media(max-width:760px){.driving .multiplayer-driving.room-active{top:198px}}
+@media (pointer:coarse) and (orientation:landscape) and (max-height:500px) {
+  .driving .multiplayer-driving.room-active {top:16px;left:12px;right:auto;max-width:min(300px,calc(100% - 275px))}
+  .driving .multiplayer-driving-peers {display:none}
+  .driving #drive-hud {
+    left:12px;
+    right:12px;
+    bottom:10px;
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    grid-template-areas:
+      "top top"
+      "speed controls"
+      "road controls"
+      "posted controls"
+      "destination controls"
+      "actions controls"
+      "performance controls";
+    align-items:end;
+    column-gap:12px;
+    row-gap:2px;
+  }
+  .driving .drive-top {grid-area:top}
+  .driving .drive-speed {grid-area:speed;margin-top:3px}
+  .driving .drive-speed strong {font-size:42px}
+  .driving #road-name {grid-area:road;font-size:16px;margin:2px 0;text-shadow:0 2px 7px #000}
+  .driving #posted-speed {grid-area:posted;margin:0;font-size:11px}
+  .driving #drive-destination {grid-area:destination;margin:0;font-size:12px}
+  .driving .drive-actions {grid-area:actions;gap:6px}
+  .driving .drive-actions button {min-height:36px;padding:6px 9px;font-size:12px}
+  .driving #drive-performance {grid-area:performance;padding:3px 8px;font-size:10px}
+  .driving .touch-drive {
+    grid-area:controls;
+    align-self:end;
+    gap:6px;
+    margin:0 0 1px;
+  }
+  .driving .touch-drive>div {gap:6px}
+  .driving .touch-drive button {
+    height:50px;
+    min-width:50px;
+    min-height:50px;
+    padding:6px;
+    font-size:13px;
+  }
+  .driving .drive-top button {min-height:34px;padding:6px 9px}
+}
