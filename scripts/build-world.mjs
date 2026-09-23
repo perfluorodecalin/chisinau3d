@@ -10,6 +10,7 @@ import {ORIGIN} from '../dist/model.js';
 import {WORLD_VERSION} from '../dist/world-format.js';
 import {createCityCompiler} from './compile-city.mjs';
 import {createPhysicsCompiler} from './compile-physics.mjs';
+import {createLodCompiler,coarseTerrain} from './compile-lod.mjs';
 import {encodeChunk} from './world-format.mjs';
 import {worldInputHash} from './world-inputs.mjs';
 import {VISUAL_LEVELS,terrainLodStride,reduceGeometry,makeVisualMesh,variantError,visualStats} from './lod-variants.mjs';
@@ -24,7 +25,7 @@ globalThis.fetch=async url=>{
  return {ok:true,json:async()=>JSON.parse(b.toString()),arrayBuffer:async()=>b.buffer.slice(b.byteOffset,b.byteOffset+b.byteLength)};
 };
 const json=async name=>(await fetch('./data/'+name)).json();
-const materials=[],materialIds=new Map(),chunks=[];
+const materials=[],materialIds=new Map(),chunks=[],lodChunks=[];
 function materialId(m){
  if(!materialIds.has(m)){
   const data=m.toJSON();delete data.uuid;delete data.metadata;
@@ -62,7 +63,7 @@ function variantMeshes(meshes,stride,level){
 function disposeMeshes(meshes){const disposed=new Set();for(const m of meshes){if(m.geometry&&!disposed.has(m.geometry)){disposed.add(m.geometry);m.geometry.dispose();}if(m.isInstancedMesh)m.dispose();}}
 const latitude=z=>ORIGIN.lat-z/111320,longitude=x=>ORIGIN.lon+x/(111320*Math.cos(ORIGIN.lat*Math.PI/180));
 let sequence=0;
-async function emit(groups,physics){
+async function emit(groups,physics,target=chunks){
  const cells=new Map();
  function cell(x,z){const key=Math.floor(x/500)+','+Math.floor(z/500);if(!cells.has(key))cells.set(key,{meshes:[],physics:{obstacles:[],streets:[]},bounds:new T.Box3()});return cells.get(key);}
  for(const [layer,group] of Object.entries(groups)){
@@ -103,18 +104,32 @@ async function emit(groups,physics){
    const canonicalSize=(await fs.stat(new URL(file,output))).size;variants[0].compressedBytes=canonicalSize;
    entry.visualVariants=variants;
   }
-  chunks.push(entry);
+  target.push(entry);
  }
  const disposed=new Set();for(const group of Object.values(groups))group.traverse(m=>{if(m.geometry&&!disposed.has(m.geometry)){disposed.add(m.geometry);m.geometry.dispose();}});
+}
+async function emitLod(groups){
+ const meshes=[],bounds=new T.Box3();
+ for(const [layer,group] of Object.entries(groups)){
+  group.updateMatrixWorld(true);group.traverse(m=>{if(!m.isMesh)return;m.userData.layer=layer;
+   m.matrix.copy(m.matrixWorld);m.matrixAutoUpdate=false;meshes.push(m);bounds.union(new T.Box3().setFromObject(m));});
+ }
+ if(meshes.length){
+  const file=await asset('overview',encodeChunk(meshes,{},materialId));
+  lodChunks.push({id:'lod-'+sequence++,file,bbox:[latitude(bounds.max.z),longitude(bounds.min.x),latitude(bounds.min.z),longitude(bounds.max.x)]});
+ }
+ for(const m of meshes)m.geometry.dispose();
 }
 console.log('Compiling saved terrain and connected road profiles…');
 await loadRoadModel();const terrainScene=new T.Group(),terrain=await loadTerrain(terrainScene);
 await emit({terrain:terrainScene},{});terrainScene.clear();
-const physics=createPhysicsCompiler(),realism=await json('realism.json'),city=createCityCompiler(physics,realism);
+await emitLod({terrain:coarseTerrain(terrain.meta)});
+const physics=createPhysicsCompiler(),realism=await json('realism.json'),lod=createLodCompiler(),city=createCityCompiler(physics,realism,lod);
 const tiles=await json('manifest.json');
 for(const name of ['center',...tiles.map(t=>t.id)]){
  console.log('Compiling snapshot '+name);await city.ingest(await json(name+'.json'));
  await emit({buildings:city.buildings,greens:city.greens,roads:city.roads},{obstacles:physics.obstacles,streets:physics.streets});city.clear();physics.clear();
+ await emitLod(lod.drain());
 }
 console.log('Compiling mapped street furniture, vegetation and lamps…');
 const detailScene=new T.Group(),details=await addStreetDetails(detailScene,physics,realism.extra);
@@ -127,7 +142,7 @@ for(const needle of ['Ismail','Mihai Viteazul','Renașterii','Miorița']){
  if(p){const pt=p.points[Math.floor(p.points.length/2)];bridges.push({name:p.name,location:[latitude(pt[1]),longitude(pt[0])]});}
 }
 const heightFile=await asset('heights',await fs.readFile(new URL('data/terrain.bin',root)));
-const manifest={version:WORLD_VERSION,cellSize:500,attribution:`© OpenStreetMap contributors (ODbL); ${terrain.meta.attribution}. Vertical datum/unit are inferred; façades, furniture and bridge clearance include estimates. See README.md.`,terrain,heightFile,materials,chunks,pois:realism.pois,lampHeads:atmosphere.heads,bridges,details:{trees:details.trees,benches:details.benches}};
+const manifest={version:WORLD_VERSION,cellSize:500,attribution:`© OpenStreetMap contributors (ODbL); ${terrain.meta.attribution}. Vertical datum/unit are inferred; façades, furniture and bridge clearance include estimates. See README.md.`,terrain,heightFile,materials,chunks,lodChunks,pois:realism.pois,lampHeads:atmosphere.heads,bridges,details:{trees:details.trees,benches:details.benches}};
 // Publish the manifest last. Interrupted builds leave the previous build usable.
 if(inputHash!==await worldInputHash())throw Error('World inputs changed during compilation; rerun the build.');
 manifest.inputHash=inputHash;

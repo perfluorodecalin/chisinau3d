@@ -18,8 +18,9 @@ function simulate(fps){const state={x:0,z:0,heading:0,speed:0,steer:0},clock=new
 const baseline=simulate(60);for(const fps of [15,20,30,120,144]){const state=simulate(fps);for(const k of Object.keys(state))assert.ok(Math.abs(state[k]-baseline[k])<1e-7,`${fps} FPS ${k}`);}
 const car={x:0,z:0,heading:0,speed:30,steer:0};for(let i=0;i<20;i++)stepCar(car,{steer:0},1/60,(x,z)=>z>=4);assert.ok(car.z<2.66,'front bumper stops before wall');
 for(let i=0;i<60;i++)stepCar(car,{reverse:true,steer:0},1/60,(x,z)=>z>=4);assert.ok(car.speed<0,'can reverse away');
-const map=new CollisionMap();map.add({outer:[[-2,-2],[2,-2],[2,2],[-2,2],[-2,-2]],holes:[],minY:0,maxY:3});assert.ok(map.blocked(0,0,1,0));assert.ok(!map.blocked(0,0,1,6));
+const map=new CollisionMap(),wall={outer:[[-2,-2],[2,-2],[2,2],[-2,2],[-2,-2]],holes:[],minY:0,maxY:3};map.add(wall);assert.ok(map.blocked(0,0,1,0));assert.ok(!map.blocked(0,0,1,6));map.remove(wall);assert.ok(!map.blocked(0,0,1,0),'evicted collision geometry leaves the local buckets');
 const index=new SegmentIndex();for(let x=0;x<10000;x+=10)index.add({a:[x,0],b:[x+10,0]});assert.ok(index.near(0,0,100).length<30);assert.ok(index.near(5000,0,20).some(s=>closest(5005,0,s.a,s.b).d===0));
+const removedRoad={a:[-40,-40],b:[140,140]};index.add(removedRoad);assert.ok(index.near(0,0,10).includes(removedRoad));index.remove(removedRoad);assert.ok(!index.near(0,0,10).includes(removedRoad),'evicted road leaves every intersected bucket');
 const ribbon=ribbonPositions([[0,0],[0,20],[20,20]],6);
 assert.ok(ribbon.every(Number.isFinite));for(let i=18;i<ribbon.length;i+=18){assert.deepEqual(ribbon.slice(i,i+3),ribbon.slice(i-12,i-9));assert.deepEqual(ribbon.slice(i+3,i+6),ribbon.slice(i-3,i));}
 // Shared endpoint widths must match even for short segments.

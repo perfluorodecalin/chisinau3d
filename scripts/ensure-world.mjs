@@ -1,6 +1,18 @@
 import fs from 'node:fs/promises';
 import {worldInputHash} from './world-inputs.mjs';
-let valid=false;
-try {const m=JSON.parse(await fs.readFile(new URL('../dist/world/manifest.json',import.meta.url),'utf8'));valid=m.inputHash===await worldInputHash();}
-catch {}
-if(!valid)await import('./build-world.mjs');
+
+const output=new URL('../dist/world/',import.meta.url);
+let current=false;
+try{
+ const manifest=JSON.parse(await fs.readFile(new URL('manifest.json',output),'utf8'));
+ if(manifest.inputHash===await worldInputHash()&&Array.isArray(manifest.chunks)&&Array.isArray(manifest.lodChunks)){
+  const files=new Set(await fs.readdir(output));
+  current=typeof manifest.heightFile==='string'&&files.has(manifest.heightFile)
+   &&[...manifest.chunks,...manifest.lodChunks].every(chunk=>typeof chunk.file==='string'&&files.has(chunk.file))
+   &&manifest.chunks.every(chunk=>(chunk.visualVariants||[]).every(variant=>typeof variant.file==='string'&&files.has(variant.file)));
+ }
+}catch(error){
+ if(error.code!=='ENOENT'&&!(error instanceof SyntaxError))throw error;
+}
+if(current)console.log('Compiled world is current; skipping compilation.');
+else await import('./build-world.mjs');

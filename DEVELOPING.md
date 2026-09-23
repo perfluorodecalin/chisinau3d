@@ -23,9 +23,22 @@ The tests check frame-rate independence, collision and reverse behavior, saved r
 
 They also compare optimized terrain draping against the previous algorithm, verify that spatial batching preserves triangle attributes, and check indexed nearest-road queries. For the optional real-browser benchmark and performance caveats, see [PERFORMANCE.md](PERFORMANCE.md).
 
+## Multiplayer
+
+Create a room in the city panel and share its link, or paste a room code/link to join. Invite links prefill the code but do not autojoin. The game displays up to four remote cars using frequent vehicle-state snapshots; simulation and collisions remain local. Peers must load the same compiled world, verified by a world hash. Signaling uses public Nostr relays; car snapshots use direct WebRTC. There is no TURN fallback, so peers behind restrictive NATs/firewalls may fail to connect. Anyone with a room link can join, and a direct peer connection can reveal your IP address to other participants.
+
+The pinned Trystero dependency is bundled into `dist/vendor/trystero.js`. After changing its version or the vendoring script, regenerate the authored bundle with:
+
+```sh
+npm run vendor:multiplayer
+npm test
+```
+
+Commit the generated vendor file and dependency lockfile together. Multiplayer tests run as part of `npm test`.
+
 ## World compilation
 
-`npm run build` processes the saved sources into spatial binary meshes and prepared physics in `dist/world/`. `npm run dev` builds missing or stale assets automatically. Run `npm run verify:world` to validate every generated chunk. See [ARCHITECTURE.md](ARCHITECTURE.md) for the pipeline, artifact format and streaming behavior.
+`npm run build` processes the saved sources into spatial binary meshes and prepared physics in `dist/world/`. It skips compilation when the saved `dist/data/` snapshots, compiler and its imported modules, locked Three.js version, and Node major version match the manifest and all generated files are present. UI-only edits reuse the compiled world. `npm run dev` uses the same check, and the GitHub Pages workflow restores an exact-match `dist/world/` cache before building. A fresh checkout without a cache compiles once. Run `npm run verify:world` to validate every generated chunk. See [ARCHITECTURE.md](ARCHITECTURE.md) for the pipeline, artifact format and streaming behavior.
 
 ## Source map
 

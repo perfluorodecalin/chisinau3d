@@ -22,7 +22,7 @@ for(const entry of manifest.chunks){
   for(const a of Object.values(g.attributes))for(const value of a.array)assert.ok(Number.isFinite(value),'finite attribute');
   if(g.index)for(const i of g.index.array)assert.ok(i<g.attributes.position.count);
   if(mesh.isInstancedMesh)for(const v of mesh.instanceMatrix.array)assert.ok(Number.isFinite(v));
-  if(mesh.userData.spans){let end=0;for(const span of mesh.userData.spans){assert.ok(span.end>end);assert.ok(Number.isFinite(span.r.height));end=span.end;buildings++;}assert.equal(end,count/3);}
+  if(mesh.userData.spans){let end=0;for(const span of mesh.userData.spans){assert.ok(span.end>end);if(mesh.userData.layer==='buildings'){assert.ok(Number.isFinite(span.r.height));buildings++;}else assert.ok(['road','bridge','waterway'].includes(span.r.kind));end=span.end;}assert.equal(end,count/3);}
   g.dispose();if(mesh.isInstancedMesh)mesh.dispose();
  }
  obstacles+=(chunk.physics.obstacles||[]).length;streets+=(chunk.physics.streets||[]).length;
@@ -57,4 +57,20 @@ for(const entry of manifest.chunks){
 }
 assert.equal(terrainTriangles,(manifest.terrain.meta.nx-1)*(manifest.terrain.meta.nz-1)*2);
 assert.ok(buildings>10000&&streets>10000&&obstacles>buildings);
-console.log(JSON.stringify({chunks:ids.size,meshes,triangles,buildings,obstacles,streets,variantsChecked,variantTriangles,compressedMB:Math.round(bytes/1048576)},null,2));
+assert.ok(manifest.lodChunks?.length>0,'citywide overview required');
+let lodBuildings=0,lodRoads=0,lodTerrain=0,lodBytes=0;
+for(const entry of manifest.lodChunks){
+ assert.ok(entry.bbox.every(Number.isFinite));
+ const compressed=await fs.readFile(new URL(entry.file,root));lodBytes+=compressed.length;
+ const raw=gunzipSync(compressed),chunk=decodeChunk(raw.buffer.slice(raw.byteOffset,raw.byteOffset+raw.byteLength),materials);
+ for(const mesh of chunk.meshes){
+  assert.equal(mesh.userData.lod,true);
+  if(mesh.userData.layer==='buildings')lodBuildings+=mesh.userData.spans.length;
+  if(mesh.userData.layer==='roads')lodRoads+=mesh.userData.spans.length;
+  if(mesh.userData.layer==='terrain')lodTerrain++;
+  for(const value of mesh.geometry.attributes.position.array)assert.ok(Number.isFinite(value));
+  mesh.geometry.dispose();
+ }
+}
+assert.ok(lodBuildings>=buildings&&lodRoads>10000&&lodTerrain>0,'overview covers the whole compiled city');
+console.log(JSON.stringify({chunks:ids.size,meshes,triangles,buildings,obstacles,streets,variantsChecked,variantTriangles,compressedMB:Math.round(bytes/1048576),lodChunks:manifest.lodChunks.length,lodBuildings,lodRoads,lodTerrain,lodCompressedMB:Math.round(lodBytes/1048576)},null,2));

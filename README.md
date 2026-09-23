@@ -4,7 +4,7 @@ For local setup and continued development, see [DEVELOPING.md](DEVELOPING.md). C
 
 A static Three.js r180 city model built from a saved OpenStreetMap / Overpass snapshot dated 2026-09-08. All Three.js modules and geographic data are served locally by the site. Exploring the map makes **no requests to OSM or Overpass**.
 
-The 30 saved source sections cover latitude 46.975–47.100 and longitude 28.740–28.980 (about 14 × 18 km). These are urban-area bounds, not the administrative boundary. `npm run build` compiles these sources into spatial binary chunks. Centre chunks load first; district controls load nearby geometry. Load wider city adds all compiled chunks; Stop finishes the current batch. Driving evicts distant geometry. See [ARCHITECTURE.md](ARCHITECTURE.md). Building CSV export includes height source and OSM IDs.
+The 30 saved source sections cover latitude 46.975–47.100 and longitude 28.740–28.980 (about 14 × 18 km). These are urban-area bounds, not the administrative boundary. `npm run build` compiles these sources into spatial binary chunks and a lightweight citywide overview. Centre detail loads first, then terrain, roofs, roads, parks and water for the whole saved area load in the background. Nearby full detail streams as you zoom or pan; **Load full city detail** remains available. Driving evicts distant full geometry. See [ARCHITECTURE.md](ARCHITECTURE.md). Click a building, road or bridge to see its OSM ID, original tags and derived game properties. Building CSV export includes height source and OSM IDs.
 
 ## Geometry and evidence
 
@@ -33,13 +33,17 @@ For local play, run `npm ci` and `npm run dev` from the project folder, then ope
 
 Serve `dist/` with any static HTTP server. Browser requires WebGL2. Dependencies are vendored and pinned. Run `npm ci` and `npm run build` before static hosting; `npm run dev` builds missing or stale world assets automatically. `scripts/prepare_snapshot.py SNAPSHOT.json` splits an already downloaded Overpass response; it makes no network requests.
 
+## Drive together
+
+Use **Create room** and share the generated invite link, or paste a room code/link and choose **Join room**. Opening an invite only fills in the room code; it never joins automatically. Rooms support up to four visible remote cars. Peers exchange small, frequent position and driving-state snapshots; each browser runs its own local physics. Players must be on the same compiled world version, checked using its world hash. Signaling uses public Nostr relays and gameplay data travels over direct WebRTC peer connections. No TURN relay is configured, so restrictive NATs or firewalls can prevent a connection. Room codes act as invite capabilities; anyone with the link can join, and direct peers may learn each other's IP addresses.
+
 ## Supplementary INDS data
 
 The [Geoportal INDS investigation](research/inds/README.md) documents downloaded road surfaces, roughness, RoadLinks and traffic observations, and lane-count/width availability. The [DTM 2020 workflow](research/inds-terrain/README.md) obtains and assesses the public 5 m numeric terrain; its validated 5 m derivative is incorporated in the game. Other local research samples remain unincorporated.
 
 ## Attribution
 
-Geographic data © OpenStreetMap contributors, licensed under ODbL: https://www.openstreetmap.org/copyright . Original OSM metadata is retained in the JSON files. Three.js is MIT-licensed; see `dist/vendor/LICENSE`.
+Geographic data © OpenStreetMap contributors, licensed under ODbL: https://www.openstreetmap.org/copyright . Original OSM metadata is retained in the JSON files. Three.js and Trystero are MIT-licensed; see `dist/vendor/LICENSE` and `dist/vendor/TRYSTERO-LICENSE`.
 
 ## Driving and approximate façades
 

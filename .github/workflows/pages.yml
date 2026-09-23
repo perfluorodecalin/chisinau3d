@@ -28,6 +28,14 @@ jobs:
         run: npm ci
       - name: Run quality checks
         run: npm test
+      - name: Fingerprint saved city inputs
+        id: world-key
+        run: echo "hash=$(node scripts/world-inputs.mjs)" >> "$GITHUB_OUTPUT"
+      - name: Restore compiled city
+        uses: actions/cache@v4
+        with:
+          path: dist/world
+          key: world-${{ runner.os }}-node22-${{ steps.world-key.outputs.hash }}
       - name: Compile offline city chunks
         run: npm run build
       - name: Verify compiled city
