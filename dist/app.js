@@ -7,6 +7,7 @@ import {addAtmosphere} from './atmosphere.js';
 import {createDriving} from './driving.js';
 import {createRemoteCars} from './remote-cars.js';
 import {createMultiplayerUI} from './multiplayer-ui.js';
+import {TURN_CREDENTIALS_URL,fetchTurnConfig} from './turn-credentials.js';
 import {OrbitControls} from './vendor/OrbitControls.js';
 import {ORIGIN,project} from './model.js';
 import {buildingCsv} from './csv-export.js';
@@ -34,11 +35,14 @@ async function joinRoom(roomId){
  if(!world?.inputHash)throw new Error('The city is still loading. Try joining when the map is ready.');
  leaveRoom();
  const request=roomRequest;
+ multiplayerUI?.setStatus(TURN_CREDENTIALS_URL?'Getting relay credentials…':'Connecting…');
  try{
   // Keep signaling code off the startup and driving paths until someone joins.
   const {createRoomTransport}=await import('./multiplayer-network.js');
   if(request!==roomRequest)return;
-  roomTransport=createRoomTransport({roomId,worldId:world.inputHash,
+  const turnConfig=TURN_CREDENTIALS_URL?await fetchTurnConfig(TURN_CREDENTIALS_URL):undefined;
+  if(request!==roomRequest)return;
+  roomTransport=createRoomTransport({roomId,worldId:world.inputHash,turnConfig,
    onPeerJoin(id){roomPeers.add(id);lastRoomSend=0;multiplayerUI.setPeerCount(roomPeers.size);multiplayerUI.setStatus('Connected');},
    onPeerLeave(id){roomPeers.delete(id);remoteCars?.removePeer(id);multiplayerUI.setPeerCount(roomPeers.size);multiplayerUI.setStatus(roomPeers.size?'Connected':'Waiting for another driver');},
    onState(id,state){if(state.active)remoteCars??=createRemoteCars(scene);remoteCars?.updatePeer(id,state);},

@@ -28,12 +28,17 @@ export function validateMultiplayerState(payload, worldId) {
 }
 
 /** Join a Trystero Nostr-discovery room and exchange bounded vehicle snapshots. */
-export function createRoomTransport({ roomId, worldId, onPeerJoin, onPeerLeave, onState, onError } = {}, join = joinRoom) {
+export function createRoomTransport({ roomId, worldId, turnConfig, onPeerJoin, onPeerLeave, onState, onError } = {}, join = joinRoom) {
   if (typeof roomId !== 'string' || roomId.length < 16 || roomId.length > 128) {
     throw new TypeError('roomId must be an unguessable string of 16–128 characters');
   }
   if (typeof worldId !== 'string' || !worldId || worldId.length > 128) {
     throw new TypeError('worldId must be a non-empty string of at most 128 characters');
+  }
+  if (turnConfig !== undefined && (!Array.isArray(turnConfig) || !turnConfig.length || !turnConfig.every(server =>
+    server && Array.isArray(server.urls) && server.urls.length && server.urls.every(url => typeof url === 'string' && /^turns?:/i.test(url)) &&
+    typeof server.username === 'string' && typeof server.credential === 'string'))) {
+    throw new TypeError('Invalid TURN server configuration');
   }
 
   let closed = false;
@@ -70,7 +75,7 @@ export function createRoomTransport({ roomId, worldId, onPeerJoin, onPeerLeave, 
     });
   }
   try {
-    room = join({ appId: APP_ID }, roomId, {
+    room = join({ appId: APP_ID, ...(turnConfig ? { turnConfig } : {}) }, roomId, {
       onJoinError: details => report(onError, details?.error || new Error('Unable to connect to multiplayer peer')),
     });
     const action = room.makeAction('vehicle-state-v1');

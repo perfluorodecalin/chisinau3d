@@ -35,7 +35,7 @@ Serve `dist/` with any static HTTP server. Browser requires WebGL2. Dependencies
 
 ## Drive together
 
-Use **Create room** and share the generated invite link, or paste a room code/link and choose **Join room**. Opening an invite only fills in the room code; it never joins automatically. Rooms support up to four visible remote cars. Peers exchange small, frequent position and driving-state snapshots; each browser runs its own local physics. Players must be on the same compiled world version, checked using its world hash. Signaling uses public Nostr relays and gameplay data travels over direct WebRTC peer connections. No TURN relay is configured, so restrictive NATs or firewalls can prevent a connection. Room codes act as invite capabilities; anyone with the link can join, and direct peers may learn each other's IP addresses.
+Use **Create room** and share the generated invite link, or paste a room code/link and choose **Join room**. Opening an invite only fills in the room code; it never joins automatically. Rooms support up to four visible remote cars. Peers exchange small, frequent position and driving-state snapshots; each browser runs its own local physics. Players must be on the same compiled world version, checked using its world hash. Signaling uses public Nostr relays; gameplay uses WebRTC. A separately hosted TURN relay can carry gameplay when a direct peer connection fails; see [TURN setup](DEVELOPING.md#turn-relay-with-github-pages). Until the credential endpoint is configured, restrictive NATs or firewalls may prevent connections. Room codes act as invite capabilities; anyone with the link can join, and a direct connection may reveal peers' IP addresses to each other.
 
 ## Supplementary INDS data
 

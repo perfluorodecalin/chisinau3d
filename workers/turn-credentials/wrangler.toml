@@ -1,0 +1,16 @@
+name = "chisinau3d-turn-credentials"
+main = "./worker.js"
+compatibility_date = "2026-09-23"
+
+[vars]
+ALLOWED_ORIGIN = "https://perfluorodecalin.github.io"
+
+[[ratelimits]]
+name = "CREDENTIAL_LIMIT"
+namespace_id = "63191"
+simple = { limit = 12, period = 60 }
+
+[[ratelimits]]
+name = "GLOBAL_LIMIT"
+namespace_id = "63192"
+simple = { limit = 300, period = 60 }
