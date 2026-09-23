@@ -38,7 +38,7 @@ Commit the generated vendor file and dependency lockfile together. Multiplayer t
 
 ## World compilation
 
-`npm run build` processes the saved sources into spatial binary meshes and prepared physics in `dist/world/`. `npm run dev` builds missing or stale assets automatically. Run `npm run verify:world` to validate every generated chunk. See [ARCHITECTURE.md](ARCHITECTURE.md) for the pipeline, artifact format and streaming behavior.
+`npm run build` processes the saved sources into spatial binary meshes and prepared physics in `dist/world/`. It skips compilation when the saved `dist/data/` snapshots, compiler and its imported modules, locked Three.js version, and Node major version match the manifest and all generated files are present. UI-only edits reuse the compiled world. `npm run dev` uses the same check, and the GitHub Pages workflow restores an exact-match `dist/world/` cache before building. A fresh checkout without a cache compiles once. Run `npm run verify:world` to validate every generated chunk. See [ARCHITECTURE.md](ARCHITECTURE.md) for the pipeline, artifact format and streaming behavior.
 
 ## Source map
 
