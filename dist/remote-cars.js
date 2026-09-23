@@ -1,8 +1,8 @@
 import * as T from 'three';
 
-const MAX_PEERS = 4;
+const MAX_PEERS = 7;
 const STALE_AFTER = 5;
-const COLORS = ['#4e9cff', '#aa73e8', '#49c79a', '#f0b84c'];
+const COLORS = ['#4e9cff', '#aa73e8', '#49c79a', '#f0b84c', '#e87d86', '#74c9d9', '#d7dc73'];
 const clamp = (value, low, high) => Math.max(low, Math.min(high, value));
 const validState = state => state && [state.x, state.y, state.z, state.heading, state.speed].every(Number.isFinite);
 
@@ -100,13 +100,13 @@ export function createRemoteCars(scene, { now = () => (globalThis.performance?.n
 
   function removePeer(peerId) {
     const peer = peers.get(peerId);
+    lastSeq.delete(peerId);
     if (!peer) return false;
     scene.remove(peer.group);
     peer.group.traverse(object => {
       if (object.isMesh && object.material === peer.paint) object.material.dispose();
     });
     peers.delete(peerId);
-    lastSeq.delete(peerId);
     return true;
   }
 

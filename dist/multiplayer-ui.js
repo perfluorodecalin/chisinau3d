@@ -1,7 +1,7 @@
-const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+import { ROOM_ID_PATTERN } from './multiplayer-protocol.js';
 
 /** Mounts room controls and returns the interface used by the transport layer. */
-export function createMultiplayerUI({ onJoin, onLeave } = {}) {
+export function createMultiplayerUI({ onJoin, onLeave, enabled = false } = {}) {
   const panel = document.querySelector('.panel');
   if (!panel) throw new Error('Multiplayer UI needs the city panel in the document.');
 
@@ -13,7 +13,7 @@ export function createMultiplayerUI({ onJoin, onLeave } = {}) {
     <h2 class="eyebrow" id="multiplayer-title">DRIVE TOGETHER</h2>
     <label for="multiplayer-code">Room code or share link</label>
     <input id="multiplayer-code" class="multiplayer-code" type="text" inputmode="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Paste a room code or link" aria-describedby="multiplayer-help multiplayer-message">
-    <small id="multiplayer-help">Create a room, then send the link to a friend. Room links are invite capabilities. Public relays help peers find each other; direct connections can reveal your IP address to other peers.</small>
+    <small id="multiplayer-help">Create a room, then send the link to a friend. Room links are invite capabilities. Anyone with a room link can join. Positions travel through a room relay; up to eight participants can join.</small>
     <div class="multiplayer-actions"><button type="button" data-action="create">Create room</button><button type="button" data-action="join">Join room</button></div>
     <button type="button" class="multiplayer-copy" data-action="copy" disabled>Copy share link</button>
     <button type="button" class="multiplayer-copy" data-action="leave" hidden>Leave room</button>
@@ -49,6 +49,10 @@ export function createMultiplayerUI({ onJoin, onLeave } = {}) {
   document.body.append(bar);
 
   const input = section.querySelector('input');
+  if (!enabled) {
+    section.querySelector('[data-action="create"]').disabled = true;
+    section.querySelector('[data-action="join"]').disabled = true;
+  }
   const message = section.querySelector('.multiplayer-message');
   const copyButton = section.querySelector('[data-action="copy"]');
   const panelLeaveButton = section.querySelector('[data-action="leave"]');
@@ -68,7 +72,7 @@ export function createMultiplayerUI({ onJoin, onLeave } = {}) {
   };
   const setRoom = (value) => {
     const candidate = String(value ?? '').trim();
-    room = UUID_PATTERN.test(candidate) ? candidate.toLowerCase() : '';
+    room = ROOM_ID_PATTERN.test(candidate) ? candidate.toLowerCase() : '';
     roomActive = Boolean(room);
     copyButton.disabled = !room;
     panelLeaveButton.hidden = !room;
@@ -77,10 +81,9 @@ export function createMultiplayerUI({ onJoin, onLeave } = {}) {
     input.value = room;
     if (!room) {
       const url = new URL(location.href);
-      if (url.searchParams.has('room')) {
-        url.searchParams.delete('room');
-        history.replaceState(history.state, '', url);
-      }
+      url.searchParams.delete('room');
+      if (url.hash.startsWith('#room=')) url.hash = '';
+      history.replaceState(history.state, '', url);
     }
     updatePeerCount(peerCount);
     setDrivingMode();
@@ -98,10 +101,10 @@ export function createMultiplayerUI({ onJoin, onLeave } = {}) {
     const text = String(raw ?? '').trim();
     let candidate = text;
     if (/^https?:\/\//i.test(text)) {
-      try { candidate = new URL(text).searchParams.get('room') || ''; }
+      try { const url = new URL(text); candidate = new URLSearchParams(url.hash.slice(1)).get('room') || url.searchParams.get('room') || ''; }
       catch { return ''; }
     }
-    return UUID_PATTERN.test(candidate) ? candidate.toLowerCase() : '';
+    return ROOM_ID_PATTERN.test(candidate) ? candidate.toLowerCase() : '';
   };
   const invokeJoin = async (id) => {
     if (!id) {
@@ -110,6 +113,7 @@ export function createMultiplayerUI({ onJoin, onLeave } = {}) {
       input.focus();
       return;
     }
+    if (!enabled) { statusText('Multiplayer is not configured on this site. Solo driving is available.'); return; }
     input.removeAttribute('aria-invalid');
     statusText('Connecting…');
     try {
@@ -156,7 +160,8 @@ export function createMultiplayerUI({ onJoin, onLeave } = {}) {
     if (action === 'leave') await leave();
     if (action === 'copy' && room) {
       const link = new URL(location.href);
-      link.searchParams.set('room', room);
+      link.searchParams.delete('room');
+      link.hash = new URLSearchParams({ room }).toString();
       try {
         await navigator.clipboard.writeText(link.href);
         copyButton.textContent = 'Link copied';
@@ -182,7 +187,8 @@ export function createMultiplayerUI({ onJoin, onLeave } = {}) {
   barLeaveButton.addEventListener('click', leave);
 
   // An invite link only fills the room field. Joining always requires a user action.
-  const prefill = new URL(location.href).searchParams.get('room');
+  const pageUrl = new URL(location.href);
+  const prefill = new URLSearchParams(pageUrl.hash.slice(1)).get('room') || pageUrl.searchParams.get('room');
   if (prefill) {
     const id = extractRoom(prefill);
     if (id) {
@@ -193,6 +199,8 @@ export function createMultiplayerUI({ onJoin, onLeave } = {}) {
       input.setAttribute('aria-invalid', 'true');
     }
   }
+
+  if (!enabled && !prefill) statusText('Multiplayer is not configured on this site. Solo driving is available.');
 
   return {
     setStatus(text) { statusText(text); },

@@ -35,7 +35,9 @@ Serve `dist/` with any static HTTP server. Browser requires WebGL2. Dependencies
 
 ## Drive together
 
-Use **Create room** and share the generated invite link, or paste a room code/link and choose **Join room**. Opening an invite only fills in the room code; it never joins automatically. Rooms support up to four visible remote cars. Peers exchange small, frequent position and driving-state snapshots; each browser runs its own local physics. Players must be on the same compiled world version, checked using its world hash. Signaling uses public Nostr relays and gameplay data travels over direct WebRTC peer connections. No TURN relay is configured, so restrictive NATs or firewalls can prevent a connection. Room codes act as invite capabilities; anyone with the link can join, and direct peers may learn each other's IP addresses.
+The static GitHub Pages game remains playable offline in single-player. Multiplayer needs a separately deployed Cloudflare Worker and SQLite Durable Object. Set its public `wss://` origin in `dist/multiplayer-config.js` and deploy the Worker using `relay/wrangler.toml` with `PAGES_ORIGIN` set to the exact Pages origin. See [relay/README.md](relay/README.md) for setup and local testing. Merging client code alone does not deploy the room service; an empty endpoint clearly disables multiplayer controls.
+
+Create a room and share its fragment invite link (`#room=...`), or paste a room code/link and choose **Join room**. Existing query links still prefill the room, but joining always requires a click. Each room supports eight participants and up to seven visible remote cars. A browser sends its latest position to the relay and receives room snapshots over WebSocket; local physics and collisions stay local. The room checks the compiled world hash. Possession of the invite permits joining, so share it only with intended players. This is a private invite room, not a global public driving space.
 
 ## Supplementary INDS data
 
@@ -43,7 +45,7 @@ The [Geoportal INDS investigation](research/inds/README.md) documents downloaded
 
 ## Attribution
 
-Geographic data © OpenStreetMap contributors, licensed under ODbL: https://www.openstreetmap.org/copyright . Original OSM metadata is retained in the JSON files. Three.js and Trystero are MIT-licensed; see `dist/vendor/LICENSE` and `dist/vendor/TRYSTERO-LICENSE`.
+Geographic data © OpenStreetMap contributors, licensed under ODbL: https://www.openstreetmap.org/copyright . Original OSM metadata is retained in the JSON files. Three.js is MIT-licensed; see `dist/vendor/LICENSE`.
 
 ## Driving and approximate façades
 
