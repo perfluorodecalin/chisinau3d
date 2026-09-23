@@ -10,7 +10,16 @@
 
 #sound-controls{position:fixed;right:30px;top:82px;z-index:4;background:#10212ae8;border-radius:8px;padding:4px;max-width:190px}#sound-controls button{min-width:110px}#sound-volume-label{font-size:12px;padding:0 8px 6px;margin:8px 0 0}#sound-volume-label[hidden]{display:none}#sound-volume{display:block;width:145px}@media(max-width:760px){#sound-controls{right:16px;top:142px;max-width:140px}#sound-volume{width:110px}#sound-controls button{font-size:12px;min-width:100px}}
 
+.multiplayer .divider{margin:15px 0}.multiplayer .eyebrow{margin-bottom:10px}.multiplayer-code{display:block;width:100%;min-width:0;padding:10px 11px;border:1px solid #40515b;border-radius:7px;background:#0b1921;color:#e7edf0;font:inherit;font-size:13px}.multiplayer-code:focus-visible{outline:2px solid #89e6d0;outline-offset:3px}.multiplayer-code[aria-invalid="true"]{border-color:#ef9b80}.multiplayer small{display:block;margin-top:7px;color:#9db2bf;font-size:11px;line-height:1.45}.multiplayer-actions{display:flex;gap:7px;margin-top:10px}.multiplayer-actions button{flex:1;padding:8px 7px;font-size:12px}.multiplayer-actions [data-action="create"]{background:#b8e5d2;color:#10271e;border-color:#b8e5d2}.multiplayer-copy{width:100%;margin-top:7px;padding:7px;font-size:12px}.multiplayer-message{min-height:18px;margin:9px 0 0;color:#a9bdc8;font-size:11px;line-height:1.45;overflow-wrap:anywhere}.multiplayer-driving{display:none;position:fixed;z-index:8;top:18px;right:30px;align-items:center;gap:10px;max-width:min(520px,calc(100% - 60px));padding:8px 10px 8px 13px;border:1px solid #435863;border-radius:9px;background:#10212aee;box-shadow:0 6px 24px #0005;color:#cbd8dc;font-size:12px;pointer-events:auto}.driving .multiplayer-driving{display:flex}.multiplayer-driving-status{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.multiplayer-driving.is-connected .multiplayer-driving-status{color:#b8e5d2}.multiplayer-driving-peers{white-space:nowrap;color:#a9bdc8}.multiplayer-driving button{min-height:34px;padding:6px 10px;white-space:nowrap;background:#243944}
+@media(max-width:760px){.multiplayer-driving{top:10px;left:12px;right:12px;max-width:none;justify-content:space-between;gap:7px;padding:7px 8px 7px 10px;font-size:11px}.multiplayer-driving-status{flex:1}.multiplayer-driving button{font-size:11px;padding:5px 8px}.multiplayer-actions button{font-size:11px}}
+/* The driving connection controls only appear after the transport confirms a room. */
+.driving .multiplayer-driving:not(.room-active){display:none}.multiplayer-driving.room-active .multiplayer-driving-status{color:#b8e5d2}
+@media(max-width:760px){.multiplayer-driving{top:64px;left:12px;right:12px;max-width:none;justify-content:space-between;padding-top:6px;padding-bottom:6px}}
+.driving .multiplayer-driving.room-active{top:132px}
+@media(max-width:760px){.driving .multiplayer-driving.room-active{top:198px}}
 @media (pointer:coarse) and (orientation:landscape) and (max-height:500px) {
+  .driving .multiplayer-driving.room-active {top:16px;left:12px;right:auto;max-width:min(300px,calc(100% - 275px))}
+  .driving .multiplayer-driving-peers {display:none}
   .driving #drive-hud {
     left:12px;
     right:12px;

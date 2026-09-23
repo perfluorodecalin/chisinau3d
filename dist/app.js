@@ -5,6 +5,9 @@ import * as THREE from 'three';
 import {configureTerrain,heightAt} from './terrain-runtime.js';
 import {addAtmosphere} from './atmosphere.js';
 import {createDriving} from './driving.js';
+import {createRemoteCars} from './remote-cars.js';
+import {createRoomTransport} from './multiplayer-network.js';
+import {createMultiplayerUI} from './multiplayer-ui.js';
 import {OrbitControls} from './vendor/OrbitControls.js';
 import {ORIGIN,project} from './model.js';
 import {buildingCsv} from './csv-export.js';
@@ -22,10 +25,25 @@ const facadeSetting={set value(v){for(const m of world?.materials||[])if(m.userD
 let terrainInfo=null;
 let realismData={pois:[]},atmosphere=null;
 let active=places.center,manifest=[],busy=false,stop=false,queuedTiles=null,retryTiles=null,flight=null,topView=false,selected=null,totalMapped=0;
+const remoteCars=createRemoteCars(scene),roomPeers=new Set();let roomTransport=null,multiplayerUI=null,lastRoomSend=0;
 const driving=createDriving({scene,camera,controls,onExit(){document.querySelector('#drive').textContent='Drive a car';},onTravel(x,z){if(busy)return;const lat=ORIGIN.lat-z/111320,lon=ORIGIN.lon+x/(111320*Math.cos(ORIGIN.lat*Math.PI/180));const ts=nearTiles(lat,lon).filter(t=>!loaded.has(t.id));if(ts.length)loadTiles(ts);else evictDistant(x,z);}});
 createSoundscape(()=>({...driving.audioState,hour:+$('#time-of-day').value}));
 $('#drive').onclick=()=>{if(driving.active){driving.exit();return;}flight=null;$('#close').click();if(!driving.start(controls.target.x,controls.target.z))status('Load a city area first','Driving needs a loaded street to start.','error');};
 function status(title,sub='',state=''){ $('#status').textContent=title;$('#substatus').textContent=sub;$('#loading').className=state;$('#retry').hidden=state!=='error'; }
+function leaveRoom(){roomTransport?.leave();roomTransport=null;for(const id of roomPeers)remoteCars.removePeer(id);roomPeers.clear();multiplayerUI?.setPeerCount(0);multiplayerUI?.setStatus('Not connected');}
+function joinRoom(roomId){
+ leaveRoom();
+ try{
+  roomTransport=createRoomTransport({roomId,worldId:world.inputHash,
+   onPeerJoin(id){roomPeers.add(id);multiplayerUI.setPeerCount(roomPeers.size);multiplayerUI.setStatus('Connected');},
+   onPeerLeave(id){roomPeers.delete(id);remoteCars.removePeer(id);multiplayerUI.setPeerCount(roomPeers.size);multiplayerUI.setStatus(roomPeers.size?'Connected':'Waiting for another driver');},
+   onState(id,state){remoteCars.updatePeer(id,state);},
+   onError(error){console.error('Multiplayer connection:',error);multiplayerUI.setStatus('Connection issue · '+(error?.message||error));}
+  });
+  multiplayerUI.setRoom(roomId);multiplayerUI.setStatus('Waiting for another driver');lastRoomSend=0;
+ }catch(error){console.error('Could not join room:',error);multiplayerUI.setRoom(null);throw error;}
+}
+addEventListener('pagehide',leaveRoom);
 function colorFor(r){const mode=$('#mode').value;if(mode==='source')return new THREE.Color({height:'#6bdcba',levels:'#73a9ef',estimate:'#ddb274'}[r.source]);if(mode==='height')return new THREE.Color().setHSL(.52-Math.min(r.height/110,1)*.48,.57,.57);return new THREE.Color().setHSL(.1+(r.id%7)*.004,.17,.65+(r.id%5)*.025);}
 function fly(lat,lon,distance=1800){const [x,z]=project({lat,lon});const target=new THREE.Vector3(x,heightAt(x,z),z),offset=topView?new THREE.Vector3(0,distance,.1):new THREE.Vector3(distance*.48,distance*.65,distance*.8);flight={start:performance.now(),from:camera.position.clone(),to:target.clone().add(offset),fromTarget:controls.target.clone(),target};}
 controls.addEventListener('start',()=>flight=null);
@@ -103,10 +121,11 @@ addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updat
 renderer.domElement.addEventListener('webglcontextlost',e=>{e.preventDefault();status('Graphics context lost','Reload the page to restart the map.','error');});
 let perfStart=performance.now(),perfFrames=0,perfMs=[];
 let lastFrame=performance.now();
-function animate(now){requestAnimationFrame(animate);const elapsed=(now-lastFrame)/1000;const dt=Math.min(elapsed,.04);lastFrame=now;perfFrames++;perfMs.push(elapsed*1000);if(now-perfStart>2000){perfMs.sort((a,b)=>a-b);$('#perf').textContent=Math.round(perfFrames*1000/(now-perfStart))+' FPS · p95 '+Math.round(perfMs[Math.floor(perfMs.length*.95)]||0)+' ms · '+renderer.info.render.calls+' draws · '+renderer.info.render.triangles.toLocaleString()+' triangles';const drivePerf=$('#drive-perf');if(drivePerf)drivePerf.textContent=$('#perf').textContent;perfFrames=0;perfMs=[];perfStart=now;}atmosphere?.update(now,camera.position);if(driving.active){driving.update(Math.min(elapsed,.2));renderer.render(scene,camera);return;}if(flight){const t=Math.min((now-flight.start)/1100,1),s=t*t*(3-2*t);camera.position.lerpVectors(flight.from,flight.to,s);controls.target.lerpVectors(flight.fromTarget,flight.target,s);if(t===1)flight=null;}if(!flight)controls.target.y=heightAt(controls.target.x,controls.target.z);camera.position.y=Math.max(camera.position.y,heightAt(camera.position.x,camera.position.z)+3);controls.update();renderer.render(scene,camera);}requestAnimationFrame(animate);
+function animate(now){requestAnimationFrame(animate);const elapsed=(now-lastFrame)/1000;const dt=Math.min(elapsed,.04);lastFrame=now;perfFrames++;perfMs.push(elapsed*1000);if(now-perfStart>2000){perfMs.sort((a,b)=>a-b);$('#perf').textContent=Math.round(perfFrames*1000/(now-perfStart))+' FPS · p95 '+Math.round(perfMs[Math.floor(perfMs.length*.95)]||0)+' ms · '+renderer.info.render.calls+' draws · '+renderer.info.render.triangles.toLocaleString()+' triangles';const drivePerf=$('#drive-perf');if(drivePerf)drivePerf.textContent=$('#perf').textContent;perfFrames=0;perfMs=[];perfStart=now;}atmosphere?.update(now,camera.position);if(driving.active)driving.update(Math.min(elapsed,.2));remoteCars.update(dt);if(roomTransport&&now-lastRoomSend>=70){roomTransport.sendState(driving.networkState);lastRoomSend=now;}if(driving.active){renderer.render(scene,camera);return;}if(flight){const t=Math.min((now-flight.start)/1100,1),s=t*t*(3-2*t);camera.position.lerpVectors(flight.from,flight.to,s);controls.target.lerpVectors(flight.fromTarget,flight.target,s);if(t===1)flight=null;}if(!flight)controls.target.y=heightAt(controls.target.x,controls.target.z);camera.position.y=Math.max(camera.position.y,heightAt(camera.position.x,camera.position.z)+3);controls.update();renderer.render(scene,camera);}requestAnimationFrame(animate);
 let world,details;
 try{
  world=await loadWorld();
+ multiplayerUI=createMultiplayerUI({onJoin:joinRoom,onLeave:leaveRoom});
  terrainInfo=world.terrain;configureTerrain(terrainInfo.meta,world.heights,terrainInfo.profiles);
  ground.position.y=terrainInfo.meta.minElevation-terrainInfo.meta.offset-20;grid.visible=false;
  realismData={pois:world.pois};setupDestinations();manifest=world.chunks;

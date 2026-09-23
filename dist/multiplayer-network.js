@@ -1,0 +1,97 @@
+import { joinRoom } from './vendor/trystero.js';
+
+const PROTOCOL_VERSION = 1;
+const MAX_MESSAGE_BYTES = 512;
+const MAX_POSITION = 100_000;
+const MAX_HEIGHT = 10_000;
+const MAX_SPEED = 100;
+const MAX_HEADING = 1_000_000;
+const APP_ID = 'chisinau3d-multiplayer-v1';
+
+function report(callback, ...args) {
+  if (typeof callback !== 'function') return;
+  try { callback(...args); } catch (error) { console.error('Multiplayer callback failed', error); }
+}
+
+export function validateMultiplayerState(payload, worldId) {
+  if (!payload || typeof payload !== 'object' || Array.isArray(payload)) return null;
+  let encoded;
+  try { encoded = JSON.stringify(payload); } catch { return null; }
+  if (!encoded || new TextEncoder().encode(encoded).byteLength > MAX_MESSAGE_BYTES) return null;
+  if (payload.protocol !== PROTOCOL_VERSION || payload.worldId !== worldId) return null;
+  if (!Number.isSafeInteger(payload.seq) || payload.seq < 0 || typeof payload.active !== 'boolean') return null;
+  const { x, y, z, heading, speed } = payload;
+  if (![x, y, z, heading, speed].every(Number.isFinite)) return null;
+  if (Math.abs(x) > MAX_POSITION || Math.abs(z) > MAX_POSITION || y < -MAX_HEIGHT || y > MAX_HEIGHT) return null;
+  if (Math.abs(heading) > MAX_HEADING || Math.abs(speed) > MAX_SPEED) return null;
+  return { seq: payload.seq, active: payload.active, x, y, z, heading, speed };
+}
+
+/** Join a Trystero Nostr-discovery room and exchange bounded vehicle snapshots. */
+export function createRoomTransport({ roomId, worldId, onPeerJoin, onPeerLeave, onState, onError } = {}, join = joinRoom) {
+  if (typeof roomId !== 'string' || roomId.length < 16 || roomId.length > 128) {
+    throw new TypeError('roomId must be an unguessable string of 16–128 characters');
+  }
+  if (typeof worldId !== 'string' || !worldId || worldId.length > 128) {
+    throw new TypeError('worldId must be a non-empty string of at most 128 characters');
+  }
+
+  let closed = false;
+  let seq = 0;
+  let send;
+  let room;
+  try {
+    room = join({ appId: APP_ID }, roomId, {
+      onJoinError: details => report(onError, details?.error || new Error('Unable to connect to multiplayer peer')),
+    });
+    const action = room.makeAction('vehicle-state-v1');
+    send = action.send.bind(action);
+    action.onMessage = (payload, { peerId } = {}) => {
+      if (closed) return;
+      const state = validateMultiplayerState(payload, worldId);
+      if (!state) {
+        report(onError, new Error('Ignored invalid or incompatible multiplayer state'));
+        return;
+      }
+      report(onState, peerId, state);
+    };
+    room.onPeerJoin = peerId => { if (!closed) report(onPeerJoin, peerId); };
+    room.onPeerLeave = peerId => { if (!closed) report(onPeerLeave, peerId); };
+  } catch (error) {
+    report(onError, error);
+    throw error;
+  }
+
+  return {
+    sendState(state) {
+      if (closed) return false;
+      const seqId = seq++;
+      const payload = {
+        protocol: PROTOCOL_VERSION,
+        worldId,
+        seq: seqId,
+        active: state?.active === true,
+        x: state?.x,
+        y: state?.y,
+        z: state?.z,
+        heading: state?.heading,
+        speed: state?.speed,
+      };
+      const valid = validateMultiplayerState(payload, worldId);
+      if (!valid) {
+        report(onError, new TypeError('Refusing invalid local vehicle state'));
+        return false;
+      }
+      // Trystero handles serialization; the small snapshot is safe for realtime datagrams.
+      send(payload).catch(error => report(onError, error));
+      return true;
+    },
+    leave() {
+      if (closed) return;
+      closed = true;
+      room.onPeerJoin = null;
+      room.onPeerLeave = null;
+      room.leave();
+    },
+  };
+}
