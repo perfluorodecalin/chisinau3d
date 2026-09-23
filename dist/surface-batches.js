@@ -4,7 +4,8 @@ import * as T from 'three';
 // parks have local bounds. Attributes and triangle order within each cell survive.
 export function addSurfaceBatches(group,geometries,material,size=500){
   const cells=new Map();
-  for(const geometry of geometries){
+  for(const item of geometries){
+    const geometry=item.geometry||item;
     const position=geometry.getAttribute('position'),index=geometry.index;
     const count=index?index.count:position.count;
     for(let i=0;i<count;i+=3){
@@ -14,28 +15,31 @@ export function addSurfaceBatches(group,geometries,material,size=500){
       const key=Math.floor(x/size)+','+Math.floor(z/size);
       if(!cells.has(key))cells.set(key,new Map());
       const cell=cells.get(key);
-      if(!cell.has(geometry))cell.set(geometry,[]);
-      cell.get(geometry).push(a,b,c);
+      if(!cell.has(item))cell.set(item,[]);
+      cell.get(item).push(a,b,c);
     }
   }
   const meshes=[];
   for(const cell of cells.values()){
     const entries=[...cell],count=entries.reduce((sum,[,indices])=>sum+indices.length,0);
     const geometry=new T.BufferGeometry();
-    const attributes=Object.entries(entries[0][0].attributes);
+    const attributes=Object.entries((entries[0][0].geometry||entries[0][0]).attributes);
     for(const [name,attribute] of attributes){
       const size=attribute.itemSize,array=new attribute.array.constructor(count*size);
       let offset=0;
-      for(const [source,indices] of entries){
-        const input=source.getAttribute(name);
+      for(const [item,indices] of entries){
+        const input=(item.geometry||item).getAttribute(name);
         for(const index of indices)for(let k=0;k<size;k++)array[offset++]=input.array[index*size+k];
       }
       geometry.setAttribute(name,new T.BufferAttribute(array,size,attribute.normalized));
     }
     geometry.computeBoundingSphere();
     const mesh=new T.Mesh(geometry,material);mesh.matrixAutoUpdate=false;
+    if(entries.some(([item])=>item.record)){
+      let end=0;mesh.userData.spans=entries.map(([item,indices])=>({end:end+=indices.length/3,r:item.record}));
+    }
     group.add(mesh);meshes.push(mesh);
   }
-  for(const geometry of geometries)geometry.dispose();
+  for(const item of geometries)(item.geometry||item).dispose();
   return meshes;
 }

@@ -4,7 +4,7 @@ For local setup and continued development, see [DEVELOPING.md](DEVELOPING.md). C
 
 A static Three.js r180 city model built from a saved OpenStreetMap / Overpass snapshot dated 2026-09-08. All Three.js modules and geographic data are served locally by the site. Exploring the map makes **no requests to OSM or Overpass**.
 
-The 30 saved source sections cover latitude 46.975–47.100 and longitude 28.740–28.980 (about 14 × 18 km). These are urban-area bounds, not the administrative boundary. `npm run build` compiles these sources into spatial binary chunks. Centre chunks load first; district controls load nearby geometry. Load wider city adds all compiled chunks; Stop finishes the current batch. Driving evicts distant geometry. See [ARCHITECTURE.md](ARCHITECTURE.md). Building CSV export includes height source and OSM IDs.
+The 30 saved source sections cover latitude 46.975–47.100 and longitude 28.740–28.980 (about 14 × 18 km). These are urban-area bounds, not the administrative boundary. `npm run build` compiles these sources into spatial binary chunks and a lightweight citywide overview. Centre detail loads first, then terrain, roofs, roads, parks and water for the whole saved area load in the background. Nearby full detail streams as you zoom or pan; **Load full city detail** remains available. Driving evicts distant full geometry. See [ARCHITECTURE.md](ARCHITECTURE.md). Click a building, road or bridge to see its OSM ID, original tags and derived game properties. Building CSV export includes height source and OSM IDs.
 
 ## Geometry and evidence
 

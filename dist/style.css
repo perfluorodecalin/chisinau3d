@@ -175,3 +175,10 @@ body.mobile-layout.driving .drive-top{display:none}
   body.mobile-layout #inspect{bottom:calc(95px + env(safe-area-inset-bottom));max-height:calc(100dvh - 170px)}
   body.mobile-layout.driving #drive-hud{grid-template-areas:"speed controls" "road controls" "posted controls" "destination controls"}
 }
+
+#lod-progress{display:block;color:#a7bdc7;font-size:11px;margin-top:10px}
+#inspect{max-height:calc(100dvh - 210px);overflow:auto;width:min(360px,calc(100vw - 32px));z-index:4}
+#inspect h3{font-weight:600;font-size:12px;color:#b8e5d2;margin:18px 0 8px}
+#bdetails dl{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:7px 12px;margin:0;font-size:12px;line-height:1.45;overflow-wrap:anywhere}
+#bdetails dt{color:#9fb4bd}#bdetails dd{margin:0;color:#e6eff1;user-select:text}
+body.mobile-layout #inspect{max-height:calc(100dvh - 260px)}
