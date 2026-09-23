@@ -10,7 +10,8 @@ import {fileURLToPath} from 'node:url';
 const {values:options}=parseArgs({options:{
   root:{type:'string',default:fileURLToPath(new URL('../dist/',import.meta.url))},
   output:{type:'string'},url:{type:'string'},timeout:{type:'string',default:'240'},
-  profile:{type:'boolean',default:false},'world-smoke':{type:'boolean',default:false}
+  profile:{type:'boolean',default:false},'world-smoke':{type:'boolean',default:false},
+  'linemap-test':{type:'boolean',default:false},'software-gl':{type:'boolean',default:false}
 }});
 const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 const root=path.resolve(options.root);
@@ -34,6 +35,7 @@ const server=http.createServer(async(req,res)=>{
 await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
 const url=options.url||`http://127.0.0.1:${server.address().port}/chisinau3d/`;
 const browser=spawn(browserPath,['--headless=new','--no-first-run','--no-default-browser-check',
+  ...(options['software-gl']?['--no-sandbox','--disable-gpu-sandbox','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']:[]),
   '--remote-debugging-port=0','--user-data-dir='+profile,'--window-size=1280,720',
   '--disable-background-timer-throttling','--disable-renderer-backgrounding','about:blank'],
   {windowsHide:true,stdio:'ignore'});
@@ -109,6 +111,25 @@ try{
     phases.push({name,...result});console.log(JSON.stringify({phase:name,...result}));
   }
   if(ready){
+    if(options['linemap-test']){
+      const initialRoadMode=await evaluate("document.querySelector('#road-comparison').dataset.mode");
+      if(initialRoadMode!=='osm')throw Error('Road comparison did not default to Old OSM');
+      const oldRoadImage=await call('Page.captureScreenshot',{format:'png'});
+      await fs.writeFile(path.join(output,'linemap-road-old-osm.png'),Buffer.from(oldRoadImage.data,'base64'));
+      await evaluate("document.querySelector('#road-comparison').click()");
+      let lineMapStatus='';
+      for(let i=0;i<20;i++){
+        await sleep(500);
+        lineMapStatus=await evaluate("document.querySelector('#linemap-status').textContent");
+        if(/pilot lines.*shown|unavailable/i.test(lineMapStatus))break;
+      }
+      if(!/OSM \+ LineMap.*pilot lines.*shown/.test(lineMapStatus))throw Error('LineMap pilot layer failed: '+lineMapStatus);
+      const lineMapImage=await call('Page.captureScreenshot',{format:'png'});
+      await fs.writeFile(path.join(output,'linemap-road-test.png'),Buffer.from(lineMapImage.data,'base64'));
+      const restoredStatus=await evaluate("document.querySelector('#road-comparison').click();document.querySelector('#linemap-status').textContent");
+      if(!/Old OSM.*pilot lines.*ready/.test(restoredStatus))throw Error('Old OSM road view did not restore: '+restoredStatus);
+      console.log(JSON.stringify({phase:'linemap-test',status:lineMapStatus}));
+    }
     if(options['world-smoke']){
       let picked=null;
       picking:for(let y=180;y<650;y+=70)for(let x=380;x<1150;x+=70){

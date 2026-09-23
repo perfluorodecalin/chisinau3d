@@ -65,9 +65,26 @@ Artifacts:
 - `roof-height-pilot-results.json`: aggregate statistics and filter results
 - `scripts/analyze_roof_heights.py`: reproducible offline analysis
 
+## Road geometry matching pilot
+
+Acquired two bounded EPSG:4326 GeoJSON exports from the official `maps` WFS on 2026-09-24. Both requests used bbox `28.84,47.018,28.85,47.025,EPSG:4326`, `count=500`, `startIndex=0`, and one requested feature type per request:
+
+| WFS feature type | `numberMatched` | `numberReturned` |
+| --- | ---: | ---: |
+| `maps:lm17_line_road_centre_line` | 134 | 134 |
+| `maps:lm17_line_road_edge` | 262 | 262 |
+
+The count cap exceeds both server match counts, so these responses are complete for the requested bbox. WFS bbox filtering selects intersecting features and does not clip them; the offline preparer clips each line part to the bbox, splits disjoint fragments, and matches those fragments against the bundled OSM snapshot. It makes no network requests. Reproduce the derived overlay with `python scripts/prepare_linemap_road_test.py`; run `python scripts/prepare_linemap_road_test.py --self-test` for synthetic offset, ambiguity and reversed-oneway checks.
+
+The resulting `dist/linemap-road-test.json` contains **391 clipped input fragments** (131 centre, 260 edge), of which **301 matched** (114 centre, 187 edge); 43 were ambiguous and withheld, 47 had no acceptable match, and accepted fragments reference 83 unique OSM ways. Match criteria use local tangent alignment, distance/expected carriageway-edge offset and 75% sampled coverage. Ambiguous candidates with a score gap under 1.5 are withheld. OSM IDs, original tags, normalized road-model width and bridge state are retained; coordinates are local metres (`x` east, `z` south), and runtime should use the existing road-height drape. These counts describe this district and matching rules, not citywide completeness or correctness. Unmatched source IDs and ambiguity diagnostics are in the JSON.
+
+The runtime **Road geometry A/B** control switches between **Old OSM** and **OSM + LineMap**. The latter adds thin diagnostic lines over the unchanged OSM roads; it does not replace road surfaces, driving physics, sidewalks or lamps.
+
+The LineMap source is older than the saved OSM snapshot and may represent changed or differently segmented roads. Geometry association does not establish vertical datum, feature survey date or a distribution license. The service advertised no fees/access constraints, but dataset-specific reuse terms and required attribution remain unresolved; do not treat this as permission for unrestricted redistribution or upload corrections to OSM.
+
 ## Other advertised candidates (not sampled)
 
-Road centre lines, driveways, footpaths, walkway centre lines, traffic islands, road/safety barriers, retaining walls, embankment boundaries, stairs, fences, brick/stone walls, railway centre lines/platforms, canals/ditches, rivers/lakes, land-use polygons, power poles and monuments. Layer existence alone does not prove Chisinau coverage or usable attributes. The complete inventory can be read from `maps-wfs.xml`.
+Driveways, footpaths, walkway centre lines, traffic islands, road/safety barriers, retaining walls, embankment boundaries, stairs, fences, brick/stone walls, railway centre lines/platforms, canals/ditches, rivers/lakes, land-use polygons, power poles and monuments. Layer existence alone does not prove Chisinau coverage or usable attributes. The complete inventory can be read from `maps-wfs.xml`.
 
 ## Suggested integration order
 

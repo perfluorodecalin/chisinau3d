@@ -182,3 +182,8 @@ body.mobile-layout.driving .drive-top{display:none}
 #bdetails dl{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:7px 12px;margin:0;font-size:12px;line-height:1.45;overflow-wrap:anywhere}
 #bdetails dt{color:#9fb4bd}#bdetails dd{margin:0;color:#e6eff1;user-select:text}
 body.mobile-layout #inspect{max-height:calc(100dvh - 260px)}
+
+#linemap-status,#linemap-credit{display:block;color:#9db2bf;font-size:11px;line-height:1.45}
+#linemap-status{margin:5px 0 0}#linemap-credit{margin:0 0 12px}
+#road-comparison{width:100%;text-align:left}
+#road-comparison[data-mode="osm-linemap"]{border-color:#bd82b9;background:#3c2a43;color:#f7d7f3}
