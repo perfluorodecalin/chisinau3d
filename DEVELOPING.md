@@ -25,16 +25,11 @@ They also compare optimized terrain draping against the previous algorithm, veri
 
 ## Multiplayer
 
-Create a room in the city panel and share its link, or paste a room code/link to join. Invite links prefill the code but do not autojoin. The game displays up to four remote cars using frequent vehicle-state snapshots; simulation and collisions remain local. Peers must load the same compiled world, verified by a world hash. Signaling uses public Nostr relays; car snapshots use direct WebRTC. There is no TURN fallback, so peers behind restrictive NATs/firewalls may fail to connect. Anyone with a room link can join, and a direct peer connection can reveal your IP address to other participants.
+Multiplayer uses one Cloudflare Worker and one SQLite Durable Object per invite room. Local solo play needs no service. See [relay/README.md](relay/README.md) for Worker setup and local testing. Set `MULTIPLAYER_ENDPOINT` in `dist/multiplayer-config.js` to its public WSS origin after deployment; leaving it empty disables the multiplayer controls. Publishing Pages alone does not deploy the Worker.
 
-The pinned Trystero dependency is bundled into `dist/vendor/trystero.js`. After changing its version or the vendoring script, regenerate the authored bundle with:
+Create a room and share its fragment link, or paste a room code/link to join. Invite links prefill the code but never autojoin. The game displays up to seven remote cars for eight participants; physics remains local. The relay validates one latest pose per connection and returns bounded room snapshots. Anyone with the link can join; this does not verify real identity. The room requires matching compiled world hashes.
 
-```sh
-npm run vendor:multiplayer
-npm test
-```
-
-Commit the generated vendor file and dependency lockfile together. Multiplayer tests run as part of `npm test`.
+`npm run test:multiplayer` exercises protocol validation, relay membership and client lifecycle. `npm test` includes it. For actual Workers runtime verification, use the local Wrangler setup described in the relay guide.
 
 ## World compilation
 

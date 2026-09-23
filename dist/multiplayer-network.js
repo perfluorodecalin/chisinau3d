@@ -1,129 +1,102 @@
-import { joinRoom } from './vendor/trystero.js';
+import { PROTOCOL_VERSION, ROOM_ID_PATTERN, WORLD_ID_PATTERN, validPose, validSnapshot } from './multiplayer-protocol.js';
 
-const PROTOCOL_VERSION = 1;
-const MAX_MESSAGE_BYTES = 512;
-const MAX_POSITION = 100_000;
-const MAX_HEIGHT = 10_000;
-const MAX_SPEED = 100;
-const MAX_HEADING = 1_000_000;
-const APP_ID = 'chisinau3d-multiplayer-v1';
+const report = (callback, ...args) => { try { callback?.(...args); } catch (error) { console.error('Multiplayer callback failed', error); } };
+const RESPONSE_TIMEOUT_MS = 6_000;
+const WELCOME_TIMEOUT_MS = 8_000;
+const MAX_RECONNECTS = 5;
 
-function report(callback, ...args) {
-  if (typeof callback !== 'function') return;
-  try { callback(...args); } catch (error) { console.error('Multiplayer callback failed', error); }
-}
+/** One socket and at most one outstanding request per client. Calling sendState only replaces the latest pose. */
+export function createRoomTransport({ roomId, worldId, endpoint, onPeerJoin, onPeerLeave, onState, onStatus, onError,
+  WebSocketClass = globalThis.WebSocket, timers = globalThis, random = Math.random } = {}) {
+  if (!ROOM_ID_PATTERN.test(roomId || '')) throw new TypeError('Invalid room code');
+  if (!WORLD_ID_PATTERN.test(worldId || '')) throw new TypeError('Invalid compiled world');
+  const base = new URL(endpoint);
+  if (base.protocol !== 'wss:' && !(base.protocol === 'ws:' && ['localhost', '127.0.0.1'].includes(base.hostname)))
+    throw new TypeError('Multiplayer needs a secure WSS endpoint');
+  if (base.pathname !== '/' || base.search || base.hash || base.username || base.password) throw new TypeError('Expected a WebSocket origin without a path');
+  if (typeof WebSocketClass !== 'function') throw new TypeError('WebSocket unavailable');
+  const url = `${base.origin}/rooms/${roomId.toLowerCase()}?world=${worldId}`;
+  const peers = new Set();
+  let socket, timer, closed = false, ready = false, request = 0, pending = null, retries = 0, lastRequestAt = 0, latest = { active: false, x: 0, y: 0, z: 0, heading: 0, speed: 0 };
+  const clearTimer = () => { if (timer) timers.clearTimeout(timer); timer = null; };
+  const schedule = (fn, delay) => { clearTimer(); timer = timers.setTimeout(fn, delay); };
+  const clearPeers = () => { for (const id of peers) report(onPeerLeave, id); peers.clear(); };
+  const status = (state, detail) => report(onStatus, state, detail);
 
-export function validateMultiplayerState(payload, worldId) {
-  if (!payload || typeof payload !== 'object' || Array.isArray(payload)) return null;
-  let encoded;
-  try { encoded = JSON.stringify(payload); } catch { return null; }
-  if (!encoded || new TextEncoder().encode(encoded).byteLength > MAX_MESSAGE_BYTES) return null;
-  if (payload.protocol !== PROTOCOL_VERSION || payload.worldId !== worldId) return null;
-  if (!Number.isSafeInteger(payload.seq) || payload.seq < 0 || typeof payload.active !== 'boolean') return null;
-  const { x, y, z, heading, speed } = payload;
-  if (![x, y, z, heading, speed].every(Number.isFinite)) return null;
-  if (Math.abs(x) > MAX_POSITION || Math.abs(z) > MAX_POSITION || y < -MAX_HEIGHT || y > MAX_HEIGHT) return null;
-  if (Math.abs(heading) > MAX_HEADING || Math.abs(speed) > MAX_SPEED) return null;
-  return { seq: payload.seq, active: payload.active, x, y, z, heading, speed };
-}
-
-/** Join a Trystero Nostr-discovery room and exchange bounded vehicle snapshots. */
-export function createRoomTransport({ roomId, worldId, onPeerJoin, onPeerLeave, onState, onError } = {}, join = joinRoom) {
-  if (typeof roomId !== 'string' || roomId.length < 16 || roomId.length > 128) {
-    throw new TypeError('roomId must be an unguessable string of 16–128 characters');
+  function fail(connection, reason) {
+    if (closed || (connection && socket !== connection)) return;
+    clearTimer(); ready = false; pending = null; clearPeers();
+    try { connection?.close(); } catch { /* Already disconnected. */ }
+    socket = null;
+    if (reason) { status(reason); return; }
+    if (retries >= MAX_RECONNECTS) { status('disconnected'); report(onError, new Error('Connection stopped. Choose Join room to retry.')); return; }
+    retries++;
+    status('reconnecting', retries);
+    schedule(connect, Math.min(8_000, 500 * 2 ** (retries - 1)) * (.8 + random() * .4));
   }
-  if (typeof worldId !== 'string' || !worldId || worldId.length > 128) {
-    throw new TypeError('worldId must be a non-empty string of at most 128 characters');
+
+  function poll(connection) {
+    if (closed || socket !== connection || !ready || pending !== null) return;
+    lastRequestAt = Date.now();
+    const n = request++;
+    const message = { t: 'tick', v: PROTOCOL_VERSION, n, p: latest };
+    try { connection.send(JSON.stringify(message)); } catch { fail(connection); return; }
+    pending = n;
+    schedule(() => fail(connection), RESPONSE_TIMEOUT_MS);
   }
 
-  let closed = false;
-  let seq = 0;
-  let send;
-  let room;
-  let sending = false;
-  let pendingState = null;
-
-  // Snapshot traffic is replaceable: if the peer transport is slower than the
-  // simulation tick, retain only the newest snapshot and send it next.
-  function flushState(payload) {
-    if (closed || sending) return;
-    sending = true;
-    let result;
-    try { result = send(payload); }
-    catch (error) {
-      report(onError, error);
-      sending = false;
-      const next = pendingState;
-      pendingState = null;
-      if (next) flushState(next);
-      return;
-    }
-    Promise.resolve(result).then(
-      undefined,
-      error => report(onError, error),
-    ).then(() => {
-      sending = false;
-      if (closed) { pendingState = null; return; }
-      const next = pendingState;
-      pendingState = null;
-      if (next) flushState(next);
-    });
-  }
-  try {
-    room = join({ appId: APP_ID }, roomId, {
-      onJoinError: details => report(onError, details?.error || new Error('Unable to connect to multiplayer peer')),
-    });
-    const action = room.makeAction('vehicle-state-v1');
-    send = action.send.bind(action);
-    action.onMessage = (payload, { peerId } = {}) => {
-      if (closed) return;
-      const state = validateMultiplayerState(payload, worldId);
-      if (!state) {
-        report(onError, new Error('Ignored invalid or incompatible multiplayer state'));
+  function connect() {
+    if (closed) return;
+    clearTimer();
+    let connection;
+    try { connection = new WebSocketClass(url); } catch (error) { report(onError, error); fail(null); return; }
+    socket = connection;
+    ready = false;
+    pending = null;
+    schedule(() => fail(connection), WELCOME_TIMEOUT_MS);
+    connection.onmessage = event => {
+      if (closed || socket !== connection) return;
+      if (typeof event.data !== 'string' || event.data.length > 4096) { fail(connection, 'protocol'); return; }
+      let message;
+      try { message = JSON.parse(event.data); } catch { fail(connection, 'protocol'); return; }
+      if (message?.t === 'reject' && message.v === PROTOCOL_VERSION && ['full', 'world'].includes(message.reason)) { fail(connection, message.reason); return; }
+      if (!ready) {
+        if (message?.t !== 'welcome' || message.v !== PROTOCOL_VERSION || !ROOM_ID_PATTERN.test(message.id || '')) { fail(connection, 'protocol'); return; }
+        ready = true;
+        status('connected');
+        poll(connection);
         return;
       }
-      report(onState, peerId, state);
+      if (pending === null || !validSnapshot(message, pending)) { fail(connection, 'protocol'); return; }
+      retries = 0;
+      const seen = new Set();
+      for (const peer of message.peers) {
+        seen.add(peer.id);
+        if (!peers.has(peer.id)) { peers.add(peer.id); report(onPeerJoin, peer.id); }
+        if (peer.seq >= 0) report(onState, peer.id, peer);
+      }
+      for (const id of peers) if (!seen.has(id)) { peers.delete(id); report(onPeerLeave, id); }
+      pending = null;
+      schedule(() => poll(connection), Math.max(0, (latest.active ? 100 : 500) - (Date.now() - lastRequestAt)));
     };
-    room.onPeerJoin = peerId => { if (!closed) report(onPeerJoin, peerId); };
-    room.onPeerLeave = peerId => { if (!closed) report(onPeerLeave, peerId); };
-  } catch (error) {
-    report(onError, error);
-    throw error;
+    connection.onclose = () => fail(connection);
+    connection.onerror = () => { /* onclose follows; retry from a single path. */ };
   }
 
+  status('connecting');
+  connect();
   return {
     sendState(state) {
-      if (closed) return false;
-      const seqId = seq++;
-      const payload = {
-        protocol: PROTOCOL_VERSION,
-        worldId,
-        seq: seqId,
-        active: state?.active === true,
-        x: state?.x,
-        y: state?.y,
-        z: state?.z,
-        heading: state?.heading,
-        speed: state?.speed,
-      };
-      const valid = validateMultiplayerState(payload, worldId);
-      if (!valid) {
-        report(onError, new TypeError('Refusing invalid local vehicle state'));
-        return false;
-      }
-      // Trystero handles serialization; bound outstanding work to one send
-      // and one replaceable newest snapshot.
-      if (sending) pendingState = payload;
-      else flushState(payload);
+      if (closed || !validPose(state)) return false;
+      latest = { active: state.active, x: state.x, y: state.y, z: state.z, heading: state.heading, speed: state.speed };
       return true;
     },
     leave() {
       if (closed) return;
-      closed = true;
-      pendingState = null;
-      room.onPeerJoin = null;
-      room.onPeerLeave = null;
-      room.leave();
+      closed = true; clearTimer(); ready = false; pending = null;
+      clearPeers();
+      const old = socket; socket = null;
+      try { old?.close(1000, 'Left room'); } catch { /* Closing socket. */ }
     },
   };
 }

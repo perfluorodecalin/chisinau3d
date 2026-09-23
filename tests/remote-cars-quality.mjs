@@ -30,7 +30,8 @@ const bob = scene.getObjectByName('remote-car-bob');
 assert.notEqual(alice.children[0].material.color.getHex(), bob.children[0].material.color.getHex(), 'peers have distinct paint');
 assert.equal(cars.updatePeer('carol', snap(8)), true);
 assert.equal(cars.updatePeer('dave', snap(12)), true);
-assert.equal(cars.updatePeer('erin', snap(16)), false, 'peer count stays bounded');
+for (const [index, id] of ['erin', 'frank', 'gabi'].entries()) assert.equal(cars.updatePeer(id, snap(16 + index)), true);
+assert.equal(cars.updatePeer('jules', snap(22)), false, 'seven remote cars stay bounded');
 
 // Simulate a background-throttled tab: wall time advances even if frame updates do not.
 clock += 5.1;

@@ -7,17 +7,15 @@
     "predev": "node --max-old-space-size=8192 scripts/ensure-world.mjs",
     "verify:world": "node scripts/verify-world.mjs",
     "dev": "vite --config vite.config.mjs",
-    "vendor:multiplayer": "node scripts/vendor-multiplayer.mjs",
     "test:multiplayer": "node tests/multiplayer-network.mjs",
-    "test": "node tests/quality.mjs && node tests/geometry-quality.mjs && node tests/world-quality.mjs && node tests/csv-export-quality.mjs && node tests/multiplayer-network.mjs && node tests/remote-cars-quality.mjs",
-    "benchmark": "node scripts/benchmark-browser.mjs"
+    "test": "node tests/quality.mjs && node tests/geometry-quality.mjs && node tests/world-quality.mjs && node tests/csv-export-quality.mjs && node tests/multiplayer-network.mjs && node tests/remote-cars-quality.mjs && node tests/multiplayer-runtime.mjs",
+    "benchmark": "node scripts/benchmark-browser.mjs",
+    "test:multiplayer:runtime": "node tests/multiplayer-runtime.mjs"
   },
   "devDependencies": {
     "esbuild": "0.25.12",
+    "miniflare": "4.20250927.0",
     "three": "0.180.0",
     "vite": "7.1.3"
-  },
-  "dependencies": {
-    "trystero": "0.25.4"
   }
 }
