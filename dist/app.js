@@ -7,6 +7,7 @@ import {addAtmosphere} from './atmosphere.js';
 import {createDriving} from './driving.js';
 import {createRemoteCars} from './remote-cars.js';
 import {createMultiplayerUI} from './multiplayer-ui.js';
+import {createMobileUI} from './mobile-ui.js';
 import {OrbitControls} from './vendor/OrbitControls.js';
 import {ORIGIN,project} from './model.js';
 import {buildingCsv} from './csv-export.js';
@@ -49,6 +50,7 @@ async function joinRoom(roomId){
 }
 addEventListener('pagehide',leaveRoom);
 multiplayerUI=createMultiplayerUI({onJoin:joinRoom,onLeave:leaveRoom});
+createMobileUI();
 function colorFor(r){const mode=$('#mode').value;if(mode==='source')return new THREE.Color({height:'#6bdcba',levels:'#73a9ef',estimate:'#ddb274'}[r.source]);if(mode==='height')return new THREE.Color().setHSL(.52-Math.min(r.height/110,1)*.48,.57,.57);return new THREE.Color().setHSL(.1+(r.id%7)*.004,.17,.65+(r.id%5)*.025);}
 function fly(lat,lon,distance=1800){const [x,z]=project({lat,lon});const target=new THREE.Vector3(x,heightAt(x,z),z),offset=topView?new THREE.Vector3(0,distance,.1):new THREE.Vector3(distance*.48,distance*.65,distance*.8);flight={start:performance.now(),from:camera.position.clone(),to:target.clone().add(offset),fromTarget:controls.target.clone(),target};}
 controls.addEventListener('start',()=>flight=null);
