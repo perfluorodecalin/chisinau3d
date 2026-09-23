@@ -54,8 +54,9 @@ Each gzip file contains a `CITY` magic number, JSON header length, an aligned JS
 header, then typed-array bytes. The header describes precomputed attributes,
 indices, instance matrices, bounds, material references, layers, building picking
 spans and physics. `world-format.js` creates buffer views directly over the decoded
-payload. Buildings retain OSM IDs, height provenance and tags for inspection and
-CSV export; obstacle polygons retain courtyard holes and vertical intervals.
+payload. Buildings and road surface batches retain triangle spans linked to OSM
+IDs, original tags and build-derived properties; bridge structures carry the same
+way record. Building CSV export and obstacle courtyard holes remain available.
 
 Meshes use approximately 500 m spatial cells. Terrain retains its continuous
 1.28 km patches, and features crossing cell edges retain their full bounds.
@@ -78,12 +79,20 @@ primitives in spatial indexes. Dynamic work consists of drawing, input, fixed-st
 simulation, camera control, UI, opt-in sound and eight nearby lamp lights. Facade
 and road shaders are reattached to shared materials rather than serialized hooks.
 
+The manifest also lists 32 coarse overview assets: one terrain asset and one per
+saved map section. They contain simplified terrain, building roofs, road ribbons,
+parks and water. The atlas loads these in the background after nearby full detail;
+each roof and road span remains inspectable. Full geometry near the camera target
+is used near the camera target or car, while distant full meshes give way to the
+same overview in both atlas and driving modes.
+Overview assets have no physics, walls, façades or street furniture.
+
 Driving preloads neighboring bounds and evicts chunks more than 3.5 km from the
 camera target, disposing their geometry and instance buffers and rebuilding the
 resident collision indexes. Eviction has hysteresis relative to the preload area.
-The atlas's explicit **Load wider city** mode can retain the entire city; it is not
-a bounded-memory mode. The global DEM, bridge profiles, POIs and lamp index remain
-resident. This pass does not add LOD, texture streaming or traffic simulation.
+The atlas's explicit **Load full city detail** mode can retain the entire detailed
+city; it is not a bounded-memory mode. The global DEM, bridge profiles, POIs and
+lamp index remain resident. This pass does not add texture streaming or traffic simulation.
 
 `npm test` exercises the original geometry/physics behavior plus binary roundtrips,
 instancing, picking metadata, collision holes/heights and the browser import boundary.
