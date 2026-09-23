@@ -88,4 +88,12 @@ assert.equal(maxInFlight, 1);
 resolveLatest();
 await new Promise(resolve => setTimeout(resolve, 0));
 deferredTransport.leave();
+const withTurn = createRoomTransport({
+  roomId: '9553d952-d468-4306-836e-16af36dcfece', worldId: 'city-v1',
+  turnConfig: [{ urls: ['turns:turn.example:443?transport=tcp'], username: 'u', credential: 'c' }],
+}, config => {
+  assert.equal(config.turnConfig[0].urls[0], 'turns:turn.example:443?transport=tcp');
+  return { makeAction: () => ({ send: async () => {} }), leave() {} };
+});
+withTurn.leave();
 console.log('Multiplayer transport validation passed.');

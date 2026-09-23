@@ -25,7 +25,18 @@ They also compare optimized terrain draping against the previous algorithm, veri
 
 ## Multiplayer
 
-Create a room in the city panel and share its link, or paste a room code/link to join. Invite links prefill the code but do not autojoin. The game displays up to four remote cars using frequent vehicle-state snapshots; simulation and collisions remain local. Peers must load the same compiled world, verified by a world hash. Signaling uses public Nostr relays; car snapshots use direct WebRTC. There is no TURN fallback, so peers behind restrictive NATs/firewalls may fail to connect. Anyone with a room link can join, and a direct peer connection can reveal your IP address to other participants.
+Create a room in the city panel and share its link, or paste a room code/link to join. Invite links prefill the code but do not autojoin. The game displays up to four remote cars using frequent vehicle-state snapshots; simulation and collisions remain local. Peers must load the same compiled world, verified by a world hash. Signaling uses public Nostr relays; car snapshots use WebRTC, with optional TURN fallback. Anyone with a room link can join, and a direct peer connection can reveal your IP address to other participants.
+
+### TURN relay with GitHub Pages
+
+The static site can stay on GitHub Pages. TURN is a separate packet relay, and the small credential issuer in `workers/turn-credentials/` can run on Cloudflare Workers. Nostr relays only exchange connection setup messages; changing the signaling relay does not solve a failed WebRTC data path.
+
+1. Create a Cloudflare Realtime TURN key. Store its **key ID** and **API token** as Worker secrets, `TURN_KEY_ID` and `TURN_KEY_API_TOKEN`; never put them in `dist/`, a URL, or a GitHub Actions secret that gets injected into static files. The Worker issues credentials valid for 12 hours.
+2. Check `ALLOWED_ORIGIN` in `workers/turn-credentials/wrangler.toml`. For the default Pages URL, it is `https://perfluorodecalin.github.io` (the origin has no `/chisinau3d/` path). Deploy the Worker with a current Wrangler CLI, for example `npx wrangler@latest deploy --config workers/turn-credentials/wrangler.toml`, after setting the two secrets with `npx wrangler@latest secret put TURN_KEY_ID --config workers/turn-credentials/wrangler.toml` and likewise for `TURN_KEY_API_TOKEN`.
+3. Put the deployed HTTPS URL plus `/turn` into `TURN_CREDENTIALS_URL` in `dist/turn-credentials.js`, then publish Pages. The client fetches new credentials on each room join. If a configured credential service is down, joining reports an error instead of silently attempting a connection that will fail behind restrictive NATs.
+4. Test with two browsers on separate networks that previously failed to connect. Inspect WebRTC ICE candidate pairs in browser diagnostics to confirm `relay` was selected. A same-machine UI test does not verify TURN.
+
+The Worker permits only the configured browser origin and has per-IP and aggregate issuance rate limits. Origin headers can be spoofed outside a browser, and Cloudflare's rate limits are per edge and approximate, so these controls do not authenticate callers or cap spending globally. Monitor TURN usage and set an account spending alert. The browser receives temporary credentials, which are necessarily visible to that browser; only the long-lived TURN key remains private. Cloudflare TURN and Workers have separate billing.
 
 The pinned Trystero dependency is bundled into `dist/vendor/trystero.js`. After changing its version or the vendoring script, regenerate the authored bundle with:
 
