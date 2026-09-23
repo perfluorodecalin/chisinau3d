@@ -20,7 +20,7 @@ const resident=new Map(),records=[],pickables=[],loaded=new Set(),chunks=[],plac
 const facadeSetting={set value(v){for(const m of world?.materials||[])if(m.userData.facadeUniform)m.userData.facadeUniform.value=v;}};
 let terrainInfo=null;
 let realismData={pois:[]},atmosphere=null;
-let active=places.center,manifest=[],busy=false,stop=false,queuedTiles=null,flight=null,topView=false,selected=null,totalMapped=0;
+let active=places.center,manifest=[],busy=false,stop=false,queuedTiles=null,retryTiles=null,flight=null,topView=false,selected=null,totalMapped=0;
 const driving=createDriving({scene,camera,controls,onExit(){document.querySelector('#drive').textContent='Drive a car';},onTravel(x,z){if(busy)return;const lat=ORIGIN.lat-z/111320,lon=ORIGIN.lon+x/(111320*Math.cos(ORIGIN.lat*Math.PI/180));const ts=nearTiles(lat,lon).filter(t=>!loaded.has(t.id));if(ts.length)loadTiles(ts);else evictDistant(x,z);}});
 createSoundscape(()=>({...driving.audioState,hour:+$('#time-of-day').value}));
 $('#drive').onclick=()=>{if(driving.active){driving.exit();return;}flight=null;$('#close').click();if(!driving.start(controls.target.x,controls.target.z))status('Load a city area first','Driving needs a loaded street to start.','error');};
@@ -77,6 +77,7 @@ async function loadTiles(tiles,wide=false){
   if(driving.active)evictDistant();
  }catch(e){failed++;console.error(e);}
  finally{busy=false;$('#load').disabled=false;$('#city').textContent='Load wider city';}
+ retryTiles=failed?pending.filter(t=>!loaded.has(t.id)):null;
  status(failed?'Some sections could not load':records.length?'Ready to explore':'No buildings loaded',failed?'Loaded areas remain visible. Retry to reload missing saved sections.':`${records.length.toLocaleString()} buildings · ${loaded.size} / ${manifest.length} city sections loaded`,failed?'error':'done');
  if(queuedTiles){const next=queuedTiles;queuedTiles=null;void loadTiles(next);}
 }
@@ -84,7 +85,7 @@ async function loadTiles(tiles,wide=false){
 function requestTiles(tiles){if(busy){queuedTiles=tiles;stop=true;$('#city').textContent='Switching area…';}else void loadTiles(tiles);}
 $('#load').onclick=()=>{const [x,z]=[controls.target.x,controls.target.z];active=[ORIGIN.lat-z/111320,ORIGIN.lon+x/(111320*Math.cos(ORIGIN.lat*Math.PI/180))];const ts=nearTiles(...active);if(!ts.length){status('Outside the covered city area','Choose a neighbourhood to return to Chișinău.','error');return;}requestTiles(ts);};
 $('#city').onclick=()=>{if(busy){stop=true;queuedTiles=null;$('#city').textContent='Finishing current section…';}else loadTiles(manifest,true);};
-$('#retry').onclick=()=>requestTiles(nearTiles(...active));$('#place').onchange=()=>{active=places[$('#place').value];fly(...active,$('#place').value.startsWith('bridge')?450:1800);requestTiles(nearTiles(...active));};$('#home').onclick=()=>{active=places.center;$('#place').value='center';fly(...active);};
+$('#retry').onclick=()=>requestTiles(retryTiles?.length?retryTiles:nearTiles(...active));$('#place').onchange=()=>{active=places[$('#place').value];fly(...active,$('#place').value.startsWith('bridge')?450:1800);requestTiles(nearTiles(...active));};$('#home').onclick=()=>{active=places.center;$('#place').value='center';fly(...active);};
 $('#textures').onchange=e=>{facadeSetting.value=e.target.checked&&$('#mode').value==='material'?1:0;};
 $('#parks').onchange=e=>greens.visible=e.target.checked;$('#roads').onchange=e=>roads.visible=e.target.checked;$('#orbit').onchange=e=>controls.autoRotate=e.target.checked;
 
