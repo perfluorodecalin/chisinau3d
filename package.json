@@ -6,10 +6,11 @@
     "build": "node --max-old-space-size=8192 scripts/ensure-world.mjs",
     "predev": "node --max-old-space-size=8192 scripts/ensure-world.mjs",
     "verify:world": "node scripts/verify-world.mjs",
+    "report:bridges": "node scripts/report-bridges.mjs",
     "dev": "vite --config vite.config.mjs",
     "vendor:multiplayer": "node scripts/vendor-multiplayer.mjs",
     "test:multiplayer": "node tests/multiplayer-network.mjs",
-    "test": "node tests/quality.mjs && node tests/geometry-quality.mjs && node tests/world-quality.mjs && node tests/world-inputs.mjs && node tests/csv-export-quality.mjs && node tests/multiplayer-network.mjs && node tests/remote-cars-quality.mjs",
+    "test": "node tests/quality.mjs && node tests/geometry-quality.mjs && node tests/world-quality.mjs && node tests/bridge-model.mjs && node tests/world-inputs.mjs && node tests/csv-export-quality.mjs && node tests/multiplayer-network.mjs && node tests/remote-cars-quality.mjs",
     "benchmark": "node scripts/benchmark-browser.mjs"
   },
   "devDependencies": {
