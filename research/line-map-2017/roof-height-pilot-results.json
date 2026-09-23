@@ -1,0 +1,244 @@
+{
+  "input": {
+    "roof_features_reported_matched": 3018,
+    "roof_features_downloaded": 3000,
+    "bbox_wgs84": [
+      28.825,
+      47.015,
+      28.845,
+      47.03
+    ],
+    "osm_snapshot": "2026-09-08",
+    "terrain": "Geoportal INDS / Geodata DTM 2020, Centru"
+  },
+  "matching": {
+    "matched_roof_parts": 1434,
+    "matched_unique_osm_buildings": 1174,
+    "unmatched_roof_parts": 1564,
+    "ambiguous_roof_parts": 3,
+    "rule": "roof centroid in/within 2 m of footprint and >=70% of exterior vertices in/within 2 m"
+  },
+  "derived_height_m_using_max_footprint_vertex_ground": {
+    "count": 1174,
+    "min": 1.03,
+    "p05": 2.272,
+    "p25": 3.269,
+    "median": 4.817,
+    "p75": 7.763,
+    "p95": 16.835,
+    "max": 59.994,
+    "mean": 6.719
+  },
+  "derived_height_m_using_roof_centroid_ground": {
+    "count": 1174,
+    "min": 1.243,
+    "p05": 2.639,
+    "p25": 3.679,
+    "median": 5.232,
+    "p75": 8.15,
+    "p95": 17.308,
+    "max": 60.453,
+    "mean": 7.155
+  },
+  "plausibility": {
+    "2_to_120_m": 1149,
+    "below_2_m": 25,
+    "above_120_m": 0
+  },
+  "high_confidence_filter": {
+    "rule": "match >=90%, roof/OSM area 0.5-1.5, roof Z spread <=12 m, p75-derived height 2-120 m",
+    "building_count": 685,
+    "without_osm_height_or_levels": 585,
+    "reference_count": 100,
+    "derived_p75_height_m": {
+      "count": 685,
+      "min": 2.085,
+      "p05": 2.726,
+      "p25": 4.034,
+      "median": 5.799,
+      "p75": 9.252,
+      "p95": 18.124,
+      "max": 53.873,
+      "mean": 7.806
+    },
+    "p75_vertex_z_validation": {
+      "signed_error_m": {
+        "count": 100,
+        "min": -26.331,
+        "p05": -4.908,
+        "p25": -1.258,
+        "median": 0.537,
+        "p75": 1.921,
+        "p95": 7.259,
+        "max": 29.275,
+        "mean": 0.68
+      },
+      "absolute_error_m": {
+        "count": 100,
+        "min": 0.035,
+        "p05": 0.265,
+        "p25": 0.867,
+        "median": 1.684,
+        "p75": 3.209,
+        "p95": 8.59,
+        "max": 29.275,
+        "mean": 3.072
+      },
+      "within_2_m": 59,
+      "within_4_m": 81
+    }
+  },
+  "osm_validation": {
+    "reference_count": 156,
+    "explicit_height_count": 15,
+    "level_derived_count": 141,
+    "signed_error_m": {
+      "count": 156,
+      "min": -26.504,
+      "p05": -10.247,
+      "p25": -2.258,
+      "median": -0.462,
+      "p75": 1.269,
+      "p95": 7.141,
+      "max": 28.987,
+      "mean": -0.758
+    },
+    "absolute_error_m": {
+      "count": 156,
+      "min": 0.037,
+      "p05": 0.136,
+      "p25": 0.795,
+      "median": 1.828,
+      "p75": 3.926,
+      "p95": 15.985,
+      "max": 28.987,
+      "mean": 3.663
+    },
+    "within_2_m": 83,
+    "within_4_m": 117,
+    "explicit_height_absolute_error_m": {
+      "count": 15,
+      "min": 0.204,
+      "p05": 0.213,
+      "p25": 0.704,
+      "median": 1.806,
+      "p75": 6.773,
+      "p95": 21.575,
+      "max": 28.987,
+      "mean": 5.854
+    },
+    "level_derived_absolute_error_m": {
+      "count": 141,
+      "min": 0.037,
+      "p05": 0.117,
+      "p25": 0.801,
+      "median": 1.831,
+      "p75": 3.767,
+      "p95": 13.833,
+      "max": 26.504,
+      "mean": 3.43
+    },
+    "candidate_roof_z_estimators": {
+      "median_vertex_z": {
+        "signed_error_m": {
+          "count": 156,
+          "min": -26.504,
+          "p05": -10.247,
+          "p25": -2.258,
+          "median": -0.462,
+          "p75": 1.269,
+          "p95": 7.141,
+          "max": 28.987,
+          "mean": -0.758
+        },
+        "absolute_error_m": {
+          "count": 156,
+          "min": 0.037,
+          "p05": 0.136,
+          "p25": 0.796,
+          "median": 1.827,
+          "p75": 3.926,
+          "p95": 15.984,
+          "max": 28.987,
+          "mean": 3.663
+        },
+        "within_2_m": 83,
+        "within_4_m": 117
+      },
+      "p75_vertex_z": {
+        "signed_error_m": {
+          "count": 156,
+          "min": -26.331,
+          "p05": -5.811,
+          "p25": -1.322,
+          "median": 0.386,
+          "p75": 2.17,
+          "p95": 8.014,
+          "max": 29.275,
+          "mean": 0.328
+        },
+        "absolute_error_m": {
+          "count": 156,
+          "min": 0.035,
+          "p05": 0.281,
+          "p25": 0.867,
+          "median": 1.825,
+          "p75": 3.441,
+          "p95": 14.433,
+          "max": 29.275,
+          "mean": 3.477
+        },
+        "within_2_m": 88,
+        "within_4_m": 122
+      },
+      "max_vertex_z": {
+        "signed_error_m": {
+          "count": 156,
+          "min": -25.231,
+          "p05": -4.947,
+          "p25": -0.981,
+          "median": 1.022,
+          "p75": 3.07,
+          "p95": 9.516,
+          "max": 33.22,
+          "mean": 1.274
+        },
+        "absolute_error_m": {
+          "count": 156,
+          "min": 0.04,
+          "p05": 0.233,
+          "p25": 1.041,
+          "median": 2.223,
+          "p75": 3.977,
+          "p95": 14.239,
+          "max": 33.22,
+          "mean": 3.843
+        },
+        "within_2_m": 74,
+        "within_4_m": 117
+      }
+    }
+  },
+  "roof_vertex_z_spread_m": {
+    "count": 1174,
+    "min": 0.0,
+    "p05": 0.171,
+    "p25": 0.589,
+    "median": 1.429,
+    "p75": 2.87,
+    "p95": 5.913,
+    "max": 34.04,
+    "mean": 2.202
+  },
+  "ground_rule_sensitivity_m": {
+    "count": 1174,
+    "min": -1.062,
+    "p05": 0.022,
+    "p25": 0.172,
+    "median": 0.346,
+    "p75": 0.566,
+    "p95": 1.234,
+    "max": 4.141,
+    "mean": 0.436
+  }
+}
