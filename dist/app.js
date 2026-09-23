@@ -13,6 +13,7 @@ import {createMultiplayerUI} from './multiplayer-ui.js';
 import {createMobileUI} from './mobile-ui.js';
 import {OrbitControls} from './vendor/OrbitControls.js';
 import {ORIGIN,project} from './model.js';
+import {ribbonPositions} from './road-ribbon.js';
 import {buildingCsv} from './csv-export.js';
 const $=s=>document.querySelector(s),scene=new THREE.Scene();scene.background=new THREE.Color('#172b36');scene.fog=new THREE.Fog('#172b36',13000,33000);
 let renderer;try{renderer=new THREE.WebGLRenderer({antialias:true,powerPreference:'high-performance'});}catch(e){$('#status').textContent='WebGL is unavailable';$('#substatus').textContent='Enable hardware acceleration / WebGL in your browser, then reload.';$('#loading').className='error';throw e;}
@@ -155,7 +156,7 @@ $('#city').onclick=()=>{if(busy){stop=true;queuedTiles=null;$('#city').textConte
 $('#retry').onclick=()=>requestTiles(retryTiles?.length?retryTiles:nearTiles(...active));$('#place').onchange=()=>{active=places[$('#place').value];fly(...active,$('#place').value.startsWith('bridge')?450:1800);requestTiles(nearTiles(...active));};$('#home').onclick=()=>{active=places.center;$('#place').value='center';fly(...active);};
 $('#textures').onchange=e=>{facadeSetting.value=e.target.checked&&$('#mode').value==='material'?1:0;};
 $('#parks').onchange=e=>greens.visible=e.target.checked;
-$('#roads').onchange=e=>{roads.visible=e.target.checked;updateRoadComparison();};
+$('#roads').onchange=e=>{roads.visible=e.target.checked;updateRoadComparison();if(e.target.checked&&roadComparison.dataset.mode==='osm-linemap')void ensureLineMapRoads();};
 $('#orbit').onchange=e=>controls.autoRotate=e.target.checked;
 
 let lineMapRoadData=null,lineMapRoadsLoaded=false,lineMapRoadsLoading=false,lineMapRoadSummary='',lineMapLoadError=null;
@@ -167,19 +168,23 @@ function setRoadComparisonMode(mode){
 }
 function updateRoadComparison(){
  const roadsVisible=$('#roads').checked,compare=roadComparison.dataset.mode==='osm-linemap';
- roadComparison.disabled=!terrainInfo||!roadsVisible||lineMapRoadsLoading;
+ roadComparison.disabled=!roadsVisible||lineMapRoadsLoading;
  lineMapRoads.visible=roadsVisible&&compare&&lineMapRoadsLoaded;
  if(lineMapRoadsLoading)return;
  if(!roadsVisible)$('#linemap-status').textContent='Street network hidden · enable it to compare roads';
+ else if(compare&&!terrainInfo)$('#linemap-status').textContent='OSM + LineMap selected · waiting for city data';
  else if(lineMapLoadError)$('#linemap-status').textContent=`LineMap test layer unavailable: ${lineMapLoadError}`;
  else if(lineMapRoadsLoaded)$('#linemap-status').textContent=`${compare?'OSM + LineMap':'Old OSM'} · ${lineMapRoadSummary} ${compare?'shown':'ready'}`;
  else $('#linemap-status').textContent='Old OSM · LineMap pilot off';
 }
-roadComparison.onclick=async()=>{
+roadComparison.onclick=()=>{
  setRoadComparisonMode(roadComparison.dataset.mode==='osm'?'osm-linemap':'osm');
- if(roadComparison.dataset.mode==='osm'){updateRoadComparison();return;}
- if(!terrainInfo||!$('#roads').checked){setRoadComparisonMode('osm');updateRoadComparison();return;}
- if(lineMapRoadsLoaded){updateRoadComparison();return;}
+ updateRoadComparison();
+ if(roadComparison.dataset.mode==='osm-linemap')void ensureLineMapRoads();
+};
+$('#linemap-pilot').onclick=()=>{if(!terrainInfo)return;const [west,south,east,north]=lineMapRoadData?.bbox||[28.84,47.018,28.85,47.025];fly((south+north)/2,(west+east)/2,550);};
+async function ensureLineMapRoads(){
+ if(!terrainInfo||!$('#roads').checked||lineMapRoadsLoaded||lineMapRoadsLoading)return;
  lineMapLoadError=null;
  lineMapRoadsLoading=true;updateRoadComparison();$('#linemap-status').textContent='Loading saved LineMap match…';
  try{
@@ -187,25 +192,30 @@ roadComparison.onclick=async()=>{
   if(!response.ok)throw new Error(`HTTP ${response.status}`);
   lineMapRoadData=await response.json();
   if(lineMapRoadData.version!==1||!Array.isArray(lineMapRoadData.features))throw new Error('Unsupported or invalid test layer data');
-  let accepted=0,outside=0,centres=0,edges=0;const batches={centre:{positions:[],ranges:[]},edge:{positions:[],ranges:[]}};
+  let accepted=0,outside=0,centres=0,edges=0;const batches={centre:{positions:[],ranges:[]},edge:{positions:[],ranges:[]}},ribbonSurface=[];
   for(const feature of lineMapRoadData.features){
    const coords=feature.coordinates;
    if(!Array.isArray(coords)||coords.length<2)continue;
    const meta=terrainInfo.meta,xmax=meta.xmin+(meta.nx-1)*meta.step,zmax=meta.zmin+(meta.nz-1)*meta.step;
    if(coords.some(([x,z])=>!Number.isFinite(x)||!Number.isFinite(z)||x<meta.xmin||x>xmax||z<meta.zmin||z>zmax)){outside++;continue;}
    const batch=batches[feature.kind];if(!batch)continue;
+   if(feature.kind==='centre'&&Number.isFinite(feature.width)&&feature.width>0){
+    const ribbon=ribbonPositions(coords,feature.width);
+    for(let i=0;i<ribbon.length;i+=3){const x=ribbon[i],z=ribbon[i+2];ribbonSurface.push(x,roadHeight(x,z,feature.osmId)+.28,z);}
+   }
    const record={type:'way',id:feature.osmId,kind:`LineMap ${feature.kind} match`,tags:feature.osmTags||{},derived:{linemap_source_id:feature.sourceId,linemap_geometry:feature.kind,matching:feature.match||{},osm_id:feature.osmId}};
    const start=batch.positions.length/3;
    for(let i=1;i<coords.length;i++){
     const [ax,az]=coords[i-1],[bx,bz]=coords[i];
-    batch.positions.push(ax,roadHeight(ax,az,feature.osmId)+.22,az,bx,roadHeight(bx,bz,feature.osmId)+.22,bz);
+    batch.positions.push(ax,roadHeight(ax,az,feature.osmId)+.4,az,bx,roadHeight(bx,bz,feature.osmId)+.4,bz);
    }
    const end=batch.positions.length/3;if(end>start)batch.ranges.push({start,end,record});
    accepted++;if(feature.kind==='centre')centres++;else edges++;
   }
-  for(const kind of ['centre','edge']){const batch=batches[kind];if(!batch.positions.length)continue;const geometry=new THREE.BufferGeometry();geometry.setAttribute('position',new THREE.Float32BufferAttribute(batch.positions,3));const material=new THREE.LineBasicMaterial({color:kind==='centre'?'#31f1ef':'#ff54cf',transparent:true,opacity:.95,depthTest:true});const line=new THREE.LineSegments(geometry,material);line.userData.lineMapRanges=batch.ranges;lineMapRoads.add(line);pickables.push(line);}
+  if(ribbonSurface.length){const geometry=new THREE.BufferGeometry();geometry.setAttribute('position',new THREE.Float32BufferAttribute(ribbonSurface,3));lineMapRoads.add(new THREE.Mesh(geometry,new THREE.MeshBasicMaterial({color:'#26d6de',transparent:true,opacity:.62,depthWrite:false,side:THREE.DoubleSide})));}
+  for(const kind of ['centre','edge']){const batch=batches[kind];if(!batch.positions.length)continue;const geometry=new THREE.BufferGeometry();geometry.setAttribute('position',new THREE.Float32BufferAttribute(batch.positions,3));const material=new THREE.LineBasicMaterial({color:kind==='centre'?'#b8ffff':'#ff54cf',transparent:true,opacity:.95,depthTest:true});const line=new THREE.LineSegments(geometry,material);line.userData.lineMapRanges=batch.ranges;lineMapRoads.add(line);pickables.push(line);}
   lineMapRoadsLoaded=true;
-  lineMapRoadSummary=`${accepted.toLocaleString()} pilot lines · ${centres} centre · ${edges} edge (cyan / magenta)${outside?` · ${outside} outside terrain coverage`:''}`;
+  lineMapRoadSummary=`${centres} LineMap road surfaces · ${edges} mapped edges (cyan / magenta)${outside?` · ${outside} outside terrain coverage`:''}`;
  }catch(error){setRoadComparisonMode('osm');lineMapLoadError=error.message;console.warn('LineMap road test layer could not load',error);}
  finally{lineMapRoadsLoading=false;updateRoadComparison();}
 };
@@ -261,7 +271,7 @@ function animate(now){
 requestAnimationFrame(animate);
 try{
  world=await loadWorld();
- terrainInfo=world.terrain;configureTerrain(terrainInfo.meta,world.heights,terrainInfo.profiles);updateRoadComparison();
+ terrainInfo=world.terrain;configureTerrain(terrainInfo.meta,world.heights,terrainInfo.profiles);$('#linemap-pilot').disabled=false;updateRoadComparison();if(roadComparison.dataset.mode==='osm-linemap')void ensureLineMapRoads();
  ground.position.y=terrainInfo.meta.minElevation-terrainInfo.meta.offset-20;grid.visible=false;
  realismData={pois:world.pois};setupDestinations();manifest=world.chunks;
  atmosphere=addAtmosphere(scene,realismData,{vegetation:new THREE.Group(),lamps:new THREE.Group(),heads:world.lampHeads,materials:world.materials});

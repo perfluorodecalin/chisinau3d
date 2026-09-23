@@ -48,6 +48,7 @@ Commit the generated vendor file and dependency lockfile together. Multiplayer t
 | `dist/driving.js` | Vehicle, controls, camera and driving HUD |
 | `dist/driving-physics.js` | Fixed timestep, steering and collisions |
 | `dist/road-model.js` | Normalized road profiles, connected ribbons and junction rules |
+| `dist/road-ribbon.js` | Shared pure ribbon geometry for compiled roads and the LineMap test layer |
 | `dist/terrain.js` | Build-time terrain patches, bridges and geometry draping |
 | `dist/terrain-runtime.js` | Runtime DEM and road/deck height queries |
 | `dist/world-loader.js` | Binary chunk loading and shared materials |

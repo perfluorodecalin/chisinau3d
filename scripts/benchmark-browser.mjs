@@ -93,6 +93,13 @@ try{
   `});
   if(options.profile){await call('Profiler.enable');await call('Profiler.setSamplingInterval',{interval:1000});await call('Profiler.start');}
   await call('Page.navigate',{url});
+  let queuedLineMap=false;
+  if(options['linemap-test'])for(let i=0;i<50;i++){
+    await sleep(150);
+    const startup=await evaluate("(()=>{const button=document.querySelector('#road-comparison');return {ready:!!button?.onclick&&!button.disabled,status:document.querySelector('#status')?.textContent}})()");
+    if(startup.ready&&startup.status!=='Ready to explore'){await evaluate("document.querySelector('#road-comparison').click()");queuedLineMap=true;break;}
+    if(startup.status==='Ready to explore')break;
+  }
   const start=Date.now();let state,ready=false;
   while(Date.now()-start<Number(options.timeout)*1000){
     await sleep(5000);
@@ -112,8 +119,15 @@ try{
   }
   if(ready){
     if(options['linemap-test']){
+      if(queuedLineMap){
+        const queuedStatus=await evaluate("document.querySelector('#linemap-status').textContent");
+        if(!/OSM \+ LineMap.*LineMap road surfaces.*shown/.test(queuedStatus))throw Error('Queued LineMap mode did not activate: '+queuedStatus);
+        await evaluate("document.querySelector('#road-comparison').click()");
+      }
       const initialRoadMode=await evaluate("document.querySelector('#road-comparison').dataset.mode");
       if(initialRoadMode!=='osm')throw Error('Road comparison did not default to Old OSM');
+      await evaluate("document.querySelector('#linemap-pilot').click()");
+      await sleep(1800);
       const oldRoadImage=await call('Page.captureScreenshot',{format:'png'});
       await fs.writeFile(path.join(output,'linemap-road-old-osm.png'),Buffer.from(oldRoadImage.data,'base64'));
       await evaluate("document.querySelector('#road-comparison').click()");
@@ -121,14 +135,14 @@ try{
       for(let i=0;i<20;i++){
         await sleep(500);
         lineMapStatus=await evaluate("document.querySelector('#linemap-status').textContent");
-        if(/pilot lines.*shown|unavailable/i.test(lineMapStatus))break;
+        if(/LineMap road surfaces.*shown|unavailable/i.test(lineMapStatus))break;
       }
-      if(!/OSM \+ LineMap.*pilot lines.*shown/.test(lineMapStatus))throw Error('LineMap pilot layer failed: '+lineMapStatus);
+      if(!/OSM \+ LineMap.*LineMap road surfaces.*shown/.test(lineMapStatus))throw Error('LineMap pilot layer failed: '+lineMapStatus);
       const lineMapImage=await call('Page.captureScreenshot',{format:'png'});
       await fs.writeFile(path.join(output,'linemap-road-test.png'),Buffer.from(lineMapImage.data,'base64'));
       const restoredStatus=await evaluate("document.querySelector('#road-comparison').click();document.querySelector('#linemap-status').textContent");
-      if(!/Old OSM.*pilot lines.*ready/.test(restoredStatus))throw Error('Old OSM road view did not restore: '+restoredStatus);
-      console.log(JSON.stringify({phase:'linemap-test',status:lineMapStatus}));
+      if(!/Old OSM.*LineMap road surfaces.*ready/.test(restoredStatus))throw Error('Old OSM road view did not restore: '+restoredStatus);
+      console.log(JSON.stringify({phase:'linemap-test',queuedBeforeWorldReady:queuedLineMap,status:lineMapStatus}));
     }
     if(options['world-smoke']){
       let picked=null;

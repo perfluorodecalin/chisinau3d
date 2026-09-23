@@ -187,3 +187,4 @@ body.mobile-layout #inspect{max-height:calc(100dvh - 260px)}
 #linemap-status{margin:5px 0 0}#linemap-credit{margin:0 0 12px}
 #road-comparison{width:100%;text-align:left}
 #road-comparison[data-mode="osm-linemap"]{border-color:#bd82b9;background:#3c2a43;color:#f7d7f3}
+#linemap-pilot{width:100%;min-height:32px;margin-top:6px;padding:5px 10px;text-align:left;font-size:12px;background:#172c35}
