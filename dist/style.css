@@ -108,3 +108,70 @@
   .driving .drive-top .multiplayer-open{min-height:32px;padding:5px 8px}
   .driving .multiplayer-driving.room-active{display:none}
 }
+
+/* Mobile uses one compact action area and a scrollable sheet. Desktop nodes return
+   to their original positions when the viewport grows. */
+.mobile-top,.mobile-primary{display:none}
+body.mobile-layout header{left:16px;right:86px;top:calc(12px + env(safe-area-inset-top));display:block}
+body.mobile-layout header .brand p{display:none}
+body.mobile-layout header h1{font-size:23px}
+body.mobile-layout header .mark{display:none}
+body.mobile-layout.driving header{display:none}
+body.mobile-layout .mobile-top{display:flex;align-items:center;position:fixed;z-index:12;top:calc(12px + env(safe-area-inset-top));left:12px;right:12px;pointer-events:none}
+.mobile-top button{pointer-events:auto;min-height:44px;box-shadow:0 6px 24px #0007;background:#142832f2}
+.mobile-menu-button{order:2;margin-left:auto}
+.mobile-top #drive-exit{order:1;display:none}
+body.mobile-layout.driving .mobile-top #drive-exit{display:block}
+body.mobile-layout:not(.driving) .mobile-primary{display:block;position:fixed;z-index:5;left:12px;bottom:calc(32px + env(safe-area-inset-bottom));width:min(360px,calc(100% - 24px));padding:10px 12px;border:1px solid #405660;border-radius:12px;background:#10212af2;box-shadow:0 10px 32px #0008;backdrop-filter:blur(14px)}
+.mobile-primary .mobile-area label{margin:0 0 5px;font-size:12px}
+.mobile-primary #place{min-height:44px;background:#192d38}
+.mobile-primary #drive{min-height:48px;margin:9px 0 0}
+body.mobile-layout footer{padding:6px 12px calc(5px + env(safe-area-inset-bottom));font-size:10px}
+body.mobile-layout footer span:first-child{display:none}
+body.mobile-layout footer span:last-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+body.mobile-layout #loading{top:calc(70px + env(safe-area-inset-top));bottom:auto;left:12px;right:12px;transform:none;max-width:none;min-width:0;z-index:4}
+body.mobile-layout #loading.done{display:none}
+body.mobile-layout #inspect{left:12px;right:12px;top:auto;bottom:calc(176px + env(safe-area-inset-bottom));width:auto;max-height:calc(100dvh - 260px);overflow:auto;z-index:6}
+body.mobile-layout.driving #drive-hud{bottom:calc(12px + env(safe-area-inset-bottom))}
+body.mobile-layout.driving .drive-top{display:none}
+
+.mobile-menu{position:fixed;inset:0 0 0 auto;width:min(420px,100vw);height:100dvh;max-width:none;max-height:none;margin:0;padding:0;border-radius:16px 0 0 16px;border-color:#4d6570;background:#10212af8;box-shadow:-12px 0 48px #0008}
+.mobile-menu[open]{display:flex;flex-direction:column}
+.mobile-menu::backdrop{background:#020d17bb;backdrop-filter:blur(3px)}
+.mobile-menu-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:calc(14px + env(safe-area-inset-top)) 18px 12px;border-bottom:1px solid #354650}
+.mobile-menu-heading h2{font-size:21px}
+.mobile-menu-close{min-width:44px;min-height:44px;padding:4px;font-size:25px;line-height:1}
+.mobile-menu-scroll{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:12px 18px calc(28px + env(safe-area-inset-bottom))}
+.mobile-menu h3{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#a0b6c0;font-weight:500;margin:12px 0}
+.mobile-menu-shared,.mobile-menu-explore,.mobile-menu-drive{display:flex;flex-direction:column;gap:9px}
+.mobile-menu-explore,.mobile-menu-drive{border-top:1px solid #354650;margin-top:17px;padding-top:8px}
+.mobile-menu-drive{display:none}
+.driving .mobile-menu-explore{display:none}
+.driving .mobile-menu-drive{display:flex}
+.mobile-menu #destination{width:100%;margin:0;min-height:44px}
+.mobile-menu label[for="time-of-day"]{margin:2px 0 0}
+.mobile-menu #time-of-day{margin:0}
+.mobile-menu-shared .row{margin:0}
+.mobile-menu #night-skip,.mobile-menu #about{width:100%;margin:0;text-align:left;min-height:44px}
+.mobile-menu #sound-controls{position:static;z-index:auto;width:100%;max-width:none;padding:0;margin-top:3px;background:transparent}
+.mobile-menu #sound-controls button{width:100%;min-height:44px;text-align:left}
+.mobile-menu #sound-volume{width:100%}
+.mobile-menu .panel{position:static;display:flex;flex-direction:column;left:auto;top:auto;width:100%;max-height:none;overflow:visible;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none}
+.mobile-menu .panel .multiplayer{order:10}
+.mobile-menu .panel .row button{min-height:44px}
+.mobile-menu .map-tools{position:static;display:flex;flex-direction:row;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.mobile-menu .map-tools button{width:auto;min-width:50px;min-height:44px}
+.mobile-menu .drive-actions{display:flex;gap:8px}
+.mobile-menu .drive-actions button{flex:1;min-height:44px}
+.mobile-menu #drive-performance{width:100%}
+.mobile-menu .multiplayer-open{width:100%;min-height:44px}
+.driving .mobile-menu .multiplayer-driving.room-active{position:static;top:auto;left:auto;right:auto;max-width:none;display:flex;flex-wrap:wrap;margin-top:5px}
+
+@media (pointer:coarse) and (orientation:landscape) and (max-height:500px){
+  body.mobile-layout:not(.driving) .mobile-primary{display:flex;align-items:center;gap:9px;width:min(620px,calc(100% - 24px));padding:8px}
+  .mobile-primary .mobile-area{flex:1;min-width:0}
+  .mobile-primary .mobile-area label{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+  .mobile-primary #drive{width:135px;min-width:135px;margin:0}
+  body.mobile-layout #inspect{bottom:calc(95px + env(safe-area-inset-bottom));max-height:calc(100dvh - 170px)}
+  body.mobile-layout.driving #drive-hud{grid-template-areas:"speed controls" "road controls" "posted controls" "destination controls"}
+}
