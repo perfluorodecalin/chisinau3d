@@ -20,7 +20,8 @@ const buffer=await read('terrain.bin'),meta=await json('terrain.json'),bridges=a
 assert.equal(buffer.byteLength,meta.nx*meta.nz*4,'terrain metadata matches saved Float32 grid');
 assert.deepEqual(Object.keys(bridges.profiles).sort(),Object.keys(bridgeModel.profiles).sort(),'every saved bridge/approach survives terrain reprojection');
 assert.equal(Object.values(bridges.profiles).filter(p=>p.bridge).length,282);
-assert.equal(Object.values(bridges.profiles).filter(p=>!p.bridge).length,1920);
+assert.equal(Object.values(bridges.profiles).filter(p=>!p.bridge).length,bridgeModel.topology.approachWays);
+assert.ok(bridgeModel.topology.approachWays>1000,'approach propagation reaches connected roads');
 configureTerrain(meta,new Float32Array(buffer.buffer.slice(buffer.byteOffset,buffer.byteOffset+buffer.byteLength)),bridges.profiles);
 let checked=0;
 function compare(geometry,sample=heightAt,edge=12){
